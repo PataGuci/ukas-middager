@@ -17,13 +17,13 @@ console.log('Rester:', L.leftoverHints(items));
 // konflikter i planen
 days.forEach((d, i) => { const c = L.conflicts(days, i, d.r, cat); if (c.length) console.log('Konflikt', d.label, c); });
 // bytte
-const sw = L.rankSwaps(days, 2, rec, cat, plan.offers).slice(0, 5);
+const sw = L.rankSwaps(days, 2, rec, cat, plan.offers).filter(s => s.r.id !== days[2].rid).slice(0, 5);
 console.log('Forslag onsdag:', sw.map(s => `${s.r.name} (${s.delta >= 0 ? '+' : ''}${s.delta} kr; bruker ${s.uses.join(', ')}; ${s.conflicts.join(', ')})`));
 st = L.applyOp(st, { t: 'swap', day: 'ons', r: sw[0].r.id }, 'J');
 const t2 = L.weekTotal(L.buildList(L.effectiveDays(plan, st, rec), cat, plan.offers), st.extras, st, cat, plan.offers);
 ok(Math.round(t2.total - t.total) === sw[0].delta, 'delta stemmer ikke: ' + (t2.total - t.total) + ' vs ' + sw[0].delta);
 // have
-st = L.applyOp(st, { t: 'have', id: 'poteter', v: true }, 'J');
+const firstPaid = items.find(i => !i.pantry); st = L.applyOp(st, { t: 'have', id: firstPaid.id, v: true }, 'J');
 const t3 = L.weekTotal(L.buildList(L.effectiveDays(plan, st, rec), cat, plan.offers), st.extras, st, cat, plan.offers);
 ok(t3.total < t2.total, 'have reduserer ikke sum');
 // extras + rollover
