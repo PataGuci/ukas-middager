@@ -1,0 +1,14 @@
+{
+  "name": "Ukas middager",
+  "short_name": "Middager",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#eef1ec",
+  "theme_color": "#1d6a48",
+  "lang": "nb",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}
+  ]
+}
