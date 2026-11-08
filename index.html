@@ -177,8 +177,8 @@ details.day summary::-webkit-details-marker{display:none}
 
   // Key arrives once in the link: #k=<token>
   if (location.hash.startsWith('#k=')) {
+    // Keep the key in the address: iPhone home-screen apps get their own storage and start from the URL that was saved.
     ls.set('ghkey', decodeURIComponent(location.hash.slice(3)));
-    history.replaceState(null, '', location.pathname + location.search);
   }
   let KEY = ls.get('ghkey');
   let ME = ls.get('name');
