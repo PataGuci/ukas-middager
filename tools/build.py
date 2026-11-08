@@ -45,23 +45,62 @@ def build_catalog():
         products.append(p)
     return dict(note="Prisene er anslag for KIWI, ikke faktiske priser.", sections=sections, products=products)
 
+UNIT_TO = {("dl", "ml"): 100, ("l", "ml"): 1000, ("kg", "g"): 1000, ("l", "dl"): 10}
+FRAC = {0.5: "½", 0.25: "¼", 0.75: "¾"}
+
+def fmt_num(x):
+    whole = int(x); rest = round(x - whole, 2)
+    if rest in FRAC: return (str(whole) if whole else "") + FRAC[rest]
+    s = ("%.1f" % x).rstrip("0").rstrip(".")
+    return s.replace(".", ",")
+
+def fmt_qty(q, u):
+    if q is None: return ""
+    if u == "g":
+        q = round(q / 5) * 5 if q < 100 else round(q / 25) * 25
+        return f"{int(q)} g"
+    if u == "kg": return fmt_qty(q * 1000, "g")
+    if u == "l":
+        return fmt_qty(q * 10, "dl") if q < 1 else fmt_num(round(q * 4) / 4) + " l"
+    if u == "dl":
+        return fmt_num(max(0.5, round(q * 2) / 2)) + " dl"
+    if u in ("ss", "ts", "krm"):
+        return fmt_num(max(0.5, round(q * 2) / 2)) + " " + u
+    if u in ("g",): return f"{q} g"
+    v = max(0.5, round(q * 2) / 2)
+    if v >= 3: v = round(q)
+    return fmt_num(v) + ("" if u == "stk" else " " + u)
+
 def build_recipes(catalog):
     sys.path.insert(0, str(SRC))
     import recipes_src
     pids = {p["id"]: p for p in catalog["products"]}
-    seen = set()
+    seen, out = set(), []
     for r in recipes_src.R:
         if r["id"] in seen: sys.exit("Duplisert oppskrift: " + r["id"])
         seen.add(r["id"])
+        f = recipes_src.TARGET / r["serves"]
+        ing = []
         for i in r["ing"]:
-            if i["p"] not in pids: sys.exit(f"{r['id']}: ukjent vare {i['p']}")
+            p = pids.get(i["p"])
+            if not p: sys.exit(f"{r['id']}: ukjent vare {i['p']}")
+            q = i["q"] * f if i["q"] is not None else None
+            if p.get("pantry") or q is None:
+                a = 1
+            else:
+                per = i["per"] if i["per"] is not None else (1 if i["u"] == p["u"] or (i["u"] in ("stk", "fedd", "bunt", "boks", "pose", "pakke", "glass", "beger", "potte") and p["sz"] == 1) else UNIT_TO.get((i["u"], p["u"])))
+                if per is None: sys.exit(f"{r['id']}: mangler omregning {i['u']} -> {p['u']} for {i['p']}")
+                a = round(q * per, 3)
+            qty = fmt_qty(q, i["u"])
+            ing.append(dict(p=i["p"], a=a, t=(qty + " " + i["n"]).strip()))
         for k in r["key"]:
             if k not in pids: sys.exit(f"{r['id']}: ukjent key-vare {k}")
-        tags = list(r["tags"])
+        tags = [t for t in r["tags"] if t not in ("superrask", "rask")]
         if r["minutes"] <= 20: tags.insert(0, "superrask")
         elif r["minutes"] <= 30: tags.insert(0, "rask")
-        r["tags"] = tags
-    return dict(recipes=recipes_src.R)
+        out.append(dict(id=r["id"], name=r["name"], minutes=r["minutes"], tags=tags, key=r["key"], ing=ing, steps=r["steps"],
+                        src=r["src"], srcName=r["srcName"], serves=r["serves"], note=r.get("note")))
+    return dict(note="Oppskrifter fra oppgitte kilder, omregnet til 2,5 porsjoner. Fremgangsmåten er forkortet.", recipes=out)
 
 if __name__ == "__main__":
     OUT.mkdir(exist_ok=True)
