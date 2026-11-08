@@ -110,6 +110,46 @@ details.day summary::-webkit-details-marker{display:none}
 .setup input{font:inherit;padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);width:100%}
 .foot{font-size:13px;color:var(--muted);text-align:center}
 .foot button{font:inherit;background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;padding:4px}
+
+/* v2 additions */
+.item .have{flex:none;width:44px;height:40px;border-radius:10px;border:1px solid var(--line);background:none;color:var(--muted);font:500 12px var(--f-mono);cursor:pointer}
+.item.pantry .t{font-weight:400}
+details.havebox{margin-top:16px;border-top:1px dashed var(--line);padding-top:10px}
+details.havebox summary{cursor:pointer;font-family:var(--f-mono);font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.havebox .item .t{color:var(--muted)}
+.addwrap{position:relative}
+.sugg{position:absolute;left:0;right:0;bottom:calc(100% + 6px);background:var(--paper);border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.18);list-style:none;margin:0;padding:4px;z-index:5;max-height:50vh;overflow:auto}
+.sugg button{display:flex;justify-content:space-between;gap:10px;width:100%;text-align:left;font:inherit;padding:10px;border:0;background:none;color:var(--ink);border-radius:8px;cursor:pointer}
+.sugg button:hover,.sugg button.act{background:var(--bg)}
+.sugg small{font-family:var(--f-mono);font-size:12px;color:var(--muted);white-space:nowrap}
+.sum{margin-top:16px;padding-top:12px;border-top:2px dashed var(--line);display:grid;gap:4px;font-family:var(--f-mono);font-size:15px}
+.sum div{display:flex;justify-content:space-between;gap:12px}
+.sum .big{font-size:18px;font-weight:500;color:var(--ink)}
+.sum small{color:var(--muted);font-size:12px}
+.daybtns{display:flex;gap:8px;flex-wrap:wrap}
+.ghost{font:inherit;font-weight:700;padding:9px 14px;border-radius:10px;border:1px solid var(--line);background:none;color:var(--ink);cursor:pointer}
+.chip.swap{border-color:var(--accent);color:var(--accent)}
+.sheet{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;justify-content:flex-end;background:rgba(0,0,0,.35)}
+.sheet .panel{background:var(--bg);border-radius:18px 18px 0 0;max-height:92vh;display:flex;flex-direction:column;padding:14px max(16px,env(safe-area-inset-left)) calc(14px + env(safe-area-inset-bottom))}
+.sheet header{flex-direction:row;justify-content:space-between;align-items:center}
+.sheet h2{font-family:var(--f-display);font-size:24px;margin:0}
+.sheet .panel{width:100%;max-width:560px;margin:0 auto}
+.sheet .scroll{overflow:auto;display:flex;flex-direction:column;gap:12px;padding:8px 0 4px;min-width:0}
+.sheet .scroll>*{flex-shrink:0;min-width:0}
+.sheet h3{font-family:var(--f-mono);font-weight:500;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:4px 0 0}
+.filters{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;min-height:max-content}
+.filters button{flex:none;font:500 13px var(--f-mono);padding:6px 11px;border-radius:99px;border:1px solid var(--line);background:var(--paper);color:var(--ink);cursor:pointer}
+.filters button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.sheet input[type=search]{font:inherit;padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:var(--paper);color:var(--ink);width:100%}
+.rlist{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
+.rcard .chip{white-space:normal}
+.rcard{display:grid;gap:4px;text-align:left;font:inherit;color:inherit;background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:12px;cursor:pointer}
+.rcard.best{border-color:var(--accent)}
+.rcard .rn{font-family:var(--f-display);font-weight:700;font-size:17px;line-height:1.2}
+.rcard .rm{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.chip.warn{color:var(--warn);border-color:var(--warn)}
+.chip.good{color:var(--accent);border-color:var(--accent)}
+.delta{font-family:var(--f-mono);font-size:12px;color:var(--muted)}
 @media (prefers-reduced-motion: reduce){*{transition:none !important}}
 </style>
 </head>
@@ -146,12 +186,16 @@ details.day summary::-webkit-details-marker{display:none}
           <label for="hideDone"><input type="checkbox" id="hideDone"> Skjul det som er i kurven</label>
         </div>
         <div id="sections"></div>
-        <form class="row" id="addForm" autocomplete="off">
-          <label for="addInput" class="hidden">Legg til vare</label>
-          <input id="addInput" placeholder="Legg til vare, f.eks. melk" maxlength="80">
-          <button class="btn" id="addBtn" type="submit">Legg til</button>
-        </form>
-        <div class="total" id="total"></div>
+        <div id="haveBox"></div>
+        <div class="addwrap">
+          <ul class="sugg hidden" id="sugg" role="listbox" aria-label="Forslag"></ul>
+          <form class="row" id="addForm" autocomplete="off">
+            <label for="addInput" class="hidden">Legg til vare</label>
+            <input id="addInput" placeholder="Legg til vare, f.eks. yoghurt" maxlength="80" role="combobox" aria-controls="sugg" aria-autocomplete="list" aria-expanded="false">
+            <button class="btn" id="addBtn" type="submit">Legg til</button>
+          </form>
+        </div>
+        <div class="sum" id="sum"></div>
       </div>
     </section>
 
@@ -162,236 +206,9 @@ details.day summary::-webkit-details-marker{display:none}
     <div class="foot"><span id="me"></span> · <button type="button" id="shareBtn">Kopier delingslenke</button></div>
   </div>
 </div>
+<div class="sheet hidden" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle"><div class="panel"><header><h2 id="sheetTitle">Bytt middag</h2><button class="ghost" type="button" id="sheetClose">Lukk</button></header><div class="scroll" id="sheetBody"></div></div></div>
 
-<script>
-(function(){
-  // ---- Config: data lives in a private repo next to this public one ----
-  const OWNER = (location.hostname.endsWith('.github.io') ? location.hostname.split('.')[0] : '') || localStorage.getItem('owner') || '';
-  const REPO = 'ukas-middager-data';
-  const API = 'https://api.github.com/repos/' + OWNER + '/' + REPO + '/contents/';
-  const POLL_MS = 6000;
-
-  const CHECK_SVG = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3L13 4.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-  const $ = id => document.getElementById(id);
-  const ls = { get(k){ try{return localStorage.getItem(k);}catch(e){return null;} }, set(k,v){ try{localStorage.setItem(k,v);}catch(e){} }, del(k){ try{localStorage.removeItem(k);}catch(e){} } };
-
-  // Key arrives once in the link: #k=<token>
-  if (location.hash.startsWith('#k=')) {
-    // Keep the key in the address: iPhone home-screen apps get their own storage and start from the URL that was saved.
-    ls.set('ghkey', decodeURIComponent(location.hash.slice(3)));
-  }
-  let KEY = ls.get('ghkey');
-  let ME = ls.get('name');
-
-  const S = { plan:null, planEtag:null, st:null, stSha:null, stEtag:null, queue:[], busy:false, hideDone: ls.get('hideDone')==='1', view:'liste' };
-  // Show cached copy instantly (useful in a store with bad coverage)
-  try { const c = JSON.parse(ls.get('cache')||'null'); if (c) { S.plan = c.plan; S.st = c.st; } } catch(e){}
-
-  function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-  function todayISO(){ const d=new Date(), p=n=>String(n).padStart(2,'0'); return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate()); }
-  function setStatus(t){ const s=$('status'); if(!t){s.classList.add('hidden');return;} s.innerHTML=t; s.classList.remove('hidden'); }
-  function setSync(t,err){ const s=$('sync'); s.textContent=t; s.classList.toggle('err',!!err); }
-  function b64enc(str){ return btoa(unescape(encodeURIComponent(str))); }
-  function b64dec(b){ return decodeURIComponent(escape(atob(b.replace(/\n/g,'')))); }
-  function saveCache(){ ls.set('cache', JSON.stringify({plan:S.plan, st:S.st})); }
-
-  // ---- Setup flow ----
-  function showSetup(){
-    $('setup').classList.remove('hidden'); $('app').classList.add('hidden');
-    if (!KEY || !OWNER) { $('setupMsg').textContent = 'Åpne delingslenken du fikk tilsendt én gang på denne telefonen. Den inneholder nøkkelen til listen.'; $('nameForm').classList.add('hidden'); }
-    else { $('setupMsg').textContent = 'Navnet vises ved det du krysser av, så dere ser hvem som har tatt hva.'; $('nameForm').classList.remove('hidden'); }
-  }
-  $('nameForm').addEventListener('submit', e=>{ e.preventDefault(); const v=$('nameInput').value.trim(); if(!v) return; ME=v; ls.set('name',v); boot(); });
-
-  // ---- GitHub I/O ----
-  async function gh(path, opts){
-    opts = opts || {};
-    const headers = Object.assign({ 'Authorization':'Bearer '+KEY, 'Accept':'application/vnd.github+json', 'X-GitHub-Api-Version':'2022-11-28' }, opts.headers||{});
-    const r = await fetch(API + path, { method: opts.method||'GET', headers, body: opts.body, cache:'no-store' });
-    return r;
-  }
-  async function loadPlan(){
-    const h = S.planEtag ? {'If-None-Match':S.planEtag} : {};
-    const r = await gh('plan.json', {headers:h});
-    if (r.status === 304) return false;
-    if (r.status === 404) { S.plan = null; return true; }
-    if (r.status === 401 || r.status === 403) throw {auth:true, status:r.status};
-    if (!r.ok) throw {status:r.status};
-    S.planEtag = r.headers.get('ETag');
-    const j = await r.json();
-    S.plan = JSON.parse(b64dec(j.content));
-    return true;
-  }
-  async function loadState(force){
-    const h = (!force && S.stEtag) ? {'If-None-Match':S.stEtag} : {};
-    const r = await gh('state.json', {headers:h});
-    if (r.status === 304) return false;
-    if (r.status === 404) { S.st = null; S.stSha = null; S.stEtag = null; return true; }
-    if (r.status === 401 || r.status === 403) throw {auth:true, status:r.status};
-    if (!r.ok) throw {status:r.status};
-    S.stEtag = r.headers.get('ETag');
-    const j = await r.json();
-    S.stSha = j.sha;
-    S.st = JSON.parse(b64dec(j.content));
-    return true;
-  }
-  function freshState(){ return { weekId: S.plan ? S.plan.weekId : '', checks:{}, extras:[] }; }
-  function curState(){ return (S.st && S.plan && S.st.weekId === S.plan.weekId) ? S.st : freshState(); }
-
-  // Ops are re-applied on top of the latest server state, so two phones never overwrite each other.
-  function applyOp(st, op){
-    st = JSON.parse(JSON.stringify(st));
-    if (op.t==='check') { if (op.v) st.checks[op.id] = {by:ME, at:op.at}; else delete st.checks[op.id]; }
-    else if (op.t==='add') { if (!st.extras.some(x=>x.id===op.x.id)) st.extras.push(op.x); }
-    else if (op.t==='xcheck') { const x=st.extras.find(x=>x.id===op.id); if(x){ x.checked=op.v; x.by=ME; } }
-    else if (op.t==='del') { st.extras = st.extras.filter(x=>x.id!==op.id); }
-    return st;
-  }
-  function viewState(){ return S.queue.reduce(applyOp, curState()); }
-
-  async function flush(){
-    if (S.busy || !S.queue.length) return;
-    S.busy = true; setSync('lagrer …');
-    try {
-      for (let attempt=0; attempt<4 && S.queue.length; attempt++){
-        const ops = S.queue.slice();
-        const next = ops.reduce(applyOp, curState());
-        const body = { message: 'Handleliste: ' + ops.map(o=>o.t).join(','), content: b64enc(JSON.stringify(next)) };
-        if (S.stSha) body.sha = S.stSha;
-        const r = await gh('state.json', {method:'PUT', body: JSON.stringify(body)});
-        if (r.ok) {
-          const j = await r.json();
-          S.st = next; S.stSha = j.content.sha; S.stEtag = null;
-          S.queue = S.queue.slice(ops.length);
-          saveCache();
-        } else if (r.status === 409 || r.status === 422) {
-          await loadState(true); // someone else saved first: rebase and retry
-        } else if (r.status === 401 || r.status === 403) { throw {auth:true}; }
-        else { throw {status:r.status}; }
-      }
-      setSync(S.queue.length ? 'ikke lagret' : 'lagret', !!S.queue.length);
-    } catch(e) {
-      setSync(e && e.auth ? 'nøkkel avvist' : 'frakoblet – prøver igjen', true);
-    } finally { S.busy = false; render(); }
-  }
-  function enqueue(op){ op.at = new Date().toISOString(); S.queue.push(op); render(); flush(); }
-
-  async function poll(){
-    if (document.hidden) return;
-    try {
-      const a = await loadPlan();
-      const b = await loadState(false);
-      if (a || b) { saveCache(); render(); }
-      if (!S.queue.length) setSync('oppdatert ' + new Date().toLocaleTimeString('nb-NO',{hour:'2-digit',minute:'2-digit'}));
-      setStatus(S.plan ? '' : 'Ingen liste ennå. Ukas liste kommer søndag kveld.');
-      flush();
-    } catch(e) {
-      if (e && e.auth) setStatus('Nøkkelen ble avvist. Den kan ha utløpt. Be om en ny delingslenke.');
-      setSync('frakoblet', true);
-    }
-  }
-
-  // ---- Render ----
-  function render(){
-    const p = S.plan; const st = viewState();
-    $('me').textContent = ME ? 'Du er ' + ME : '';
-    $('tab-liste').setAttribute('aria-selected', S.view==='liste');
-    $('tab-middager').setAttribute('aria-selected', S.view==='middager');
-    $('view-liste').classList.toggle('hidden', S.view!=='liste');
-    $('view-middager').classList.toggle('hidden', S.view!=='middager');
-    if (!p) { $('sections').innerHTML=''; $('days').innerHTML=''; $('count').textContent='–'; $('total').innerHTML=''; return; }
-    $('kicker').textContent = (p.weekLabel||'') + (p.dates ? ' · '+p.dates : '') + ' · Kiwi';
-    $('title').textContent = p.title || 'Ukas middager';
-
-    const items = []; (p.sections||[]).forEach(s=>(s.items||[]).forEach(i=>items.push(i)));
-    const isDone = id => !!st.checks[id];
-    const done = items.filter(i=>isDone(i.id)).length + st.extras.filter(x=>x.checked).length;
-    const total = items.length + st.extras.length;
-    $('count').textContent = done + ' av ' + total;
-    $('barfill').style.width = total ? (100*done/total)+'%' : '0';
-
-    const who = by => (by && by !== ME) ? '<span class="chip who">'+esc(by)+'</span>' : '';
-    let h = '';
-    (p.sections||[]).forEach(sec=>{
-      const its = sec.items||[];
-      const vis = its.filter(i=>!(S.hideDone && isDone(i.id)));
-      if (S.hideDone && !vis.length) return;
-      h += '<div class="sec"><h2>'+esc(sec.name)+' <span class="cnt">'+its.filter(i=>isDone(i.id)).length+'/'+its.length+'</span></h2><ul class="items">';
-      vis.forEach(i=>{
-        const d = isDone(i.id); let m='';
-        if (i.offer) m += '<span class="chip offer">tilbud '+esc(i.offer)+'</span>';
-        if (i.pantry) m += '<span class="chip">sjekk skapet</span>';
-        if (i.note) m += '<span class="chip">'+esc(i.note)+'</span>';
-        if (d) m += who(st.checks[i.id].by);
-        h += '<li class="item'+(d?' done':'')+'"><button class="tick" type="button" data-item="'+esc(i.id)+'" aria-pressed="'+d+'"><span class="box">'+CHECK_SVG+'</span><span class="nm"><span class="t">'+esc(i.name)+'</span>'+(m?'<span class="meta">'+m+'</span>':'')+'</span><span class="qty">'+esc(i.qty||'')+'</span></button></li>';
-      });
-      h += '</ul></div>';
-    });
-    const ex = st.extras.filter(x=>!(S.hideDone && x.checked));
-    if (st.extras.length && ex.length){
-      h += '<div class="sec"><h2>Lagt til <span class="cnt">'+st.extras.filter(x=>x.checked).length+'/'+st.extras.length+'</span></h2><ul class="items">';
-      ex.forEach(x=>{
-        const m = who(x.addedBy && !x.checked ? x.addedBy : (x.checked ? x.by : ''));
-        h += '<li class="item'+(x.checked?' done':'')+'"><button class="tick" type="button" data-extra="'+esc(x.id)+'" aria-pressed="'+!!x.checked+'"><span class="box">'+CHECK_SVG+'</span><span class="nm"><span class="t">'+esc(x.name)+'</span>'+(m?'<span class="meta">'+m+'</span>':'')+'</span><span class="qty"></span></button><button class="del" type="button" data-del="'+esc(x.id)+'" aria-label="Fjern '+esc(x.name)+'">×</button></li>';
-      });
-      h += '</ul></div>';
-    }
-    $('sections').innerHTML = h;
-    $('total').innerHTML = p.price ? '<span>Anslått sum</span><span>'+esc(p.price)+'</span>' : '';
-    $('total').classList.toggle('hidden', !p.price);
-
-    const today = todayISO(); let dh = '';
-    if (p.offerStatus) dh += '<div class="note">'+esc(p.offerStatus)+'</div>';
-    (p.days||[]).forEach(d=>{
-      const t = d.date === today;
-      dh += '<details class="day'+(t?' today':'')+'"'+(t?' open':'')+' id="dag-'+esc(d.key||'')+'"><summary><span class="dl">'+esc((d.label||'').slice(0,3))+'<b>'+(d.date?Number(d.date.slice(8,10)):'')+'</b></span><span class="dish">'+esc(d.dish)+(t?'<span class="today-tag">i dag</span>':'')+'</span><span class="min">'+(d.minutes?esc(d.minutes)+' min':'')+'</span></summary><div class="body">'+
-        ((d.ingredients||[]).length?'<div><h3>Ingredienser</h3><ul>'+d.ingredients.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div>':'')+
-        ((d.steps||[]).length?'<div><h3>Slik gjør du</h3><ol>'+d.steps.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ol></div>':'')+'</div></details>';
-    });
-    const fl = [...(p.freeze||[]), ...(p.leftovers||[])];
-    if (fl.length) dh += '<div class="freeze"><h2>Frys og rester</h2><ul>'+fl.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></div>';
-    // keep open/closed state of day cards across re-renders
-    const open = new Set([...document.querySelectorAll('details.day')].filter(d=>d.open).map(d=>d.id));
-    const hadAny = document.querySelectorAll('details.day').length > 0;
-    $('days').innerHTML = dh;
-    if (hadAny) document.querySelectorAll('details.day').forEach(d=>{ d.open = open.has(d.id); });
-  }
-
-  // ---- Events ----
-  $('tab-liste').addEventListener('click', ()=>{ S.view='liste'; render(); });
-  $('tab-middager').addEventListener('click', ()=>{ S.view='middager'; render(); });
-  $('hideDone').checked = S.hideDone;
-  $('hideDone').addEventListener('change', e=>{ S.hideDone = e.target.checked; ls.set('hideDone', S.hideDone?'1':'0'); render(); });
-  $('sections').addEventListener('click', e=>{
-    const t = e.target.closest('[data-item],[data-extra],[data-del]'); if (!t || !S.plan) return;
-    const st = viewState();
-    if (t.dataset.item) enqueue({t:'check', id:t.dataset.item, v: !st.checks[t.dataset.item]});
-    else if (t.dataset.extra) { const x = st.extras.find(x=>x.id===t.dataset.extra); if (x) enqueue({t:'xcheck', id:x.id, v:!x.checked}); }
-    else if (t.dataset.del) enqueue({t:'del', id:t.dataset.del});
-  });
-  $('addForm').addEventListener('submit', e=>{
-    e.preventDefault(); const v = $('addInput').value.trim(); if (!v || !S.plan) return;
-    enqueue({t:'add', x:{ id: 'x'+Date.now().toString(36)+Math.random().toString(36).slice(2,6), name:v, checked:false, addedBy:ME }});
-    $('addInput').value='';
-  });
-  $('shareBtn').addEventListener('click', async ()=>{
-    const link = location.origin + location.pathname + '#k=' + encodeURIComponent(KEY);
-    try { await navigator.clipboard.writeText(link); $('shareBtn').textContent = 'Lenke kopiert – send den til den andre'; }
-    catch(e){ $('shareBtn').textContent = 'Kunne ikke kopiere'; }
-    setTimeout(()=>{ $('shareBtn').textContent='Kopier delingslenke'; }, 4000);
-  });
-  document.addEventListener('visibilitychange', ()=>{ if (!document.hidden) poll(); });
-  window.addEventListener('online', ()=>{ flush(); poll(); });
-
-  let timer = null;
-  function boot(){
-    if (!KEY || !OWNER || !ME) { showSetup(); return; }
-    $('setup').classList.add('hidden'); $('app').classList.remove('hidden');
-    render(); poll();
-    if (!timer) timer = setInterval(poll, POLL_MS);
-  }
-  boot();
-})();
-</script>
+<script src="lib.js?v=2"></script>
+<script src="app.js?v=2"></script>
 </body>
 </html>

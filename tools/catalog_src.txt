@@ -1,0 +1,406 @@
+# Varekatalog for Ukas middager.
+# Format, én vare per linje:
+#   id|Navn|størrelse|enhet|pris|flagg;søkeord,søkeord
+#   Navn|pris;søkeord          (enklere vare, id lages automatisk, størrelse = 1 stk)
+# enhet: g, ml, stk.  flagg: p = basisvare (sjekk skapet, telles ikke i summen), f = ferskt kjøtt/fisk (frys hvis brukt etter onsdag)
+# Prisene er ANSLAG for KIWI (NOK per pakning), ikke faktiske priser.
+# "## Navn" starter en ny avdeling, i den rekkefølgen man går gjennom butikken.
+
+## Frukt og grønt
+poteter|Poteter|1500|g|32||;potet
+smapoteter|Småpoteter|1000|g|35||
+sotpotet|Søtpotet|500|g|22||
+gulrot|Gulrot|1000|g|25||;gulrøtter
+brokkoli|Brokkoli|1|stk|25||
+blomkal|Blomkål|1|stk|30||
+purre|Purre|1|stk|20||
+gullok|Gulløk (nett)|8|stk|22||;løk
+rodlok|Rødløk|3|stk|15||
+hvitlok|Hvitløk|10|fedd|12|p|;hvitlok
+sjampinjong|Sjampinjong|250|g|29||;sopp
+paprika|Paprika|1|stk|15||
+tomat|Tomater (4 pk)|4|stk|30||;tomat
+cherrytomat|Cherrytomater|250|g|29||
+agurk|Agurk|1|stk|19||
+isberg|Isbergsalat|1|stk|25||;salat
+romano|Romanosalat (2 pk)|2|stk|30||;hjertesalat,salat
+spinat|Babyspinat|150|g|25||;spinat
+sitron|Sitron|1|stk|8||
+lime|Lime|1|stk|8||
+avokado|Avokado (2 pk)|2|stk|32||
+sukkererter|Sukkererter|150|g|29||
+ingefaer|Ingefær|100|g|10||
+persille|Persille (potte)|1|stk|25||
+varlok|Vårløk|1|bunt|19||
+hodekal|Hodekål|1|stk|25||;kål
+eple|Epler (6 pk)|6|stk|32||;eple
+squash|Squash|1|stk|15||
+Bananer|20;banan
+Appelsiner|30;appelsin
+Klementiner|35;klementin,mandarin
+Pærer|30;pære
+Druer|35;drue
+Blåbær|35;blåbær
+Jordbær|39
+Bringebær|39
+Mango|20
+Ananas|25
+Kiwi (frukt)|20;kiwi
+Melon|30
+Granateple|20
+Rosenkål|30
+Selleri stang|25;stangselleri
+Sellerirot|20
+Kålrot|20
+Rødbeter|25
+Pastinakk|25
+Aubergine|20
+Chili (rød)|10;chili
+Mais (kolber)|30
+Bønnespirer|20;spirer
+Ruccola|25;rucola
+Salatmiks|25;salat
+Basilikum (potte)|25;basilikum
+Koriander (potte)|25;koriander
+Dill (potte)|25;dill
+Gressløk (potte)|25;gressløk
+Rosmarin (potte)|25
+Timian (potte)|25
+Champignon brune|30;sopp
+Shiitake|35;sopp
+Gulløk (løs)|5;løk
+Sjalottløk|20
+Potetmos (kjøl)|30;mos
+Ferdigkuttet coleslaw|30;coleslaw,kål
+Grønnkål|25
+Dadler|35
+Rosiner|25
+Nøttemiks|45;nøtter
+
+## Brød og bakst
+hamburgerbrod|Hamburgerbrød (6 pk)|6|stk|30||;burgerbrød
+tortilla|Tortilla (8 pk)|8|stk|30||;lefse,wraps
+tacoskjell|Tacoskjell (12 pk)|12|stk|25||;taco
+pizzabunn|Pizzabunn (2 pk)|2|stk|35||;pizza
+baguette|Baguette|1|stk|25||;bagett
+pita|Pitabrød (6 pk)|6|stk|25||;pita
+Grovbrød|35;brød
+Kneippbrød|30;brød
+Loff|25;brød
+Rundstykker|30;rundstykke
+Polarbrød|35
+Lomper|25
+Knekkebrød|30;knekkebrød,wasa
+Pølsebrød|20
+Croissant|30
+Skolebrød|30
+Kanelboller|35;boller
+Rugbrød|35
+Tortilla mini|30;wraps
+Glutenfritt brød|45
+
+## Kjøtt og kylling
+kjottdeig|Storfekjøttdeig 400 g|400|g|62|f|;kjøttdeig,deig
+karbonadedeig|Karbonadedeig 400 g|400|g|72|f|;karbonader
+kyllingdeig|Kyllingkjøttdeig 400 g|400|g|55|f|;kyllingdeig
+kyllingfilet|Kyllingfilet 1 kg|1000|g|139|f|;kylling,filet
+kyllinglarfilet|Kyllinglårfilet 600 g|600|g|85|f|;kyllinglår,lårfilet
+kyllingklubber|Kyllingklubber 1 kg|1000|g|55|f|;klubber,kyllinglår
+biffstrimler|Biffstrimler storfe 400 g|400|g|89|f|;strimler,biff
+entrecote|Entrecôte 2 stk|400|g|159|f|;biff,entrecote
+gryteskjott|Gryteskjøtt storfe 500 g|500|g|95|f|;lapskauskjøtt,gryte
+Kylling hel|85;kylling
+Kyllingvinger|50;vinger
+Kalkunfilet|90;kalkun
+Lammekjøttdeig|75;lam
+Lammekoteletter|120;lam
+Indrefilet storfe|250
+Ytrefilet storfe|220
+Kjøttkaker (ferdige)|55;kjøttkaker
+Kjøttboller (ferdige)|50;kjøttboller
+Kyllingpølser|45;pølser
+Grillpølser|45;pølser
+Wienerpølser|45;pølser
+Burgere ferdige|60;burger
+Kyllingnuggets|50;nuggets
+Kebabkjøtt|55;kebab
+Pulled beef|80
+Bacon|35
+Skinkestrimler|35
+
+## Fisk
+laks|Laksefilet 500 g|500|g|99|f|;laks
+torsk|Torskefilet fryst 500 g|500|g|100||;torsk,fisk
+reker|Reker pillede frosne 250 g|250|g|60||;reker
+fiskekaker|Fiskekaker 600 g|600|g|50||;fiskekake
+Sei filet|60;sei,fisk
+Ørret filet|99;ørret
+Røkt laks|40;laks,røkelaks
+Kokte reker|80;reker
+Fiskeboller|35
+Fiskepinner|45;fiskepinner
+Makrell i tomat|20;makrell
+Kaviar (tube)|30;kaviar
+Tunfisk i olje|22;tunfisk
+Krabbeskjell|35
+Sushi|80
+
+## Pålegg
+Gulost (skivet)|45;ost,norvegia
+Brunost|60;brunost,geitost
+Leverpostei|20;postei
+Kokt skinke|35;skinke
+Salami|35
+Servelat|25
+Kyllingpålegg|40;kylling
+Kalkunpålegg|40;kalkun
+Hamburgerrygg|35
+Smøreost|30
+Syltetøy|35;syltetøy,jordbærsyltetøy
+Nugatti|40;sjokoladepålegg
+Peanøttsmør|40
+Majones|30;majo
+Remulade|25
+Honning|50
+Leverpostei Gilde|22
+Prim|30
+Makrellpostei|25
+
+## Meieri og egg
+romme|Rømme lett 300 g|300|g|25||;rømme
+cremefraiche|Crème fraîche 300 ml|300|ml|30||;creme fraiche
+matflote|Matlagingsfløte 3 dl|300|ml|25||;fløte,matfløte
+kremflote|Kremfløte 3 dl|300|ml|32||;fløte,krem
+melk|Lettmelk 1 l|1000|ml|22||;melk
+smor|Smør|500|g|55|p|;smør
+revetost|Revet ost 300 g|300|g|55||;ost,revet
+mozzarella|Mozzarella 125 g|125|g|20||
+parmesan|Grana Padano revet 100 g|100|g|40||;parmesan,grana
+egg|Egg (12 pk)|12|stk|55||;egg
+kremost|Kremost naturell 200 g|200|g|30||;kremost,philadelphia
+yoghurt|Yoghurt naturell 500 g|500|g|25||;yoghurt
+salatost|Salatost 200 g|200|g|30||;feta,fetaost
+Helmelk 1 l|24;melk
+Skummet melk 1 l|21;melk
+Laktosefri melk|28;melk
+Havremelk|30;havre
+Kefir|25
+Biola|30
+Yoghurt (frukt)|20;yoghurt
+Gresk yoghurt|30;yoghurt
+Skyr|25
+Kesam|30
+Cottage cheese|30
+Smøremyk|40;margarin
+Meierismør|55;smør
+Jarlsberg|70;ost
+Norvegia|75;ost
+Brie|40;ost
+Kremfløte 5 dl|45;fløte
+Sjokolademelk|25
+Iskaffe|25
+Pudding|25
+
+## Frys
+pommes|Pommes frites 1 kg|1000|g|35||;pommes,frites
+erter|Erter frosne 450 g|450|g|25||;erter
+wokgronnsaker|Wokgrønnsaker 600 g|600|g|35||;wok
+maiskolber|Maiskolber frosne (4 pk)|4|stk|35||;mais
+Frossen pizza|45;pizza
+Grandiosa|50;pizza
+Is (2 l)|60;iskrem
+Lollipop is|40;is
+Frosne bær|35;bær
+Grønnsaksblanding|30;grønnsaker
+Brokkoli fryst|25
+Potetbåter frosne|35
+Rösti|35
+Vårruller|45
+Fiskegrateng fryst|60
+Lasagne fryst|60
+Kyllingfilet fryst 2 kg|221;kylling
+Isbiter|20
+
+## Tørrvarer og hermetikk
+risottoris|Risottoris 500 g|500|g|35||;risotto,arborio
+ris|Jasminris 1 kg|1000|g|35||;ris
+spaghetti|Spaghetti 1 kg|1000|g|25||;spagetti,pasta
+pasta|Penne 500 g|500|g|20||;pasta,penne,fusilli
+lasagneplater|Lasagneplater 500 g|500|g|30||;lasagne
+nudler|Eggnudler 250 g|250|g|25||;nudler
+makaroni|Makaroni 500 g|500|g|20||
+hakkedetomater|Hakkede tomater 400 g|400|g|12||;tomater,boks
+tomatpure|Tomatpuré 140 g|140|g|18||;tomatpure
+kidneybonner|Kidneybønner 410 g|410|g|15||;bønner
+mais|Mais boks 300 g|300|g|15||;mais
+kokosmelk|Kokosmelk 400 ml|400|ml|20||;kokos
+tikkasaus|Tikka masala-saus 400 g|400|g|30||;tikka,masala
+teriyaki|Teriyakisaus 250 ml|250|ml|30||;teriyaki
+soyasaus|Soyasaus|150|ml|25|p|;soya
+tacokrydder|Tacokrydder|1|pose|10||;taco
+pesto|Pesto grønn 190 g|190|g|35||;pesto
+bearnaise|Bearnaisesaus ferdig 250 ml|250|ml|30||;bearnaise
+brunsaus|Brun saus (pose)|1|pose|12||;saus
+buljong|Buljongterninger|10|stk|20|p|;buljong
+paneringsmel|Paneringsmel 200 g|200|g|20||;griljermel
+hvetemel|Hvetemel|1000|g|20|p|;mel
+tunfisk|Tunfisk i vann 185 g|185|g|20||;tunfisk
+majones|Majones 250 g|250|g|30||;majo
+caesardressing|Caesardressing 250 ml|250|ml|35||;dressing
+bbqsaus|BBQ-saus 450 ml|450|ml|30||;bbq
+krutonger|Krutonger|1|pose|25||;krutonger
+salsa|Salsa (glass)|1|stk|30||;salsa,tacosaus
+Basmatiris|40;ris
+Fullkornsris|35;ris
+Tortellini|40
+Spaghetti fullkorn|30
+Couscous|25
+Bulgur|25
+Linser|25
+Kikerter|15
+Hvite bønner|15;bønner
+Tomatsuppe pose|20;suppe
+Blomkålsuppe pose|20;suppe
+Ferdigsaus pasta|30;saus
+Peppersaus pose|15;saus
+Hollandaisesaus|15;saus
+Kokosmasse|20
+Oliven|30
+Soltørkede tomater|35
+Ketchup|30
+Sennep|25
+Sweet chili saus|30;chilisaus
+Sriracha|35
+Worcestershiresaus|35
+Balsamico|40;eddik
+Eddik|20
+Olivenolje|70
+Rapsolje|45;olje
+Havregryn|25;havre
+Müsli|45;musli
+Cornflakes|45;frokostblanding
+Frokostblanding|45
+Knekkebrød|30
+Kaffe|80
+Te|40
+Kakao|40
+Sukker|25
+Melis|30
+Brunt sukker|30
+Bakepulver|20
+Natron|15
+Gjær tørr|15;gjær
+Gjær fersk|5;gjær
+Vaniljesukker|25
+Sjokolade til baking|35
+Kakemiks|40;kake
+Sirup|30
+Ris til grøt|30;grøtris
+Grøtris|30;risengrynsgrøt
+Pannekakemiks|30
+Tacosaus|25;salsa
+Guacamole krydder|10
+Nachochips|30;chips,nachos
+Hermetiske ananas|20
+
+## Krydder
+salt|Salt|1|stk|15|p|
+pepper|Pepper|1|stk|30|p|;sort pepper
+olje|Olje|1|stk|45|p|;rapsolje,olivenolje
+oregano|Oregano|1|stk|25|p|
+paprikapulver|Paprikapulver|1|stk|25|p|
+karri|Karri|1|stk|25|p|;curry
+chiliflak|Chiliflak|1|stk|25|p|;chili
+timian|Timian tørket|1|stk|25|p|
+spisskummen|Spisskummen|1|stk|25|p|;cumin
+sukker|Sukker|1|stk|25|p|
+honning|Honning|1|stk|50|p|
+sennep|Sennep|1|stk|25|p|
+Kanel|25
+Muskat|30
+Ingefær malt|25
+Hvitløkspulver|25
+Laurbærblad|25
+Basilikum tørket|25
+Rosmarin tørket|25
+Grillkrydder|30
+Kyllingkrydder|30
+Pizzakrydder|25
+Kardemomme|35
+Nellik|30
+Sitronpepper|30
+
+## Snacks og godteri
+Potetgull|35;chips
+Popcorn|25
+Smågodt|40;godteri,godis
+Sjokolade|30;freia
+Kjeks|25
+Nøtter salte|40
+Mikropopcorn|30
+Tyggegummi|20
+Riskaker|20
+Proteinbar|25
+
+## Drikke
+Vann (1,5 l)|20;vann
+Farris|20;mineralvann
+Brus 1,5 l|30;cola,pepsi,brus
+Juice|35;appelsinjuice,eplejuice
+Saft|35
+Energidrikk|25
+Øl|30
+Iste|25
+Kaffekapsler|50
+
+## Baby
+Bleier|130;bleie
+Våtservietter|35;servietter
+Barnemat (glass)|25;barnemat,most
+Grøt til barn|45;barnegrøt
+Morsmelkerstatning|190;nan,erstatning
+Klemmepose frukt|20;klemmepose
+Babysjampo|45
+
+## Husholdning
+Oppvasktabletter|79;oppvask,maskin,tabletter
+Oppvaskmiddel|30;oppvask,zalo
+Tørkerull|50;papir
+Toalettpapir|80;dopapir
+Søppelposer|35;søppel
+Bakepapir|30
+Aluminiumsfolie|35;folie
+Plastfolie|30
+Fryseposer|30;poser
+Matpapir|20
+Vaskemiddel|90;klesvask,tøyvask
+Skyllemiddel|45
+Allrengjøring|35;rengjøring,vaske
+Svamp|25;oppvaskbørste
+Stearinlys|40;lys
+Batterier|60
+Lyspærer|60
+Grillkull|90
+Tennvæske|40
+Hundemat|80;hund
+Hundegodbiter|40;hund
+
+## Hygiene
+Tannkrem|30
+Tannbørste|35
+Sjampo|45
+Balsam|45
+Dusjsåpe|40;såpe
+Håndsåpe|30;såpe
+Deodorant|45;deo
+Bind|40
+Tamponger|45
+Barberblad|90
+Bomullspads|25
+Plaster|35
+Paracet|40;smertestillende
+Ibux|45;smertestillende
+Solkrem|90
+
+## Annet
+Gavekort|0

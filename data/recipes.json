@@ -1,0 +1,3113 @@
+{
+ "recipes": [
+  {
+   "id": "kyllingrisotto",
+   "name": "Kyllingrisotto med purre, sopp og parmesan",
+   "minutes": 40,
+   "tags": [
+    "italiensk",
+    "kylling",
+    "comfort"
+   ],
+   "key": [
+    "kyllingfilet",
+    "purre",
+    "sjampinjong"
+   ],
+   "ing": [
+    {
+     "p": "kyllingfilet",
+     "a": 500,
+     "t": "500 g kyllingfilet"
+    },
+    {
+     "p": "risottoris",
+     "a": 300,
+     "t": "3 dl risottoris"
+    },
+    {
+     "p": "purre",
+     "a": 0.5,
+     "t": "½ purre"
+    },
+    {
+     "p": "sjampinjong",
+     "a": 125,
+     "t": "125 g sjampinjong"
+    },
+    {
+     "p": "gullok",
+     "a": 1,
+     "t": "1 gulløk"
+    },
+    {
+     "p": "hvitlok",
+     "a": 1,
+     "t": "1 fedd hvitløk"
+    },
+    {
+     "p": "buljong",
+     "a": 2,
+     "t": "1 l buljong (2 terninger)"
+    },
+    {
+     "p": "parmesan",
+     "a": 50,
+     "t": "50 g parmesan"
+    },
+    {
+     "p": "smor",
+     "a": 30,
+     "t": "Smør"
+    }
+   ],
+   "steps": [
+    "Fres hakket gulløk, hvitløk og ½ purre i smør.",
+    "Stek kylling i biter og soppen. Legg til side.",
+    "Fres risen, tilsett varm buljong litt om gangen og rør i ca. 18 min.",
+    "Vend inn kylling, sopp, parmesan og en klatt smør."
+   ]
+  },
+  {
+   "id": "tikkamasala",
+   "name": "Kylling tikka masala med ris",
+   "minutes": 30,
+   "tags": [
+    "rask",
+    "asiatisk",
+    "kylling",
+    "gryte",
+    "comfort"
+   ],
+   "key": [
+    "kyllingfilet",
+    "tikkasaus"
+   ],
+   "ing": [
+    {
+     "p": "kyllingfilet",
+     "a": 600,
+     "t": "600 g kyllingfilet"
+    },
+    {
+     "p": "tikkasaus",
+     "a": 400,
+     "t": "1 glass tikka masala-saus"
+    },
+    {
+     "p": "matflote",
+     "a": 150,
+     "t": "1½ dl matlagingsfløte"
+    },
+    {
+     "p": "gullok",
+     "a": 1,
+     "t": "1 gulløk"
+    },
+    {
+     "p": "ris",
+     "a": 300,
+     "t": "3 dl ris"
+    },
+    {
+     "p": "spinat",
+     "a": 75,
+     "t": "½ pose babyspinat"
+    },
+    {
+     "p": "olje",
+     "a": 1,
+     "t": "Olje"
+    }
+   ],
+   "steps": [
+    "Kok risen.",
+    "Stek kylling i biter og hakket løk i olje.",
+    "Hell over saus og fløte, la småkoke 10 min.",
+    "Vend inn spinaten til slutt. Server med ris."
+   ]
+  },
+  {
+   "id": "kyllingwok",
+   "name": "Kyllingwok med nudler og grønnsaker",
+   "minutes": 20,
+   "tags": [
+    "superrask",
+    "asiatisk",
+    "kylling"
+   ],
+   "key": [
+    "kyllingfilet",
+    "wokgronnsaker"
+   ],
+   "ing": [
+    {
+     "p": "kyllingfilet",
+     "a": 500,
+     "t": "500 g kyllingfilet"
+    },
+    {
+     "p": "nudler",
+     "a": 250,
+     "t": "1 pk eggnudler"
+    },
+    {
+     "p": "wokgronnsaker",
+     "a": 600,
+     "t": "1 pose wokgrønnsaker"
+    },
+    {
+     "p": "soyasaus",
+     "a": 40,
+     "t": "4 ss soyasaus"
+    },
+    {
+     "p": "hvitlok",
+     "a": 2,
+     "t": "2 fedd hvitløk"
+    },
+    {
+     "p": "ingefaer",
+     "a": 20,
+     "t": "2 cm ingefær"
+    },
+    {
+     "p": "honning",
+     "a": 1,
+     "t": "1 ss honning"
+    },
+    {
+     "p": "olje",
+     "a": 1,
+     "t": "Olje"
+    }
+   ],
+   "steps": [
+    "Kok nudlene etter pakken.",
+    "Stek kylling i strimler på høy varme.",
+    "Tilsett hvitløk, ingefær og grønnsakene, wok 4 min.",
+    "Rør inn soyasaus og honning, vend inn nudlene."
+   ]
+  },
+  {
+   "id": "kyllingpasta",
+   "name": "Kremet kyllingpasta med spinat",
+   "minutes": 25,
+   "tags": [
+    "rask",
+    "italiensk",
+    "kylling",
+    "pasta"
+   ],
+   "key": [
+    "kyllingfilet",
+    "spinat"
+   ],
+   "ing": [
+    {
+     "p": "kyllingfilet",
+     "a": 500,
+     "t": "500 g kyllingfilet"
+    },
+    {
+     "p": "pasta",
+     "a": 350,
+     "t": "350 g penne"
+    },
+    {
+     "p": "matflote",
+     "a": 300,
+     "t": "3 dl matlagingsfløte"
+    },
+    {
+     "p": "spinat",
+     "a": 150,
+     "t": "1 pose babyspinat"
+    },
+    {
+     "p": "parmesan",
+     "a": 40,
+     "t": "40 g parmesan"
+    },
+    {
+     "p": "hvitlok",
+     "a": 2,
+     "t": "2 fedd hvitløk"
+    },
+    {
+     "p": "cherrytomat",
+     "a": 125,
+     "t": "½ boks cherrytomater"
+    }
+   ],
+   "steps": [
+    "Kok pastaen.",
+    "Stek kylling i biter med hvitløk.",
+    "Hell på fløte, la koke ut et par min. Vend inn spinat og halverte tomater.",
+    "Bland med pastaen og parmesan."
+   ]
+  },
+  {
+   "id": "ovnskyllinglar",
+   "name": "Ovnsbakte kyllinglår med poteter og gulrot",
+   "minutes": 50,
+   "tags": [
+    "kylling",
+    "ovn",
+    "norsk",
+    "comfort",
+    "budsjett"
+   ],
+   "key": [
+    "kyllingklubber",
+    "gulrot"
+   ],
+   "ing": [
+    {
+     "p": "kyllingklubber",
+     "a": 1000,
+     "t": "1 kg kyllingklubber"
+    },
+    {
+     "p": "poteter",
+     "a": 1000,
+     "t": "1 kg poteter"
+    },
+    {
+     "p": "gulrot",
+     "a": 400,
+     "t": "4 gulrøtter"
+    },
+    {
+     "p": "gullok",
+     "a": 1,
+     "t": "1 gulløk"
+    },
+    {
+     "p": "paprikapulver",
+     "a": 1,
+     "t": "Paprikapulver"
+    },
+    {
+     "p": "olje",
+     "a": 1,
+     "t": "Olje, salt og pepper"
+    },
+    {
+     "p": "romme",
+     "a": 150,
+     "t": "1½ dl rømme til dressing"
+    }
+   ],
+   "steps": [
+    "Del poteter, gulrot og løk i biter, vend i olje og salt.",
+    "Krydre kyllingen med paprika, salt og pepper. Legg oppå.",
+    "Stek 45 min på 220 °C.",
+    "Server med rømme rørt med salt og pepper."
+   ]
+  },
+  {
+   "id": "kyllingfajitas",
+   "name": "Kyllingfajitas med stekt paprika",
+   "minutes": 25,
+   "tags": [
+    "rask",
+    "meksikansk",
+    "kylling",
+    "fredagskos"
+   ],
+   "key": [
+    "kyllingfilet",
+    "tortilla"
+   ],
+   "ing": [
+    {
+     "p": "kyllingfilet",
+     "a": 500,
+     "t": "500 g kyllingfilet"
+    },
+    {
+     "p": "tortilla",
+     "a": 8,
+     "t": "8 tortillas"
+    },
+    {
+     "p": "paprika",
+     "a": 2,
+     "t": "2 paprika (stekes)"
+    },
+    {
+     "p": "gullok",
+     "a": 1,
+     "t": "1 gulløk"
+    },
+    {
+     "p": "tacokrydder",
+     "a": 1,
+     "t": "1 pose tacokrydder"
+    },
+    {
+     "p": "romme",
+     "a": 150,
+     "t": "1½ dl rømme"
+    },
+    {
+     "p": "revetost",
+     "a": 100,
+     "t": "Revet ost"
+    },
+    {
+     "p": "isberg",
+     "a": 0.5,
+     "t": "½ isbergsalat"
+    }
+   ],
+   "steps": [
+    "Skjær kylling, paprika og løk i strimler.",
+    "Stek kyllingen, tilsett paprika og løk.",
+    "Rør inn tacokrydder og litt vann.",
+    "Server i tortillas med salat, rømme og ost."
+   ]
+  },
+  {
+   "id": "kyllingsuppe",
+   "name": "Kyllingsuppe med grønnsaker",
+   "minutes": 30,
+   "tags": [
+    "rask",
+    "kylling",
+    "suppe",
+    "comfort",
+    "budsjett"
+   ],
+   "key": [
+    "kyllingfilet",
+    "gulrot",
+    "purre"
+   ],
+   "ing": [
+    {
+     "p": "kyllingfilet",
+     "a": 400,
+     "t": "400 g kyllingfilet"
+    },
+    {
+     "p": "gulrot",
+     "a": 300,
+     "t": "3 gulrøtter"
+    },
+    {
+     "p": "purre",
+     "a": 0.5,
+     "t": "½ purre"
+    },
+    {
+     "p": "poteter",
+     "a": 400,
+     "t": "4 poteter"
+    },
+    {
+     "p": "buljong",
+     "a": 3,
+     "t": "1,5 l buljong"
+    },
+    {
+     "p": "persille",
+     "a": 0.5,
+     "t": "Persille"
+    },
+    {
+     "p": "baguette",
+     "a": 1,
+     "t": "Baguette"
+    }
+   ],
+   "steps": [
+    "Kok opp buljongen.",
+    "Tilsett potet og gulrot i terninger, kok 10 min.",
+    "Tilsett kylling i biter og purre, kok 8 min.",
+    "Smak til, dryss over persille. Server med baguette."
+   ]
+  },
+  {
+   "id": "kyllingkarri",
+   "name": "Kyllinggryte i karri med eple og ris",
+   "minutes": 30,
+   "tags": [
+    "rask",
+    "kylling",
+    "gryte",
+    "norsk",
+    "comfort",
+    "budsjett"
+   ],
+   "key": [
+    "kyllingfilet",
+    "eple"
+   ],
+   "ing": [
+    {
+     "p": "kyllingfilet",
+     "a": 600,
+     "t": "600 g kyllingfilet"
+    },
+    {
+     "p": "matflote",
+     "a": 300,
+     "t": "3 dl matlagingsfløte"
+    },
+    {
+     "p": "eple",
+     "a": 1,
+     "t": "1 eple"
+    },
+    {
+     "p": "gullok",
+     "a": 1,
+     "t": "1 gulløk"
+    },
+    {
+     "p": "karri",
+     "a": 1,
+     "t": "2 ts karri"
+    },
+    {
+     "p": "ris",
+     "a": 300,
+     "t": "3 dl ris"
+    },
+    {
+     "p": "erter",
+     "a": 150,
+     "t": "1 dl erter"
+    },
+    {
+     "p": "olje",
+     "a": 1,
+     "t": "Olje"
+    }
+   ],
+   "steps": [
+    "Kok risen.",
+    "Stek kylling i biter og hakket løk, dryss over karri.",
+    "Tilsett fløte og eple i terninger, la småkoke 10 min.",
+    "Rør inn erter de siste minuttene."
+   ]
+  },
+  {
+   "id": "caesar",
+   "name": "Caesarsalat med kylling og krutonger",
+   "minutes": 20,
+   "tags": [
+    "superrask",
+    "kylling"
+   ],
+   "key": [
+    "kyllingfilet",
+    "romano"
+   ],
+   "ing": [
+    {
+     "p": "kyllingfilet",
+     "a": 500,
+     "t": "500 g kyllingfilet"
+    },
+    {
+     "p": "romano",
+     "a": 2,
+     "t": "2 romanosalat"
+    },
+    {
+     "p": "caesardressing",
+     "a": 150,
+     "t": "1½ dl caesardressing"
+    },
+    {
+     "p": "krutonger",
+     "a": 1,
+     "t": "1 pose krutonger"
+    },
+    {
+     "p": "parmesan",
+     "a": 40,
+     "t": "40 g parmesan"
+    },
+    {
+     "p": "baguette",
+     "a": 1,
+     "t": "Baguette"
+    },
+    {
+     "p": "olje",
+     "a": 1,
+     "t": "Olje"
+    }
+   ],
+   "steps": [
+    "Stek kyllingfileten gjennom, ca. 6 min per side. Skjær i skiver.",
+    "Riv salaten i biter.",
+    "Vend salaten i dressing, topp med kylling, krutonger og parmesan.",
+    "Server med varm baguette."
+   ]
+  },
+  {
+   "id": "kyllingburger",
+   "name": "Sprø kyllingburger med coleslaw",
+   "minutes": 30,
+   "tags": [
+    "rask",
+    "kylling",
+    "fredagskos",
+    "comfort"
+   ],
+   "key": [
+    "kyllingfilet",
+    "hodekal"
+   ],
+   "ing": [
+    {
+     "p": "kyllingfilet",
+     "a": 500,
+     "t": "500 g kyllingfilet"
+    },
+    {
+     "p": "hamburgerbrod",
+     "a": 3,
+     "t": "3 hamburgerbrød"
+    },
+    {
+     "p": "paneringsmel",
+     "a": 100,
+     "t": "1 dl paneringsmel"
+    },
+    {
+     "p": "egg",
+     "a": 1,
+     "t": "1 egg"
+    },
+    {
+     "p": "hodekal",
+     "a": 0.25,
+     "t": "¼ hodekål"
+    },
+    {
+     "p": "gulrot",
+     "a": 100,
+     "t": "1 gulrot"
+    },
+    {
+     "p": "majones",
+     "a": 80,
+     "t": "Majones"
+    },
+    {
+     "p": "pommes",
+     "a": 600,
+     "t": "Pommes frites"
+    },
+    {
+     "p": "olje",
+     "a": 1,
+     "t": "Olje"
+    }
+   ],
+   "steps": [
+    "Del fileten i 3 tynne biter. Vend i egg og paneringsmel.",
+    "Stek pommes frites i ovnen.",
+    "Stek kyllingen 4 min per side.",
+    "Coleslaw: riv kål og gulrot, bland med majones.",
+    "Bygg burgerne."
+   ]
+  },
+  {
+   "id": "teriyakikylling",
+   "name": "Teriyakikylling med ris og brokkoli",
+   "minutes": 25,
+   "tags": [
+    "rask",
+    "asiatisk",
+    "kylling"
+   ],
+   "key": [
+    "kyllinglarfilet",
+    "brokkoli"
+   ],
+   "ing": [
+    {
+     "p": "kyllinglarfilet",
+     "a": 600,
+     "t": "600 g kyllinglårfilet"
+    },
+    {
+     "p": "teriyaki",
+     "a": 150,
+     "t": "1½ dl teriyakisaus"
+    },
+    {
+     "p": "ris",
+     "a": 300,
+     "t": "3 dl ris"
+    },
+    {
+     "p": "brokkoli",
+     "a": 1,
+     "t": "1 brokkoli"
+    },
+    {
+     "p": "varlok",
+     "a": 0.5,
+     "t": "Vårløk"
+    }
+   ],
+   "steps": [
+    "Kok risen.",
+    "Stek kyllingen i biter til gyllen.",
+    "Hell over teriyakisaus og la det koke inn 3 min.",
+    "Damp brokkolien 4 min. Dryss over vårløk."
+   ]
+  },
+  {
+   "id": "quesadilla",
+   "name": "Kyllingquesadilla med salsa",
+   "minutes": 20,
+   "tags": [
+    "superrask",
+    "meksikansk",
+    "kylling",
+    "fredagskos"
+   ],
+   "key": [
+    "kyllingfilet",
+    "tortilla"
+   ],
+   "ing": [
+    {
+     "p": "kyllingfilet",
+     "a": 400,
+     "t": "400 g kyllingfilet"
+    },
+    {
+     "p": "tortilla",
+     "a": 6,
+     "t": "6 tortillas"
+    },
+    {
+     "p": "revetost",
+     "a": 200,
+     "t": "200 g revet ost"
+    },
+    {
+     "p": "mais",
+     "a": 150,
+     "t": "½ boks mais"
+    },
+    {
+     "p": "tacokrydder",
+     "a": 1,
+     "t": "1 pose tacokrydder"
+    },
+    {
+     "p": "romme",
+     "a": 150,
+     "t": "Rømme"
+    },
+    {
+     "p": "tomat",
+     "a": 1,
+     "t": "1 tomat"
+    },
+    {
+     "p": "gullok",
+     "a": 0.5,
+     "t": "½ gulløk"
+    },
+    {
+     "p": "lime",
+     "a": 1,
+     "t": "1 lime"
+    }
+   ],
+   "steps": [
+    "Stek kylling i små biter med tacokrydder.",
+    "Fordel kylling, mais og ost på halvparten av tortillaene, legg lokk på.",
+    "Stek i tørr panne 2 min per side.",
+    "Salsa: hakk tomat og løk, press over lime. Server med rømme."
+   ]
+  },
+  {
+   "id": "kyllingpizza",
+   "name": "Pizza med kylling, sopp og purre",
+   "minutes": 35,
+   "tags": [
+    "italiensk",
+    "kylling",
+    "fredagskos"
+   ],
+   "key": [
+    "kyllingfilet",
+    "sjampinjong",
+    "purre"
+   ],
+   "ing": [
+    {
+     "p": "kyllingfilet",
+     "a": 400,
+     "t": "Ca. 400 g kylling"
+    },
+    {
+     "p": "pizzabunn",
+     "a": 2,
+     "t": "2 pizzabunner"
+    },
+    {
+     "p": "hakkedetomater",
+     "a": 200,
+     "t": "½ boks hakkede tomater"
+    },
+    {
+     "p": "sjampinjong",
+     "a": 125,
+     "t": "125 g sjampinjong"
+    },
+    {
+     "p": "purre",
+     "a": 0.5,
+     "t": "½ purre"
+    },
+    {
+     "p": "revetost",
+     "a": 300,
+     "t": "1 pose revet ost"
+    },
+    {
+     "p": "hvitlok",
+     "a": 1,
+     "t": "Hvitløk"
+    },
+    {
+     "p": "oregano",
+     "a": 1,
+     "t": "Oregano, salt"
+    }
+   ],
+   "steps": [
+    "Stek kyllingen med hvitløk.",
+    "Smør tomater med oregano og salt på bunnene.",
+    "Fordel kylling, sopp, purre og ost.",
+    "Stek 12–15 min på 225 °C."
+   ]
+  },
+  {
+   "id": "kyllinggrateng",
+   "name": "Kylling- og brokkoligrateng",
+   "minutes": 40,
+   "tags": [
+    "kylling",
+    "ovn",
+    "comfort"
+   ],
+   "key": [
+    "kyllingfilet",
+    "brokkoli"
+   ],
+   "ing": [
+    {
+     "p": "kyllingfilet",
+     "a": 600,
+     "t": "600 g kyllingfilet"
+    },
+    {
+     "p": "brokkoli",
+     "a": 1,
+     "t": "1 brokkoli"
+    },
+    {
+     "p": "matflote",
+     "a": 300,
+     "t": "3 dl matlagingsfløte"
+    },
+    {
+     "p": "revetost",
+     "a": 150,
+     "t": "150 g revet ost"
+    },
+    {
+     "p": "ris",
+     "a": 250,
+     "t": "2½ dl ris"
+    },
+    {
+     "p": "hvitlok",
+     "a": 1,
+     "t": "1 fedd hvitløk"
+    },
+    {
+     "p": "buljong",
+     "a": 1,
+     "t": "1 buljongterning"
+    }
+   ],
+   "steps": [
+    "Kok risen.",
+    "Brun kyllingbitene, legg i ildfast form med brokkolibuketter.",
+    "Kok fløte med hvitløk og smuldret buljong, hell over.",
+    "Dryss over ost, gratiner 20 min på 200 °C."
+   ]
+  },
+  {
+   "id": "ramen",
+   "name": "Rask ramen med kylling og egg",
+   "minutes": 25,
+   "tags": [
+    "rask",
+    "asiatisk",
+    "kylling",
+    "suppe"
+   ],
+   "key": [
+    "kyllinglarfilet",
+    "nudler"
+   ],
+   "ing": [
+    {
+     "p": "kyllinglarfilet",
+     "a": 400,
+     "t": "400 g kyllinglårfilet"
+    },
+    {
+     "p": "nudler",
+     "a": 250,
+     "t": "1 pk eggnudler"
+    },
+    {
+     "p": "buljong",
+     "a": 3,
+     "t": "1,5 l buljong"
+    },
+    {
+     "p": "soyasaus",
+     "a": 40,
+     "t": "4 ss soyasaus"
+    },
+    {
+     "p": "egg",
+     "a": 3,
+     "t": "3 egg"
+    },
+    {
+     "p": "ingefaer",
+     "a": 20,
+     "t": "Ingefær"
+    },
+    {
+     "p": "hvitlok",
+     "a": 2,
+     "t": "2 fedd hvitløk"
+    },
+    {
+     "p": "varlok",
+     "a": 1,
+     "t": "Vårløk"
+    },
+    {
+     "p": "sukkererter",
+     "a": 150,
+     "t": "Sukkererter"
+    }
+   ],
+   "steps": [
+    "Kok egg i 7 min, avkjøl og del i to.",
+    "Kok buljong med soya, hvitløk og ingefær.",
+    "Stek kyllingen gyllen, skjær i skiver.",
+    "Kok nudler og sukkererter i buljongen 3 min.",
+    "Server med kylling, egg og vårløk."
+   ]
+  },
+  {
+   "id": "kyllingwraps",
+   "name": "Kyllingwraps med rømmedressing",
+   "minutes": 20,
+   "tags": [
+    "superrask",
+    "kylling",
+    "meksikansk"
+   ],
+   "key": [
+    "kyllingfilet",
+    "tortilla"
+   ],
+   "ing": [
+    {
+     "p": "kyllingfilet",
+     "a": 500,
+     "t": "500 g kyllingfilet"
+    },
+    {
+     "p": "tortilla",
+     "a": 6,
+     "t": "6 tortillas"
+    },
+    {
+     "p": "isberg",
+     "a": 0.5,
+     "t": "½ isbergsalat"
+    },
+    {
+     "p": "tomat",
+     "a": 2,
+     "t": "2 tomater"
+    },
+    {
+     "p": "agurk",
+     "a": 0.5,
+     "t": "½ agurk"
+    },
+    {
+     "p": "romme",
+     "a": 200,
+     "t": "2 dl rømme"
+    },
+    {
+     "p": "hvitlok",
+     "a": 1,
+     "t": "1 fedd hvitløk"
+    },
+    {
+     "p": "paprikapulver",
+     "a": 1,
+     "t": "Paprikapulver"
+    }
+   ],
+   "steps": [
+    "Stek kyllingstrimler med paprikapulver, salt og pepper.",
+    "Rør rømme med presset hvitløk og salt.",
+    "Kutt salat, tomat og agurk.",
+    "Fyll tortillaene og rull sammen."
+   ]
+  },
+  {
+   "id": "bbqklubber",
+   "name": "BBQ-kyllingklubber med mais og potetbåter",
+   "minutes": 45,
+   "tags": [
+    "kylling",
+    "ovn",
+    "fredagskos",
+    "budsjett"
+   ],
+   "key": [
+    "kyllingklubber",
+    "maiskolber"
+   ],
+   "ing": [
+    {
+     "p": "kyllingklubber",
+     "a": 1000,
+     "t": "1 kg kyllingklubber"
+    },
+    {
+     "p": "bbqsaus",
+     "a": 200,
+     "t": "2 dl BBQ-saus"
+    },
+    {
+     "p": "poteter",
+     "a": 1000,
+     "t": "1 kg poteter"
+    },
+    {
+     "p": "maiskolber",
+     "a": 3,
+     "t": "3 maiskolber"
+    },
+    {
+     "p": "smor",
+     "a": 20,
+     "t": "Smør"
+    },
+    {
+     "p": "olje",
+     "a": 1,
+     "t": "Olje"
+    },
+    {
+     "p": "hodekal",
+     "a": 0.25,
+     "t": "¼ hodekål til råkost"
+    },
+    {
+     "p": "majones",
+     "a": 60,
+     "t": "Majones"
+    }
+   ],
+   "steps": [
+    "Potetbåter og klubber i ovnen på 220 °C i 40 min.",
+    "Pensle klubbene med BBQ-saus etter 25 min.",
+    "Kok maiskolbene 8 min, server med smør.",
+    "Råkost: riv kål og bland med litt majones."
+   ]
+  },
+  {
+   "id": "kremetkyllinggryte",
+   "name": "Kremet kyllinggryte med sopp og ris",
+   "minutes": 30,
+   "tags": [
+    "rask",
+    "kylling",
+    "gryte",
+    "comfort"
+   ],
+   "key": [
+    "kyllinglarfilet",
+    "sjampinjong"
+   ],
+   "ing": [
+    {
+     "p": "kyllinglarfilet",
+     "a": 600,
+     "t": "600 g kyllinglårfilet"
+    },
+    {
+     "p": "sjampinjong",
+     "a": 250,
+     "t": "250 g sjampinjong"
+    },
+    {
+     "p": "matflote",
+     "a": 300,
+     "t": "3 dl matlagingsfløte"
+    },
+    {
+     "p": "gullok",
+     "a": 1,
+     "t": "1 gulløk"
+    },
+    {
+     "p": "ris",
+     "a": 300,
+     "t": "3 dl ris"
+    },
+    {
+     "p": "timian",
+     "a": 1,
+     "t": "Timian"
+    },
+    {
+     "p": "buljong",
+     "a": 1,
+     "t": "1 buljongterning"
+    }
+   ],
+   "steps": [
+    "Kok risen.",
+    "Brun kylling og sopp, tilsett hakket løk.",
+    "Hell på fløte, smuldret buljong og timian.",
+    "La småkoke 10 min."
+   ]
+  },
+  {
+   "id": "kyllingtortillagrateng",
+   "name": "Meksikansk tortillagrateng med kylling",
+   "minutes": 35,
+   "tags": [
+    "meksikansk",
+    "kylling",
+    "ovn",
+    "comfort"
+   ],
+   "key": [
+    "kyllingdeig",
+    "tortilla"
+   ],
+   "ing": [
+    {
+     "p": "kyllingdeig",
+     "a": 400,
+     "t": "400 g kyllingkjøttdeig"
+    },
+    {
+     "p": "tortilla",
+     "a": 6,
+     "t": "6 tortillas"
+    },
+    {
+     "p": "hakkedetomater",
+     "a": 400,
+     "t": "1 boks hakkede tomater"
+    },
+    {
+     "p": "kidneybonner",
+     "a": 410,
+     "t": "1 boks kidneybønner"
+    },
+    {
+     "p": "mais",
+     "a": 150,
+     "t": "½ boks mais"
+    },
+    {
+     "p": "tacokrydder",
+     "a": 1,
+     "t": "1 pose tacokrydder"
+    },
+    {
+     "p": "revetost",
+     "a": 200,
+     "t": "200 g revet ost"
+    },
+    {
+     "p": "romme",
+     "a": 150,
+     "t": "Rømme"
+    }
+   ],
+   "steps": [
+    "Brun kjøttdeigen med tacokrydder.",
+    "Tilsett tomater, bønner og mais, kok 5 min.",
+    "Lag lag med tortilla, fyll og ost i en form.",
+    "Stek 20 min på 200 °C. Server med rømme."
+   ]
+  },
+  {
+   "id": "burgere",
+   "name": "Storfeburgere med smeltet ost og pommes frites",
+   "minutes": 25,
+   "tags": [
+    "rask",
+    "kjott",
+    "fredagskos",
+    "comfort"
+   ],
+   "key": [
+    "kjottdeig",
+    "hamburgerbrod"
+   ],
+   "ing": [
+    {
+     "p": "kjottdeig",
+     "a": 400,
+     "t": "400 g storfekjøttdeig"
+    },
+    {
+     "p": "hamburgerbrod",
+     "a": 3,
+     "t": "3 hamburgerbrød"
+    },
+    {
+     "p": "revetost",
+     "a": 100,
+     "t": "Revet ost"
+    },
+    {
+     "p": "isberg",
+     "a": 0.5,
+     "t": "Isbergsalat"
+    },
+    {
+     "p": "tomat",
+     "a": 1,
+     "t": "1 tomat"
+    },
+    {
+     "p": "pommes",
+     "a": 700,
+     "t": "Pommes frites"
+    }
+   ],
+   "steps": [
+    "Form kjøttdeigen til 3 burgere.",
+    "Stek pommes frites i ovnen etter posen.",
+    "Stek burgerne 3–4 min per side, legg på revet ost mot slutten.",
+    "Server i brød med isberg og tomat."
+   ]
+  },
+  {
+   "id": "taco",
+   "name": "Taco",
+   "minutes": 25,
+   "tags": [
+    "rask",
+    "meksikansk",
+    "kjott",
+    "fredagskos"
+   ],
+   "key": [
+    "kjottdeig",
+    "tortilla"
+   ],
+   "ing": [
+    {
+     "p": "kjottdeig",
+     "a": 400,
+     "t": "400 g kjøttdeig"
+    },
+    {
+     "p": "tortilla",
+     "a": 8,
+     "t": "Tortilla"
+    },
+    {
+     "p": "tacoskjell",
+     "a": 6,
+     "t": "Tacoskjell"
+    },
+    {
+     "p": "tacokrydder",
+     "a": 1,
+     "t": "Tacokrydder"
+    },
+    {
+     "p": "mais",
+     "a": 300,
+     "t": "1 boks mais"
+    },
+    {
+     "p": "romme",
+     "a": 200,
+     "t": "Rømme"
+    },
+    {
+     "p": "isberg",
+     "a": 0.5,
+     "t": "Isbergsalat"
+    },
+    {
+     "p": "agurk",
+     "a": 0.5,
+     "t": "Agurk"
+    },
+    {
+     "p": "revetost",
+     "a": 150,
+     "t": "Revet ost"
+    },
+    {
+     "p": "tomat",
+     "a": 1,
+     "t": "Salsa: 1 tomat"
+    },
+    {
+     "p": "gullok",
+     "a": 1,
+     "t": "Salsa: 1 gulløk"
+    },
+    {
+     "p": "lime",
+     "a": 1,
+     "t": "Salsa: 1 lime"
+    }
+   ],
+   "steps": [
+    "Brun kjøttdeigen med tacokrydder og litt vann.",
+    "Salsa: finhakk tomat og gulløk, press over lime, salt.",
+    "Kutt isberg og agurk.",
+    "Server med tortilla, skjell, mais, rømme og ost."
+   ]
+  },
+  {
+   "id": "bolognese",
+   "name": "Spaghetti bolognese",
+   "minutes": 35,
+   "tags": [
+    "italiensk",
+    "kjott",
+    "pasta",
+    "comfort",
+    "budsjett"
+   ],
+   "key": [
+    "kjottdeig",
+    "hakkedetomater"
+   ],
+   "ing": [
+    {
+     "p": "kjottdeig",
+     "a": 400,
+     "t": "400 g kjøttdeig"
+    },
+    {
+     "p": "spaghetti",
+     "a": 350,
+     "t": "350 g spaghetti"
+    },
+    {
+     "p": "hakkedetomater",
+     "a": 800,
+     "t": "2 bokser hakkede tomater"
+    },
+    {
+     "p": "tomatpure",
+     "a": 70,
+     "t": "½ tube tomatpuré"
+    },
+    {
+     "p": "gullok",
+     "a": 1,
+     "t": "1 gulløk"
+    },
+    {
+     "p": "gulrot",
+     "a": 100,
+     "t": "1 gulrot"
+    },
+    {
+     "p": "hvitlok",
+     "a": 2,
+     "t": "2 fedd hvitløk"
+    },
+    {
+     "p": "parmesan",
+     "a": 40,
+     "t": "Parmesan"
+    },
+    {
+     "p": "oregano",
+     "a": 1,
+     "t": "Oregano"
+    }
+   ],
+   "steps": [
+    "Fres finhakket løk, gulrot og hvitløk.",
+    "Brun kjøttdeigen, tilsett tomatpuré.",
+    "Hell på tomatene, oregano, salt og pepper. La småkoke 20 min.",
+    "Kok spaghetti. Server med parmesan."
+   ]
+  },
+  {
+   "id": "lasagne",
+   "name": "Lasagne",
+   "minutes": 60,
+   "tags": [
+    "italiensk",
+    "kjott",
+    "ovn",
+    "comfort"
+   ],
+   "key": [
+    "kjottdeig",
+    "lasagneplater"
+   ],
+   "ing": [
+    {
+     "p": "kjottdeig",
+     "a": 400,
+     "t": "400 g kjøttdeig"
+    },
+    {
+     "p": "lasagneplater",
+     "a": 250,
+     "t": "½ pk lasagneplater"
+    },
+    {
+     "p": "hakkedetomater",
+     "a": 800,
+     "t": "2 bokser hakkede tomater"
+    },
+    {
+     "p": "gullok",
+     "a": 1,
+     "t": "1 gulløk"
+    },
+    {
+     "p": "hvitlok",
+     "a": 2,
+     "t": "2 fedd hvitløk"
+    },
+    {
+     "p": "melk",
+     "a": 500,
+     "t": "5 dl melk"
+    },
+    {
+     "p": "smor",
+     "a": 40,
+     "t": "40 g smør"
+    },
+    {
+     "p": "hvetemel",
+     "a": 40,
+     "t": "4 ss hvetemel"
+    },
+    {
+     "p": "revetost",
+     "a": 150,
+     "t": "150 g revet ost"
+    },
+    {
+     "p": "isberg",
+     "a": 0.5,
+     "t": "Salat ved siden av"
+    }
+   ],
+   "steps": [
+    "Lag kjøttsaus av løk, hvitløk, kjøttdeig og tomater. Kok 15 min.",
+    "Hvit saus: smelt smør, rør inn mel, spe med melk og kok 5 min.",
+    "Lag lag med plater, kjøttsaus og hvit saus. Topp med ost.",
+    "Stek 35 min på 200 °C."
+   ]
+  },
+  {
+   "id": "chili",
+   "name": "Chili con carne med ris",
+   "minutes": 35,
+   "tags": [
+    "meksikansk",
+    "kjott",
+    "gryte",
+    "budsjett"
+   ],
+   "key": [
+    "kjottdeig",
+    "kidneybonner"
+   ],
+   "ing": [
+    {
+     "p": "kjottdeig",
+     "a": 400,
+     "t": "400 g kjøttdeig"
+    },
+    {
+     "p": "kidneybonner",
+     "a": 410,
+     "t": "1 boks kidneybønner"
+    },
+    {
+     "p": "hakkedetomater",
+     "a": 800,
+     "t": "2 bokser hakkede tomater"
+    },
+    {
+     "p": "gullok",
+     "a": 1,
+     "t": "1 gulløk"
+    },
+    {
+     "p": "paprika",
+     "a": 1,
+     "t": "1 paprika (kokes med)"
+    },
+    {
+     "p": "hvitlok",
+     "a": 2,
+     "t": "2 fedd hvitløk"
+    },
+    {
+     "p": "spisskummen",
+     "a": 1,
+     "t": "Spisskummen og chili"
+    },
+    {
+     "p": "ris",
+     "a": 300,
+     "t": "3 dl ris"
+    },
+    {
+     "p": "romme",
+     "a": 100,
+     "t": "Rømme"
+    }
+   ],
+   "steps": [
+    "Kok risen.",
+    "Brun kjøttdeig med løk, hvitløk og paprika.",
+    "Tilsett krydder, tomater og bønner. Kok 20 min.",
+    "Server med ris og en klatt rømme."
+   ]
+  },
+  {
+   "id": "kjottboller",
+   "name": "Kjøttboller i tomatsaus med pasta",
+   "minutes": 35,
+   "tags": [
+    "italiensk",
+    "kjott",
+    "pasta",
+    "comfort"
+   ],
+   "key": [
+    "kjottdeig",
+    "hakkedetomater"
+   ],
+   "ing": [
+    {
+     "p": "kjottdeig",
+     "a": 400,
+     "t": "400 g kjøttdeig"
+    },
+    {
+     "p": "egg",
+     "a": 1,
+     "t": "1 egg"
+    },
+    {
+     "p": "paneringsmel",
+     "a": 50,
+     "t": "½ dl paneringsmel"
+    },
+    {
+     "p": "hakkedetomater",
+     "a": 800,
+     "t": "2 bokser hakkede tomater"
+    },
+    {
+     "p": "gullok",
+     "a": 1,
+     "t": "1 gulløk"
+    },
+    {
+     "p": "hvitlok",
+     "a": 2,
+     "t": "2 fedd hvitløk"
+    },
+    {
+     "p": "pasta",
+     "a": 350,
+     "t": "350 g penne"
+    },
+    {
+     "p": "parmesan",
+     "a": 40,
+     "t": "Parmesan"
+    },
+    {
+     "p": "oregano",
+     "a": 1,
+     "t": "Oregano"
+    }
+   ],
+   "steps": [
+    "Bland kjøttdeig, egg, paneringsmel, salt og pepper. Trill små boller.",
+    "Brun bollene i en panne.",
+    "Tilsett løk, hvitløk og tomater. La småkoke 15 min.",
+    "Kok pasta og server med parmesan."
+   ]
+  },
+  {
+   "id": "kjottkaker",
+   "name": "Hjemmelagde kjøttkaker i brun saus med potetmos",
+   "minutes": 50,
+   "tags": [
+    "kjott",
+    "norsk",
+    "comfort"
+   ],
+   "key": [
+    "kjottdeig",
+    "poteter"
+   ],
+   "ing": [
+    {
+     "p": "kjottdeig",
+     "a": 400,
+     "t": "400 g kjøttdeig"
+    },
+    {
+     "p": "egg",
+     "a": 1,
+     "t": "1 egg"
+    },
+    {
+     "p": "gullok",
+     "a": 1,
+     "t": "1 gulløk"
+    },
+    {
+     "p": "poteter",
+     "a": 1000,
+     "t": "1 kg poteter"
+    },
+    {
+     "p": "melk",
+     "a": 200,
+     "t": "2 dl melk"
+    },
+    {
+     "p": "smor",
+     "a": 40,
+     "t": "Smør"
+    },
+    {
+     "p": "brunsaus",
+     "a": 1,
+     "t": "1 pose brun saus"
+    },
+    {
+     "p": "erter",
+     "a": 200,
+     "t": "Erter"
+    },
+    {
+     "p": "gulrot",
+     "a": 200,
+     "t": "2 gulrøtter"
+    }
+   ],
+   "steps": [
+    "Bland kjøttdeig, egg, revet løk, salt og pepper. Form kaker og brun dem.",
+    "Lag brun saus, la kakene trekke i sausen 15 min.",
+    "Kok poteter, mos med smør og varm melk.",
+    "Kok gulrot og erter. Server alt sammen."
+   ]
+  },
+  {
+   "id": "stroganoff",
+   "name": "Biff stroganoff med ris",
+   "minutes": 30,
+   "tags": [
+    "rask",
+    "kjott",
+    "gryte",
+    "comfort"
+   ],
+   "key": [
+    "biffstrimler",
+    "sjampinjong"
+   ],
+   "ing": [
+    {
+     "p": "biffstrimler",
+     "a": 400,
+     "t": "400 g biffstrimler"
+    },
+    {
+     "p": "sjampinjong",
+     "a": 250,
+     "t": "250 g sjampinjong"
+    },
+    {
+     "p": "gullok",
+     "a": 1,
+     "t": "1 gulløk"
+    },
+    {
+     "p": "matflote",
+     "a": 300,
+     "t": "3 dl matlagingsfløte"
+    },
+    {
+     "p": "tomatpure",
+     "a": 30,
+     "t": "2 ss tomatpuré"
+    },
+    {
+     "p": "paprikapulver",
+     "a": 1,
+     "t": "Paprikapulver"
+    },
+    {
+     "p": "ris",
+     "a": 300,
+     "t": "3 dl ris"
+    },
+    {
+     "p": "sennep",
+     "a": 1,
+     "t": "1 ts sennep"
+    }
+   ],
+   "steps": [
+    "Kok risen.",
+    "Brun biffen raskt på høy varme, ta ut.",
+    "Stek sopp og løk, rør inn tomatpuré og paprika.",
+    "Hell på fløte og sennep, kok 5 min. Vend inn biffen."
+   ]
+  },
+  {
+   "id": "entrecote",
+   "name": "Entrecôte med stekte poteter og bearnaise",
+   "minutes": 35,
+   "tags": [
+    "kjott",
+    "fredagskos"
+   ],
+   "key": [
+    "entrecote",
+    "smapoteter"
+   ],
+   "ing": [
+    {
+     "p": "entrecote",
+     "a": 400,
+     "t": "2 entrecôte"
+    },
+    {
+     "p": "smapoteter",
+     "a": 700,
+     "t": "700 g småpoteter"
+    },
+    {
+     "p": "bearnaise",
+     "a": 250,
+     "t": "1 bearnaisesaus"
+    },
+    {
+     "p": "cherrytomat",
+     "a": 250,
+     "t": "Cherrytomater"
+    },
+    {
+     "p": "romano",
+     "a": 1,
+     "t": "Salat"
+    },
+    {
+     "p": "smor",
+     "a": 20,
+     "t": "Smør"
+    },
+    {
+     "p": "olje",
+     "a": 1,
+     "t": "Olje"
+    }
+   ],
+   "steps": [
+    "Kok potetene nesten møre, del og stek gylne i smør.",
+    "Ta kjøttet ut av kjøleskapet 30 min før.",
+    "Stek entrecôten 2–3 min per side, la hvile 5 min.",
+    "Varm bearnaisen. Server med salat og tomater."
+   ]
+  },
+  {
+   "id": "shepherdspie",
+   "name": "Shepherd's pie med potetmos",
+   "minutes": 55,
+   "tags": [
+    "kjott",
+    "ovn",
+    "comfort"
+   ],
+   "key": [
+    "kjottdeig",
+    "poteter"
+   ],
+   "ing": [
+    {
+     "p": "kjottdeig",
+     "a": 400,
+     "t": "400 g kjøttdeig"
+    },
+    {
+     "p": "poteter",
+     "a": 1000,
+     "t": "1 kg poteter"
+    },
+    {
+     "p": "gulrot",
+     "a": 200,
+     "t": "2 gulrøtter"
+    },
+    {
+     "p": "gullok",
+     "a": 1,
+     "t": "1 gulløk"
+    },
+    {
+     "p": "erter",
+     "a": 150,
+     "t": "Erter"
+    },
+    {
+     "p": "tomatpure",
+     "a": 40,
+     "t": "Tomatpuré"
+    },
+    {
+     "p": "buljong",
+     "a": 1,
+     "t": "1 buljongterning"
+    },
+    {
+     "p": "melk",
+     "a": 150,
+     "t": "1½ dl melk"
+    },
+    {
+     "p": "smor",
+     "a": 30,
+     "t": "Smør"
+    },
+    {
+     "p": "revetost",
+     "a": 100,
+     "t": "Revet ost"
+    }
+   ],
+   "steps": [
+    "Kok poteter og mos med smør og melk.",
+    "Brun kjøttdeig med løk og gulrot, tilsett puré, buljong og litt vann.",
+    "Kjøttfyll i form, erter over, mos på toppen.",
+    "Dryss ost og stek 25 min på 200 °C."
+   ]
+  },
+  {
+   "id": "burritobowl",
+   "name": "Burrito bowl med kjøttdeig",
+   "minutes": 25,
+   "tags": [
+    "rask",
+    "meksikansk",
+    "kjott"
+   ],
+   "key": [
+    "kjottdeig",
+    "avokado"
+   ],
+   "ing": [
+    {
+     "p": "kjottdeig",
+     "a": 400,
+     "t": "400 g kjøttdeig"
+    },
+    {
+     "p": "ris",
+     "a": 300,
+     "t": "3 dl ris"
+    },
+    {
+     "p": "kidneybonner",
+     "a": 410,
+     "t": "1 boks kidneybønner"
+    },
+    {
+     "p": "mais",
+     "a": 150,
+     "t": "½ boks mais"
+    },
+    {
+     "p": "avokado",
+     "a": 2,
+     "t": "2 avokado"
+    },
+    {
+     "p": "tomat",
+     "a": 2,
+     "t": "2 tomater"
+    },
+    {
+     "p": "lime",
+     "a": 1,
+     "t": "1 lime"
+    },
+    {
+     "p": "romme",
+     "a": 150,
+     "t": "Rømme"
+    },
+    {
+     "p": "tacokrydder",
+     "a": 1,
+     "t": "Tacokrydder"
+    },
+    {
+     "p": "isberg",
+     "a": 0.5,
+     "t": "Isberg"
+    }
+   ],
+   "steps": [
+    "Kok risen.",
+    "Stek kjøttdeigen med tacokrydder, varm bønnene.",
+    "Hakk tomat og avokado, press over lime.",
+    "Bygg bollene: ris, kjøtt, bønner, mais, salat, avokado og rømme."
+   ]
+  },
+  {
+   "id": "lapskaus",
+   "name": "Lapskaus med storfekjøtt",
+   "minutes": 75,
+   "tags": [
+    "kjott",
+    "norsk",
+    "gryte",
+    "comfort"
+   ],
+   "key": [
+    "gryteskjott",
+    "poteter"
+   ],
+   "ing": [
+    {
+     "p": "gryteskjott",
+     "a": 500,
+     "t": "500 g gryteskjøtt"
+    },
+    {
+     "p": "poteter",
+     "a": 800,
+     "t": "800 g poteter"
+    },
+    {
+     "p": "gulrot",
+     "a": 300,
+     "t": "3 gulrøtter"
+    },
+    {
+     "p": "purre",
+     "a": 0.5,
+     "t": "½ purre"
+    },
+    {
+     "p": "gullok",
+     "a": 1,
+     "t": "1 gulløk"
+    },
+    {
+     "p": "buljong",
+     "a": 2,
+     "t": "1 l buljong"
+    },
+    {
+     "p": "baguette",
+     "a": 1,
+     "t": "Brød til"
+    }
+   ],
+   "steps": [
+    "Brun kjøttet i biter, tilsett løk og buljong. Kok 30 min.",
+    "Tilsett poteter og gulrot i terninger, kok 25 min.",
+    "Tilsett purre de siste 10 min.",
+    "Rør godt så litt av potetene moses. Smak til."
+   ]
+  },
+  {
+   "id": "karbonader",
+   "name": "Karbonader med løk, poteter og grønnsaker",
+   "minutes": 30,
+   "tags": [
+    "rask",
+    "kjott",
+    "norsk",
+    "budsjett"
+   ],
+   "key": [
+    "karbonadedeig",
+    "gullok"
+   ],
+   "ing": [
+    {
+     "p": "karbonadedeig",
+     "a": 400,
+     "t": "400 g karbonadedeig"
+    },
+    {
+     "p": "gullok",
+     "a": 2,
+     "t": "2 gulløk"
+    },
+    {
+     "p": "poteter",
+     "a": 800,
+     "t": "800 g poteter"
+    },
+    {
+     "p": "brokkoli",
+     "a": 1,
+     "t": "1 brokkoli"
+    },
+    {
+     "p": "brunsaus",
+     "a": 1,
+     "t": "Brun saus"
+    },
+    {
+     "p": "smor",
+     "a": 20,
+     "t": "Smør"
+    }
+   ],
+   "steps": [
+    "Kok potetene.",
+    "Form 4 karbonader, stek 4 min per side.",
+    "Stek løk i båter mykt i smør.",
+    "Lag brun saus. Server med brokkoli."
+   ]
+  },
+  {
+   "id": "kjottdeigpasta",
+   "name": "Kremet kjøttdeigpasta",
+   "minutes": 25,
+   "tags": [
+    "rask",
+    "kjott",
+    "pasta",
+    "budsjett"
+   ],
+   "key": [
+    "kjottdeig",
+    "matflote"
+   ],
+   "ing": [
+    {
+     "p": "kjottdeig",
+     "a": 400,
+     "t": "400 g kjøttdeig"
+    },
+    {
+     "p": "pasta",
+     "a": 350,
+     "t": "350 g penne"
+    },
+    {
+     "p": "matflote",
+     "a": 300,
+     "t": "3 dl matlagingsfløte"
+    },
+    {
+     "p": "tomatpure",
+     "a": 40,
+     "t": "Tomatpuré"
+    },
+    {
+     "p": "gullok",
+     "a": 1,
+     "t": "1 gulløk"
+    },
+    {
+     "p": "spinat",
+     "a": 75,
+     "t": "½ pose spinat"
+    },
+    {
+     "p": "revetost",
+     "a": 80,
+     "t": "Revet ost"
+    }
+   ],
+   "steps": [
+    "Kok pastaen.",
+    "Brun kjøttdeig og løk, rør inn tomatpuré.",
+    "Hell på fløte, kok 5 min, vend inn spinat.",
+    "Bland med pasta og ost."
+   ]
+  },
+  {
+   "id": "biffbrokkoli",
+   "name": "Biff og brokkoli i wok",
+   "minutes": 20,
+   "tags": [
+    "superrask",
+    "asiatisk",
+    "kjott"
+   ],
+   "key": [
+    "biffstrimler",
+    "brokkoli"
+   ],
+   "ing": [
+    {
+     "p": "biffstrimler",
+     "a": 400,
+     "t": "400 g biffstrimler"
+    },
+    {
+     "p": "brokkoli",
+     "a": 1,
+     "t": "1 brokkoli"
+    },
+    {
+     "p": "soyasaus",
+     "a": 40,
+     "t": "4 ss soyasaus"
+    },
+    {
+     "p": "honning",
+     "a": 1,
+     "t": "1 ss honning"
+    },
+    {
+     "p": "hvitlok",
+     "a": 2,
+     "t": "2 fedd hvitløk"
+    },
+    {
+     "p": "ingefaer",
+     "a": 20,
+     "t": "Ingefær"
+    },
+    {
+     "p": "ris",
+     "a": 300,
+     "t": "3 dl ris"
+    },
+    {
+     "p": "olje",
+     "a": 1,
+     "t": "Olje"
+    }
+   ],
+   "steps": [
+    "Kok risen.",
+    "Wok biffen raskt på høy varme, ta ut.",
+    "Wok brokkoli med hvitløk og ingefær 3 min.",
+    "Tilsett biff, soya og honning, vend rundt."
+   ]
+  },
+  {
+   "id": "kjottdeigpizza",
+   "name": "Hjemmelaget pizza med kjøttdeig",
+   "minutes": 35,
+   "tags": [
+    "italiensk",
+    "kjott",
+    "fredagskos"
+   ],
+   "key": [
+    "kjottdeig",
+    "pizzabunn"
+   ],
+   "ing": [
+    {
+     "p": "kjottdeig",
+     "a": 300,
+     "t": "300 g kjøttdeig"
+    },
+    {
+     "p": "pizzabunn",
+     "a": 2,
+     "t": "2 pizzabunner"
+    },
+    {
+     "p": "hakkedetomater",
+     "a": 200,
+     "t": "½ boks hakkede tomater"
+    },
+    {
+     "p": "revetost",
+     "a": 300,
+     "t": "1 pose revet ost"
+    },
+    {
+     "p": "paprika",
+     "a": 1,
+     "t": "1 paprika (stekes på pizzaen)"
+    },
+    {
+     "p": "gullok",
+     "a": 0.5,
+     "t": "½ gulløk"
+    },
+    {
+     "p": "oregano",
+     "a": 1,
+     "t": "Oregano"
+    }
+   ],
+   "steps": [
+    "Brun kjøttdeigen med salt og pepper.",
+    "Smør tomater med oregano på bunnene.",
+    "Fordel kjøtt, paprika, løk og ost.",
+    "Stek 12–15 min på 225 °C."
+   ]
+  },
+  {
+   "id": "kjottdeiggryte",
+   "name": "Kjøttdeiggryte med poteter",
+   "minutes": 35,
+   "tags": [
+    "kjott",
+    "gryte",
+    "budsjett",
+    "comfort"
+   ],
+   "key": [
+    "kjottdeig",
+    "poteter"
+   ],
+   "ing": [
+    {
+     "p": "kjottdeig",
+     "a": 400,
+     "t": "400 g kjøttdeig"
+    },
+    {
+     "p": "poteter",
+     "a": 600,
+     "t": "600 g poteter"
+    },
+    {
+     "p": "gulrot",
+     "a": 200,
+     "t": "2 gulrøtter"
+    },
+    {
+     "p": "gullok",
+     "a": 1,
+     "t": "1 gulløk"
+    },
+    {
+     "p": "hakkedetomater",
+     "a": 400,
+     "t": "1 boks hakkede tomater"
+    },
+    {
+     "p": "matflote",
+     "a": 150,
+     "t": "1½ dl fløte"
+    },
+    {
+     "p": "paprikapulver",
+     "a": 1,
+     "t": "Paprikapulver"
+    },
+    {
+     "p": "baguette",
+     "a": 1,
+     "t": "Brød til"
+    }
+   ],
+   "steps": [
+    "Brun kjøttdeig og løk.",
+    "Tilsett potet og gulrot i terninger, tomater og paprika.",
+    "Kok under lokk 20 min.",
+    "Rør inn fløte, smak til."
+   ]
+  },
+  {
+   "id": "laks",
+   "name": "Ovnsbakt laks med ovnspoteter, brokkoli og sitronrømme",
+   "minutes": 35,
+   "tags": [
+    "fisk",
+    "ovn",
+    "norsk"
+   ],
+   "key": [
+    "laks",
+    "brokkoli"
+   ],
+   "ing": [
+    {
+     "p": "laks",
+     "a": 500,
+     "t": "500 g laks"
+    },
+    {
+     "p": "poteter",
+     "a": 1000,
+     "t": "1 kg poteter"
+    },
+    {
+     "p": "brokkoli",
+     "a": 1,
+     "t": "1 brokkoli"
+    },
+    {
+     "p": "agurk",
+     "a": 0.5,
+     "t": "½ agurk"
+    },
+    {
+     "p": "sitron",
+     "a": 1,
+     "t": "1 sitron"
+    },
+    {
+     "p": "romme",
+     "a": 100,
+     "t": "1 dl rømme"
+    },
+    {
+     "p": "olje",
+     "a": 1,
+     "t": "Olje, salt og pepper"
+    }
+   ],
+   "steps": [
+    "Del potetene i båter, vend i olje og salt. Bak 35 min på 220 °C.",
+    "Legg laksen i en form med salt, pepper og sitronskiver. Sett inn de siste 15 min.",
+    "Kok brokkolien i 4 min.",
+    "Skjær ½ agurk i biter.",
+    "Rør rømme med sitronsaft og salt."
+   ]
+  },
+  {
+   "id": "teriyakilaks",
+   "name": "Teriyakilaks med ris og sukkerert",
+   "minutes": 25,
+   "tags": [
+    "rask",
+    "fisk",
+    "asiatisk"
+   ],
+   "key": [
+    "laks",
+    "sukkererter"
+   ],
+   "ing": [
+    {
+     "p": "laks",
+     "a": 500,
+     "t": "500 g laks"
+    },
+    {
+     "p": "teriyaki",
+     "a": 120,
+     "t": "1 dl teriyakisaus"
+    },
+    {
+     "p": "ris",
+     "a": 300,
+     "t": "3 dl ris"
+    },
+    {
+     "p": "sukkererter",
+     "a": 150,
+     "t": "Sukkererter"
+    },
+    {
+     "p": "varlok",
+     "a": 0.5,
+     "t": "Vårløk"
+    },
+    {
+     "p": "lime",
+     "a": 1,
+     "t": "1 lime"
+    }
+   ],
+   "steps": [
+    "Kok risen.",
+    "Pensle laksen med teriyaki, stek 15 min på 200 °C.",
+    "Damp sukkerertene 2 min.",
+    "Server med vårløk og limebåter."
+   ]
+  },
+  {
+   "id": "fiskegrateng",
+   "name": "Fiskegrateng med makaroni",
+   "minutes": 50,
+   "tags": [
+    "fisk",
+    "ovn",
+    "norsk",
+    "comfort"
+   ],
+   "key": [
+    "torsk",
+    "makaroni"
+   ],
+   "ing": [
+    {
+     "p": "torsk",
+     "a": 500,
+     "t": "500 g torsk"
+    },
+    {
+     "p": "makaroni",
+     "a": 200,
+     "t": "2 dl makaroni"
+    },
+    {
+     "p": "melk",
+     "a": 500,
+     "t": "5 dl melk"
+    },
+    {
+     "p": "smor",
+     "a": 40,
+     "t": "Smør"
+    },
+    {
+     "p": "hvetemel",
+     "a": 40,
+     "t": "4 ss mel"
+    },
+    {
+     "p": "egg",
+     "a": 2,
+     "t": "2 egg"
+    },
+    {
+     "p": "revetost",
+     "a": 100,
+     "t": "Revet ost"
+    },
+    {
+     "p": "paneringsmel",
+     "a": 30,
+     "t": "Paneringsmel"
+    },
+    {
+     "p": "gulrot",
+     "a": 300,
+     "t": "Råkost: 3 gulrøtter"
+    }
+   ],
+   "steps": [
+    "Kok makaroni. Tin og del fisken i biter.",
+    "Lag hvit saus av smør, mel og melk. Avkjøl litt, rør inn eggene.",
+    "Lag lag med makaroni, fisk og saus i form.",
+    "Topp med ost og paneringsmel. Stek 30 min på 200 °C.",
+    "Server med revet gulrot."
+   ]
+  },
+  {
+   "id": "torskgulrot",
+   "name": "Torsk med smørdampede grønnsaker og poteter",
+   "minutes": 30,
+   "tags": [
+    "rask",
+    "fisk",
+    "norsk"
+   ],
+   "key": [
+    "torsk",
+    "gulrot"
+   ],
+   "ing": [
+    {
+     "p": "torsk",
+     "a": 500,
+     "t": "500 g torsk"
+    },
+    {
+     "p": "poteter",
+     "a": 800,
+     "t": "800 g poteter"
+    },
+    {
+     "p": "gulrot",
+     "a": 300,
+     "t": "3 gulrøtter"
+    },
+    {
+     "p": "purre",
+     "a": 0.5,
+     "t": "½ purre"
+    },
+    {
+     "p": "smor",
+     "a": 50,
+     "t": "Smør"
+    },
+    {
+     "p": "persille",
+     "a": 0.5,
+     "t": "Persille"
+    },
+    {
+     "p": "sitron",
+     "a": 1,
+     "t": "Sitron"
+    }
+   ],
+   "steps": [
+    "Kok potetene.",
+    "Legg torsken i form, salt og smørklatter. Stek 15 min på 200 °C.",
+    "Damp gulrot og purre i smør og litt vann 6 min.",
+    "Server med smeltet smør, persille og sitron."
+   ]
+  },
+  {
+   "id": "fiskesuppe",
+   "name": "Kremet fiskesuppe",
+   "minutes": 30,
+   "tags": [
+    "rask",
+    "fisk",
+    "suppe",
+    "comfort",
+    "norsk"
+   ],
+   "key": [
+    "laks",
+    "torsk",
+    "purre"
+   ],
+   "ing": [
+    {
+     "p": "laks",
+     "a": 250,
+     "t": "250 g laks"
+    },
+    {
+     "p": "torsk",
+     "a": 250,
+     "t": "250 g torsk"
+    },
+    {
+     "p": "gulrot",
+     "a": 200,
+     "t": "2 gulrøtter"
+    },
+    {
+     "p": "purre",
+     "a": 0.5,
+     "t": "½ purre"
+    },
+    {
+     "p": "poteter",
+     "a": 300,
+     "t": "3 poteter"
+    },
+    {
+     "p": "matflote",
+     "a": 300,
+     "t": "3 dl fløte"
+    },
+    {
+     "p": "buljong",
+     "a": 2,
+     "t": "1 l fiskebuljong"
+    },
+    {
+     "p": "baguette",
+     "a": 1,
+     "t": "Baguette"
+    }
+   ],
+   "steps": [
+    "Kok buljong med potet og gulrot i terninger, 10 min.",
+    "Tilsett purre og fløte.",
+    "Legg i fisken i biter, trekk 5 min uten å koke.",
+    "Smak til. Server med baguette."
+   ]
+  },
+  {
+   "id": "fishtacos",
+   "name": "Fish tacos med torsk og lime",
+   "minutes": 25,
+   "tags": [
+    "rask",
+    "fisk",
+    "meksikansk",
+    "fredagskos"
+   ],
+   "key": [
+    "torsk",
+    "tortilla"
+   ],
+   "ing": [
+    {
+     "p": "torsk",
+     "a": 500,
+     "t": "500 g torsk"
+    },
+    {
+     "p": "tortilla",
+     "a": 8,
+     "t": "8 små tortillas"
+    },
+    {
+     "p": "hodekal",
+     "a": 0.25,
+     "t": "¼ hodekål"
+    },
+    {
+     "p": "lime",
+     "a": 2,
+     "t": "2 lime"
+    },
+    {
+     "p": "romme",
+     "a": 200,
+     "t": "2 dl rømme"
+    },
+    {
+     "p": "avokado",
+     "a": 2,
+     "t": "2 avokado"
+    },
+    {
+     "p": "paprikapulver",
+     "a": 1,
+     "t": "Paprikapulver"
+    },
+    {
+     "p": "paneringsmel",
+     "a": 80,
+     "t": "Paneringsmel"
+    }
+   ],
+   "steps": [
+    "Vend fisken i paneringsmel med paprika og salt, stek gyllen.",
+    "Strimle kålen, vend i limesaft og salt.",
+    "Rør rømme med lime.",
+    "Fyll tortillas med fisk, kål, avokado og rømme."
+   ]
+  },
+  {
+   "id": "laksepasta",
+   "name": "Laksepasta med spinat og fløte",
+   "minutes": 20,
+   "tags": [
+    "superrask",
+    "fisk",
+    "pasta",
+    "italiensk"
+   ],
+   "key": [
+    "laks",
+    "spinat"
+   ],
+   "ing": [
+    {
+     "p": "laks",
+     "a": 400,
+     "t": "400 g laks"
+    },
+    {
+     "p": "pasta",
+     "a": 350,
+     "t": "350 g pasta"
+    },
+    {
+     "p": "matflote",
+     "a": 300,
+     "t": "3 dl matlagingsfløte"
+    },
+    {
+     "p": "spinat",
+     "a": 150,
+     "t": "1 pose spinat"
+    },
+    {
+     "p": "sitron",
+     "a": 1,
+     "t": "1 sitron"
+    },
+    {
+     "p": "hvitlok",
+     "a": 1,
+     "t": "1 fedd hvitløk"
+    },
+    {
+     "p": "parmesan",
+     "a": 30,
+     "t": "Parmesan"
+    }
+   ],
+   "steps": [
+    "Kok pastaen.",
+    "Stek laks i terninger forsiktig, ta ut.",
+    "Kok fløte med hvitløk og sitronskall 3 min, vend inn spinat.",
+    "Bland pasta, laks og saus. Topp med parmesan."
+   ]
+  },
+  {
+   "id": "fiskekaker",
+   "name": "Fiskekaker med poteter og råkost",
+   "minutes": 25,
+   "tags": [
+    "rask",
+    "fisk",
+    "norsk",
+    "budsjett"
+   ],
+   "key": [
+    "fiskekaker",
+    "gulrot"
+   ],
+   "ing": [
+    {
+     "p": "fiskekaker",
+     "a": 600,
+     "t": "1 pk fiskekaker"
+    },
+    {
+     "p": "poteter",
+     "a": 800,
+     "t": "800 g poteter"
+    },
+    {
+     "p": "gulrot",
+     "a": 300,
+     "t": "3 gulrøtter"
+    },
+    {
+     "p": "eple",
+     "a": 1,
+     "t": "1 eple"
+    },
+    {
+     "p": "sitron",
+     "a": 1,
+     "t": "Sitron"
+    },
+    {
+     "p": "smor",
+     "a": 20,
+     "t": "Smør"
+    }
+   ],
+   "steps": [
+    "Kok potetene.",
+    "Stek fiskekakene i smør, 3 min per side.",
+    "Råkost: riv gulrot og eple, press over sitron.",
+    "Server med smeltet smør."
+   ]
+  },
+  {
+   "id": "rekepasta",
+   "name": "Pasta med reker, hvitløk og chili",
+   "minutes": 20,
+   "tags": [
+    "superrask",
+    "fisk",
+    "pasta",
+    "italiensk"
+   ],
+   "key": [
+    "reker",
+    "spaghetti"
+   ],
+   "ing": [
+    {
+     "p": "reker",
+     "a": 250,
+     "t": "250 g reker"
+    },
+    {
+     "p": "spaghetti",
+     "a": 350,
+     "t": "350 g spaghetti"
+    },
+    {
+     "p": "hvitlok",
+     "a": 3,
+     "t": "3 fedd hvitløk"
+    },
+    {
+     "p": "chiliflak",
+     "a": 1,
+     "t": "Chiliflak"
+    },
+    {
+     "p": "cherrytomat",
+     "a": 250,
+     "t": "Cherrytomater"
+    },
+    {
+     "p": "persille",
+     "a": 0.5,
+     "t": "Persille"
+    },
+    {
+     "p": "sitron",
+     "a": 1,
+     "t": "1 sitron"
+    },
+    {
+     "p": "olje",
+     "a": 1,
+     "t": "Olivenolje"
+    },
+    {
+     "p": "parmesan",
+     "a": 30,
+     "t": "Parmesan"
+    }
+   ],
+   "steps": [
+    "Kok spaghetti.",
+    "Fres hvitløk og chili i olje, tilsett halverte tomater.",
+    "Tilsett reker, varm 2 min.",
+    "Vend inn pasta, sitron og persille."
+   ]
+  },
+  {
+   "id": "pestolaks",
+   "name": "Pestolaks med ovnsgrønnsaker",
+   "minutes": 30,
+   "tags": [
+    "rask",
+    "fisk",
+    "ovn",
+    "italiensk"
+   ],
+   "key": [
+    "laks",
+    "squash"
+   ],
+   "ing": [
+    {
+     "p": "laks",
+     "a": 500,
+     "t": "500 g laks"
+    },
+    {
+     "p": "pesto",
+     "a": 95,
+     "t": "½ glass pesto"
+    },
+    {
+     "p": "squash",
+     "a": 1,
+     "t": "1 squash"
+    },
+    {
+     "p": "cherrytomat",
+     "a": 250,
+     "t": "Cherrytomater"
+    },
+    {
+     "p": "smapoteter",
+     "a": 700,
+     "t": "700 g småpoteter"
+    },
+    {
+     "p": "gullok",
+     "a": 1,
+     "t": "1 gulløk"
+    },
+    {
+     "p": "olje",
+     "a": 1,
+     "t": "Olje"
+    }
+   ],
+   "steps": [
+    "Halver småpotetene, stek 15 min på 220 °C.",
+    "Tilsett squash, løk og tomater.",
+    "Smør pesto på laksen, legg oppå.",
+    "Stek videre 15 min."
+   ]
+  },
+  {
+   "id": "tunfiskpasta",
+   "name": "Tunfiskpasta med tomat",
+   "minutes": 20,
+   "tags": [
+    "superrask",
+    "fisk",
+    "pasta",
+    "budsjett"
+   ],
+   "key": [
+    "tunfisk",
+    "hakkedetomater"
+   ],
+   "ing": [
+    {
+     "p": "tunfisk",
+     "a": 370,
+     "t": "2 bokser tunfisk"
+    },
+    {
+     "p": "pasta",
+     "a": 350,
+     "t": "350 g pasta"
+    },
+    {
+     "p": "hakkedetomater",
+     "a": 400,
+     "t": "1 boks hakkede tomater"
+    },
+    {
+     "p": "gullok",
+     "a": 1,
+     "t": "1 gulløk"
+    },
+    {
+     "p": "hvitlok",
+     "a": 2,
+     "t": "2 fedd hvitløk"
+    },
+    {
+     "p": "oregano",
+     "a": 1,
+     "t": "Oregano"
+    },
+    {
+     "p": "revetost",
+     "a": 80,
+     "t": "Revet ost"
+    }
+   ],
+   "steps": [
+    "Kok pastaen.",
+    "Fres løk og hvitløk, tilsett tomater og oregano, kok 8 min.",
+    "Vend inn tunfisken.",
+    "Bland med pasta og topp med ost."
+   ]
+  },
+  {
+   "id": "lakseburger",
+   "name": "Lakseburger med agurksalat",
+   "minutes": 25,
+   "tags": [
+    "rask",
+    "fisk",
+    "fredagskos"
+   ],
+   "key": [
+    "laks",
+    "hamburgerbrod"
+   ],
+   "ing": [
+    {
+     "p": "laks",
+     "a": 500,
+     "t": "500 g laks"
+    },
+    {
+     "p": "hamburgerbrod",
+     "a": 3,
+     "t": "3 hamburgerbrød"
+    },
+    {
+     "p": "egg",
+     "a": 1,
+     "t": "1 egg"
+    },
+    {
+     "p": "paneringsmel",
+     "a": 40,
+     "t": "Paneringsmel"
+    },
+    {
+     "p": "agurk",
+     "a": 1,
+     "t": "1 agurk"
+    },
+    {
+     "p": "romme",
+     "a": 150,
+     "t": "Rømme"
+    },
+    {
+     "p": "sitron",
+     "a": 1,
+     "t": "Sitron"
+    },
+    {
+     "p": "isberg",
+     "a": 0.5,
+     "t": "Isberg"
+    },
+    {
+     "p": "pommes",
+     "a": 600,
+     "t": "Pommes frites"
+    }
+   ],
+   "steps": [
+    "Hakk laksen grovt, bland med egg, paneringsmel, salt og pepper.",
+    "Form 3 burgere, stek 3–4 min per side.",
+    "Stek pommes frites i ovnen.",
+    "Agurksalat: tynne skiver agurk med litt sitron og salt.",
+    "Server i brød med rømme og salat."
+   ]
+  },
+  {
+   "id": "rekewok",
+   "name": "Rekewok med nudler",
+   "minutes": 20,
+   "tags": [
+    "superrask",
+    "fisk",
+    "asiatisk"
+   ],
+   "key": [
+    "reker",
+    "wokgronnsaker"
+   ],
+   "ing": [
+    {
+     "p": "reker",
+     "a": 250,
+     "t": "250 g reker"
+    },
+    {
+     "p": "nudler",
+     "a": 250,
+     "t": "1 pk eggnudler"
+    },
+    {
+     "p": "wokgronnsaker",
+     "a": 600,
+     "t": "1 pose wokgrønnsaker"
+    },
+    {
+     "p": "soyasaus",
+     "a": 40,
+     "t": "Soyasaus"
+    },
+    {
+     "p": "hvitlok",
+     "a": 2,
+     "t": "Hvitløk"
+    },
+    {
+     "p": "ingefaer",
+     "a": 20,
+     "t": "Ingefær"
+    },
+    {
+     "p": "lime",
+     "a": 1,
+     "t": "Lime"
+    },
+    {
+     "p": "olje",
+     "a": 1,
+     "t": "Olje"
+    }
+   ],
+   "steps": [
+    "Kok nudlene.",
+    "Wok grønnsaker med hvitløk og ingefær 4 min.",
+    "Tilsett reker og soyasaus, varm gjennom.",
+    "Vend inn nudler, press over lime."
+   ]
+  },
+  {
+   "id": "kyllingsotpotet",
+   "name": "Kyllinglår med søtpotet og salatost i ovn",
+   "minutes": 40,
+   "tags": [
+    "kylling",
+    "ovn"
+   ],
+   "key": [
+    "kyllinglarfilet",
+    "sotpotet"
+   ],
+   "ing": [
+    {
+     "p": "kyllinglarfilet",
+     "a": 600,
+     "t": "600 g kyllinglårfilet"
+    },
+    {
+     "p": "sotpotet",
+     "a": 1000,
+     "t": "2 søtpoteter"
+    },
+    {
+     "p": "gullok",
+     "a": 1,
+     "t": "1 gulløk"
+    },
+    {
+     "p": "salatost",
+     "a": 100,
+     "t": "½ pk salatost"
+    },
+    {
+     "p": "spinat",
+     "a": 75,
+     "t": "½ pose spinat"
+    },
+    {
+     "p": "olje",
+     "a": 1,
+     "t": "Olje"
+    },
+    {
+     "p": "paprikapulver",
+     "a": 1,
+     "t": "Paprikapulver"
+    }
+   ],
+   "steps": [
+    "Skjær søtpotet og løk i biter, vend i olje og salt.",
+    "Krydre kyllingen med paprika, legg oppå.",
+    "Stek 30 min på 220 °C.",
+    "Vend inn spinat og smuldre salatost over før servering."
+   ]
+  }
+ ]
+}
