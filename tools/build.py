@@ -92,13 +92,22 @@ def build_recipes(catalog):
                 if per is None: sys.exit(f"{r['id']}: mangler omregning {i['u']} -> {p['u']} for {i['p']}")
                 a = round(q * per, 3)
             qty = fmt_qty(q, i["u"])
-            ing.append(dict(p=i["p"], a=a, t=(qty + " " + i["n"]).strip()))
+            ing.append(dict(p=i["p"], a=a, t=(qty + " " + i["n"]).strip(), q=None if q is None else round(q, 4), u=i["u"], n=i["n"]))
         for k in r["key"]:
             if k not in pids: sys.exit(f"{r['id']}: ukjent key-vare {k}")
         tags = [t for t in r["tags"] if t not in ("superrask", "rask")]
         if r["minutes"] <= 20: tags.insert(0, "superrask")
         elif r["minutes"] <= 30: tags.insert(0, "rask")
-        out.append(dict(id=r["id"], name=r["name"], minutes=r["minutes"], tags=tags, key=r["key"], ing=ing, steps=r["steps"],
+        import steps_src
+        st = steps_src.S.get(r["id"])
+        if not st: sys.exit(f"{r['id']}: mangler matlagingssteg i steps_src.py")
+        have = {i["p"] for i in ing}
+        steps = []
+        for h, txt, m in st:
+            for ref in re.findall(r"\{(\w+)\}", txt):
+                if ref not in have: sys.exit(f"{r['id']}: steget '{h}' viser til {ref}, som ikke er en ingrediens")
+            steps.append(dict(h=h, t=txt, m=m))
+        out.append(dict(id=r["id"], name=r["name"], minutes=r["minutes"], tags=tags, key=r["key"], ing=ing, steps=steps,
                         src=r["src"], srcName=r["srcName"], serves=r["serves"], note=r.get("note")))
     return dict(note="Oppskrifter fra oppgitte kilder, omregnet til 2,5 porsjoner. Fremgangsmåten er forkortet.", recipes=out)
 

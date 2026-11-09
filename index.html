@@ -185,6 +185,37 @@ details.wk summary{cursor:pointer;display:flex;justify-content:space-between;gap
 .wkn small{color:var(--muted)}
 ul.bought{margin:0 0 12px;padding-left:20px;columns:2;column-gap:20px;font-size:14px}
 ul.bought small{color:var(--muted);font-family:var(--f-mono)}
+
+/* v4: matlagingsmodus og porsjoner */
+.porow{display:flex;align-items:center;justify-content:space-between;gap:12px;font-weight:700}
+.startcook{justify-self:start;border-radius:99px;padding:12px 22px}
+ol.steps{display:grid;gap:8px}
+ol.steps b{font-weight:700}
+.cook{position:fixed;inset:0;z-index:30;background:#121614;color:#eef3ef;display:flex;flex-direction:column;padding:calc(14px + env(safe-area-inset-top)) max(18px,env(safe-area-inset-left)) calc(16px + env(safe-area-inset-bottom));color-scheme:dark}
+.ctop{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.cname{font-weight:700;font-size:16px}
+.cx{width:44px;height:44px;border:0;background:none;color:#eef3ef;font-size:34px;line-height:1;cursor:pointer}
+.cprog{display:flex;gap:6px;margin:10px 0 6px}
+.cprog i{flex:1;height:3px;border-radius:2px;background:#3a433e}
+.cprog i.on{background:#eef3ef}
+.crun{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.chip.run{background:#1f2a24;color:#9fe0bd;border-color:#2f5a44;font-size:13px;padding:4px 10px;cursor:pointer}
+.chip.run.done{color:#ffcf9c;border-color:#ffcf9c}
+.cbody{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;gap:18px;overflow:auto;padding:12px 4px}
+.ch{font-family:var(--f-display);font-size:30px;margin:0;text-wrap:balance}
+.ct{font-size:22px;line-height:1.4;max-width:32ch;margin:0}
+.cport{margin:0;color:#9fb0a6;font-family:var(--f-mono)}
+.cing{list-style:none;margin:0;padding:0;font-size:19px;line-height:1.5;text-align:left;display:grid;gap:4px}
+.ctimer{display:grid;justify-items:center;gap:14px;margin-top:10px}
+.cclock{font-family:var(--f-display);font-size:76px;font-weight:500;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.ctimer.done .cclock{color:#ffcf9c}
+.cbtns{display:flex;gap:12px;align-items:center}
+.cplay{width:76px;height:76px;border-radius:50%;border:0;background:#eef3ef;color:#121614;display:grid;place-items:center;cursor:pointer}
+.cplay svg{width:32px;height:32px;fill:currentColor}
+.cook .ghost{color:#eef3ef;border-color:#3a433e}
+.cnav{display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:18px}
+.cnb{width:64px;height:64px;border-radius:50%;border:0;background:#222a26;color:#eef3ef;font-size:34px;cursor:pointer}
+.cnb:disabled{opacity:.3;cursor:default}
 @media (prefers-reduced-motion: reduce){*{transition:none !important}}
 </style>
 </head>
@@ -244,9 +275,10 @@ ul.bought small{color:var(--muted);font-family:var(--f-mono)}
     <div class="foot"><span id="me"></span> · <button type="button" id="shareBtn">Kopier delingslenke</button></div>
   </div>
 </div>
+<div class="cook hidden" id="cook" role="dialog" aria-modal="true" aria-label="Matlaging"></div>
 <div class="sheet hidden" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle"><div class="panel"><header><h2 id="sheetTitle">Bytt middag</h2><button class="ghost" type="button" id="sheetClose">Lukk</button></header><div class="scroll" id="sheetBody"></div></div></div>
 
-<script src="lib.js?v=3"></script>
-<script src="app.js?v=3"></script>
+<script src="lib.js?v=4"></script>
+<script src="app.js?v=4"></script>
 </body>
 </html>

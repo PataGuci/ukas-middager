@@ -15,3 +15,4 @@ Ingen data eller nøkler ligger i dette repoet.
 
 ## plan.json (i data-repoet)
 `{ "v": 2, "weekId", "weekLabel", "dates", "title", "generatedAt", "offerStatus", "offers": { "<vare-id>": { "price": 39.9, "label": "tilbud 39,90" } }, "days": [ { "key", "label", "date", "recipe": "<oppskrift-id>" } ], "recipes": [ valgfrie nye oppskrifter i samme format som biblioteket ] }`
+- `tools/steps_src.py` – matlagingsstegene (tittel, tekst med `{vare-id}` for mengder, minutter for nedtelling)

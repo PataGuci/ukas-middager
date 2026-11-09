@@ -212,8 +212,10 @@
       dh += '<details class="day' + (t ? ' today' : '') + '"' + (t ? ' open' : '') + ' id="dag-' + esc(d.key) + '"><summary><span class="dl">' + esc((d.label || '').slice(0, 3)) + '<b>' + (d.date ? Number(d.date.slice(8, 10)) : '') + '</b></span>' +
         '<span class="dish">' + esc(r.name) + (t ? '<span class="today-tag">i dag</span>' : '') + '</span><span class="min">' + r.minutes + ' min</span></summary><div class="body">' +
         '<div class="rm">' + (d.swapped ? '<span class="chip swap">byttet</span>' : '') + (!d.planned ? '<span class="chip swap">lagt til</span>' : '') + r.tags.map(tg => '<span class="chip">' + esc(TAGNAME[tg] || tg) + '</span>').join('') + conf.map(c => '<span class="chip warn">' + esc(c) + '</span>').join('') + '</div>' +
-        '<div><h3>Ingredienser (2,5 porsjoner)</h3><ul>' + r.ing.map(x => '<li>' + esc(x.t) + '</li>').join('') + '</ul></div>' +
-        '<div><h3>Slik gjør du</h3><ol>' + r.steps.map(x => '<li>' + esc(x) + '</li>').join('') + '</ol></div>' +
+        '<div class="porow"><span>Porsjoner</span><span class="step"><button type="button" class="sb" data-portions="' + esc(d.key) + '" data-d="-0.5" aria-label="Færre porsjoner">−</button><span class="sq">' + L.fmtNum(d.portions) + '</span><button type="button" class="sb" data-portions="' + esc(d.key) + '" data-d="0.5" aria-label="Flere porsjoner">+</button></span></div>' +
+        '<button class="btn startcook" type="button" data-cook="' + esc(d.key) + '">Start matlagingen</button>' +
+        '<div><h3>Ingredienser</h3><ul>' + r.ing.map(x => '<li>' + esc(L.ingText(x, d.portions)) + '</li>').join('') + '</ul></div>' +
+        '<div><h3>Fremgangsmåte</h3><ol class="steps">' + r.steps.map(x => { const o = L.stepObj(x); return '<li>' + (o.h ? '<b>' + esc(o.h) + '.</b> ' : '') + esc(L.stepText(o, r, d.portions)) + (o.m ? ' <span class="chip">' + o.m + ' min</span>' : '') + '</li>'; }).join('') + '</ol></div>' +
         (r.src ? '<p class="src">Kilde: <a href="' + esc(r.src) + '" target="_blank" rel="noopener">' + esc(r.srcName || 'oppskriften') + '</a>' + (r.serves && r.serves !== 2.5 ? ', omregnet fra ' + r.serves + ' porsjoner' : '') + '.' + (r.note ? ' ' + esc(r.note) : '') + '</p>' : '') +
         '<div class="daybtns"><button class="btn" type="button" data-swap="' + esc(d.key) + '">Bytt middag</button>' +
         (d.swapped && w.recipes[d.original] ? '<button class="ghost" type="button" data-unswap="' + esc(d.key) + '">Tilbake til opprinnelig</button>' : '') +
@@ -313,7 +315,7 @@
     if (p) { $('kicker').textContent = (p.weekLabel || '') + (p.dates ? ' · ' + p.dates : '') + ' · Kiwi'; $('title').textContent = p.title || 'Ukas middager'; }
     const w = week();
     if (!w) { $('sections').innerHTML = ''; $('days').innerHTML = ''; $('sum').innerHTML = ''; $('haveBox').innerHTML = ''; $('overview').innerHTML = ''; $('count').textContent = '–'; return; }
-    renderList(w); renderDays(w); renderSheet(w); renderOverview(w);
+    renderList(w); renderDays(w); renderSheet(w); renderOverview(w); if (C.key) renderCook();
   }
 
   // ---------- Autocomplete ----------
@@ -363,6 +365,9 @@
   $('sections').addEventListener('click', listClick);
   $('haveBox').addEventListener('click', listClick);
   $('days').addEventListener('click', e => {
+    const po = e.target.closest('[data-portions]');
+    if (po) { const d = week().days.find(x => x.key === po.dataset.portions); if (d) enqueue({ t: 'portions', day: d.key, n: Math.min(12, Math.max(1, d.portions + Number(po.dataset.d))) }); return; }
+    const ck = e.target.closest('[data-cook]'); if (ck) { openCook(ck.dataset.cook); return; }
     const s = e.target.closest('[data-swap]'); if (s) { S.sheet = { key: s.dataset.swap }; S.filter = 'alle'; S.q = ''; render(); $('sheetBody').scrollTop = 0; return; }
     const u = e.target.closest('[data-unswap]'); if (u) { enqueue({ t: 'swap', day: u.dataset.unswap, r: null }); return; }
     const rm = e.target.closest('[data-rmday]'); if (rm) { enqueue({ t: 'rmday', day: rm.dataset.rmday, planned: rm.dataset.planned === '1' }); return; }
@@ -411,6 +416,96 @@
   });
   document.addEventListener('visibilitychange', () => { if (!document.hidden) poll(); });
   window.addEventListener('online', () => { flush(); poll(); });
+
+
+  // ---------- Matlagingsmodus ----------
+  const C = { key: null, i: 0, timers: {}, tick: null, wake: null, audio: null };
+  function cookData() {
+    const w = week(); if (!w) return null;
+    const d = w.days.find(x => x.key === C.key); if (!d || !d.r) return null;
+    const steps = [{ h: 'Finn fram', t: null, m: null, ing: true }].concat(d.r.steps.map(L.stepObj));
+    return { d, r: d.r, steps };
+  }
+  function fmtClock(ms) { const s = Math.max(0, Math.ceil(ms / 1000)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
+  function renderCook() {
+    const el = $('cook');
+    const cd = C.key && cookData();
+    if (!cd) { el.classList.add('hidden'); return; }
+    el.classList.remove('hidden');
+    const { d, r, steps } = cd; C.i = Math.min(C.i, steps.length - 1);
+    const st = steps[C.i], tid = C.key + ':' + C.i, t = C.timers[tid];
+    let body = '<h2 class="ch">' + esc(st.h || ('Steg ' + C.i)) + '</h2>';
+    if (st.ing) body += '<p class="cport">' + L.fmtNum(d.portions) + ' porsjoner</p><ul class="cing">' + r.ing.map(x => '<li>' + esc(L.ingText(x, d.portions)) + '</li>').join('') + '</ul>';
+    else body += '<p class="ct">' + esc(L.stepText(st, r, d.portions)) + '</p>';
+    let timer = '';
+    if (st.m) {
+      const left = t ? (t.paused ? t.left : t.end - Date.now()) : st.m * 60000;
+      const done = t && !t.paused && left <= 0;
+      timer = '<div class="ctimer' + (done ? ' done' : '') + '"><div class="cclock" id="cclock">' + (t ? (done ? 'Ferdig!' : fmtClock(left)) : st.m + 'm') + '</div>' +
+        '<div class="cbtns"><button type="button" class="cplay" data-timer="' + (t && !t.paused && !done ? 'pause' : 'start') + '" aria-label="' + (t && !t.paused && !done ? 'Pause' : 'Start nedtelling') + '">' +
+        (t && !t.paused && !done ? '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>' : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>') + '</button>' +
+        (t ? '<button type="button" class="ghost" data-timer="reset">Nullstill</button>' : '') + '</div></div>';
+    }
+    const running = Object.entries(C.timers).filter(([k, v]) => k !== tid && k.startsWith(C.key + ':') && !v.paused).map(([k, v]) => {
+      const i = Number(k.split(':')[1]); const left = v.end - Date.now();
+      return '<button type="button" class="chip run' + (left <= 0 ? ' done' : '') + '" data-goto="' + i + '">' + esc(steps[i].h) + ' ' + (left <= 0 ? 'ferdig' : fmtClock(left)) + '</button>';
+    }).join('');
+    el.innerHTML = '<div class="ctop"><span class="cname">' + esc(r.name) + '</span><button type="button" class="cx" data-cookclose aria-label="Lukk matlagingen">×</button></div>' +
+      '<div class="cprog">' + steps.map((x, i) => '<i class="' + (i <= C.i ? 'on' : '') + '"></i>').join('') + '</div>' +
+      (running ? '<div class="crun">' + running + '</div>' : '') +
+      '<div class="cbody">' + body + timer + '</div>' +
+      '<div class="cnav"><button type="button" class="cnb" data-nav="-1" ' + (C.i === 0 ? 'disabled' : '') + ' aria-label="Forrige steg">‹</button><span>' + (C.i + 1) + ' av ' + steps.length + '</span><button type="button" class="cnb" data-nav="1" ' + (C.i === steps.length - 1 ? 'disabled' : '') + ' aria-label="Neste steg">›</button></div>';
+  }
+  function beep() {
+    try { navigator.vibrate && navigator.vibrate([400, 200, 400, 200, 400]); } catch (e) { }
+    try {
+      const a = C.audio; if (!a) return;
+      [0, 0.5, 1].forEach(o => { const g = a.createGain(), osc = a.createOscillator(); osc.frequency.value = 880; osc.connect(g); g.connect(a.destination);
+        g.gain.setValueAtTime(0.0001, a.currentTime + o); g.gain.exponentialRampToValueAtTime(0.4, a.currentTime + o + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, a.currentTime + o + 0.35);
+        osc.start(a.currentTime + o); osc.stop(a.currentTime + o + 0.4); });
+    } catch (e) { }
+  }
+  function tick() {
+    let any = false, rerender = false;
+    Object.values(C.timers).forEach(t => { if (t.paused) return; any = true; if (!t.rang && t.end - Date.now() <= 0) { t.rang = true; beep(); rerender = true; } });
+    if (rerender || document.querySelector('.crun')) renderCook();
+    else { const c = $('cclock'); const t = C.timers[C.key + ':' + C.i]; if (c && t && !t.paused) c.textContent = t.end - Date.now() <= 0 ? 'Ferdig!' : fmtClock(t.end - Date.now()); }
+    if (!any) { clearInterval(C.tick); C.tick = null; }
+  }
+  async function wakeLock(on) {
+    try {
+      if (on && navigator.wakeLock && !C.wake) { C.wake = await navigator.wakeLock.request('screen'); C.wake.addEventListener('release', () => { C.wake = null; }); }
+      if (!on && C.wake) { await C.wake.release(); C.wake = null; }
+    } catch (e) { }
+  }
+  function openCook(key) { C.key = key; C.i = 0; renderCook(); wakeLock(true); document.body.style.overflow = 'hidden'; }
+  function closeCook() { C.key = null; renderCook(); wakeLock(false); document.body.style.overflow = ''; }
+  document.addEventListener('visibilitychange', () => { if (!document.hidden && C.key) wakeLock(true); });
+  $('cook').addEventListener('click', e => {
+    if (e.target.closest('[data-cookclose]')) { closeCook(); return; }
+    const n = e.target.closest('[data-nav]'); if (n) { C.i += Number(n.dataset.nav); renderCook(); return; }
+    const g = e.target.closest('[data-goto]'); if (g) { C.i = Number(g.dataset.goto); renderCook(); return; }
+    const tb = e.target.closest('[data-timer]'); if (!tb) return;
+    const cd = cookData(); const st = cd.steps[C.i]; const tid = C.key + ':' + C.i; const t = C.timers[tid];
+    if (!C.audio) { try { C.audio = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { } }
+    if (C.audio && C.audio.state === 'suspended') C.audio.resume();
+    if (tb.dataset.timer === 'reset') delete C.timers[tid];
+    else if (tb.dataset.timer === 'pause') C.timers[tid] = { paused: true, left: t.end - Date.now() };
+    else { const left = t && t.paused ? t.left : st.m * 60000; C.timers[tid] = { end: Date.now() + left }; if (!C.tick) C.tick = setInterval(tick, 1000); }
+    renderCook();
+  });
+  let tx = null;
+  $('cook').addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+  $('cook').addEventListener('touchend', e => {
+    if (tx === null) return; const dx = e.changedTouches[0].clientX - tx; tx = null;
+    const cd = cookData(); if (!cd || Math.abs(dx) < 60) return;
+    C.i = Math.max(0, Math.min(cd.steps.length - 1, C.i + (dx < 0 ? 1 : -1))); renderCook();
+  });
+  document.addEventListener('keydown', e => {
+    if (!C.key) return;
+    if (e.key === 'Escape') closeCook();
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { const cd = cookData(); C.i = Math.max(0, Math.min(cd.steps.length - 1, C.i + (e.key === 'ArrowRight' ? 1 : -1))); renderCook(); }
+  });
 
   // ---------- Boot ----------
   async function loadStatic() {

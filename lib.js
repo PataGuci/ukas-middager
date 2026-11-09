@@ -3,7 +3,8 @@
   const DAYS = [['man', 'Mandag'], ['tir', 'Tirsdag'], ['ons', 'Onsdag'], ['tor', 'Torsdag'], ['fre', 'Fredag'], ['lor', 'Lørdag'], ['son', 'Søndag']];
   const DAYNUM = Object.fromEntries(DAYS.map(([k], i) => [k, i]));
   const FRESH_FROM_DAY = 3;   // torsdag og senere: ferskt kjøtt/fisk bør fryses mandag
-  const PACK_TOLERANCE = 0.08; // trenger du bare litt mer enn én pakke (under 8 %), kjøpes én
+  const PACK_TOLERANCE = 0.08;
+  const BASE_PORTIONS = 2.5;   // oppskriftene i biblioteket er regnet om til 2,5 porsjoner // trenger du bare litt mer enn én pakke (under 8 %), kjøpes én
 
   function norm(s) {
     return String(s || '').toLowerCase()
@@ -51,7 +52,8 @@
     list.sort((a, b) => (DAYNUM[a.key] ?? 9) - (DAYNUM[b.key] ?? 9));
     return list.map(d => {
       const rid = swaps[d.key] || d.recipe;
-      return Object.assign(d, { rid, original: d.recipe, swapped: d.planned && !!swaps[d.key] && swaps[d.key] !== d.recipe, r: recipes[rid] || null });
+      const portions = (st.portions || {})[d.key] || BASE_PORTIONS;
+      return Object.assign(d, { rid, portions, original: d.recipe, swapped: d.planned && !!swaps[d.key] && swaps[d.key] !== d.recipe, r: recipes[rid] || null });
     });
   }
 
@@ -85,8 +87,10 @@
     const need = {}, usedBy = {};
     days.forEach((d, i) => {
       if (!d.r) return;
+      const f = (d.portions || BASE_PORTIONS) / BASE_PORTIONS;
       d.r.ing.forEach(x => {
-        need[x.p] = (need[x.p] || 0) + x.a;
+        const p = cat.byId[x.p];
+        need[x.p] = (need[x.p] || 0) + (p && p.pantry ? x.a : x.a * f);
         (usedBy[x.p] = usedBy[x.p] || []).push(d.key || i);
       });
     });
@@ -223,7 +227,7 @@
   function rollover(old, weekId) {
     const extras = ((old && old.extras) || []).filter(x => !x.checked && !x.everChecked)
       .map(x => Object.assign({}, x, { have: false, carried: true }));
-    return { weekId, checks: {}, have: {}, swaps: {}, qty: {}, removed: {}, added: [], extras };
+    return { weekId, checks: {}, have: {}, swaps: {}, qty: {}, removed: {}, added: [], portions: {}, extras };
   }
 
   function applyOp(st, op, me) {
@@ -240,6 +244,7 @@
       case 'xhave': if (x) { x.have = op.v; } break;
       case 'xqty': if (x) { if (op.n <= 0) st.extras = st.extras.filter(e => e.id !== op.id); else x.n = Math.round(op.n); } break;
       case 'del': st.extras = st.extras.filter(e => e.id !== op.id); break;
+      case 'portions': st.portions = st.portions || {}; if (!op.n || op.n === BASE_PORTIONS) delete st.portions[op.day]; else st.portions[op.day] = op.n; break;
       case 'swap': if (op.r) st.swaps[op.day] = op.r; else delete st.swaps[op.day]; break;
       case 'addday': if (op.planned) { delete st.removed[op.day]; if (op.r) st.swaps[op.day] = op.r; }
         else if (!st.added.some(a => a.key === op.day)) st.added.push({ key: op.day, label: op.label, date: op.date, recipe: op.r }); break;
@@ -247,6 +252,37 @@
     }
     return st;
   }
+
+
+  // ---------- Mengder for valgt antall porsjoner (samme regler som tools/build.py) ----------
+  function fmtNum(x) {
+    const whole = Math.floor(x + 1e-9), rest = Math.round((x - whole) * 100) / 100;
+    const fr = { 0.5: '½', 0.25: '¼', 0.75: '¾' }[rest];
+    if (fr) return (whole ? String(whole) : '') + fr;
+    return String(Math.round(x * 10) / 10).replace('.', ',');
+  }
+  function fmtQty(q, u) {
+    if (q === null || q === undefined) return '';
+    if (u === 'g') { q = q < 100 ? Math.round(q / 5) * 5 : Math.round(q / 25) * 25; return q + ' g'; }
+    if (u === 'kg') return fmtQty(q * 1000, 'g');
+    if (u === 'l') return q < 1 ? fmtQty(q * 10, 'dl') : fmtNum(Math.round(q * 4) / 4) + ' l';
+    if (u === 'dl' || u === 'ss' || u === 'ts' || u === 'krm') return fmtNum(Math.max(0.5, Math.round(q * 2) / 2)) + ' ' + u;
+    let v = Math.max(0.5, Math.round(q * 2) / 2);
+    if (v >= 3) v = Math.round(q);
+    return fmtNum(v) + (u === 'stk' ? '' : ' ' + u);
+  }
+  /** Ingredient line for a given number of portions. */
+  function ingText(x, portions) {
+    if (x.q === undefined) return x.t; // eldre format
+    const q = x.q === null ? null : x.q * (portions || BASE_PORTIONS) / BASE_PORTIONS;
+    return (fmtQty(q, x.u) + ' ' + x.n).trim();
+  }
+  /** Step text with {vare-id} replaced by scaled amount and name. */
+  function stepText(step, recipe, portions) {
+    const t = typeof step === 'string' ? step : step.t;
+    return t.replace(/\{(\w+)\}/g, (m, id) => { const x = recipe.ing.find(i => i.p === id); return x ? ingText(x, portions) : id; });
+  }
+  function stepObj(step) { return typeof step === 'string' ? { h: '', t: step, m: null } : step; }
 
   // ---------- Budget history ----------
   function emptyHistory() { return { budget: 0, weeks: {} }; }
@@ -274,5 +310,5 @@
   }
 
   root.Lib = { DAYS, norm, shortName, indexCatalog, indexRecipes, effectiveDays, addableDays, weekMonday, buildList, isHave, weekTotal, freezeHints,
-    leftoverHints, conflicts, rankSwaps, searchCatalog, guessSection, rollover, applyOp, fmtAmount, emptyHistory, applyHistOp, monthSummary, addDays };
+    leftoverHints, conflicts, rankSwaps, searchCatalog, guessSection, rollover, applyOp, fmtAmount, emptyHistory, applyHistOp, monthSummary, addDays, BASE_PORTIONS, fmtNum, fmtQty, ingText, stepText, stepObj };
 })(typeof window !== 'undefined' ? window : globalThis);
