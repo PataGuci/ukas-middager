@@ -7,7 +7,7 @@
   const POLL_MS = 6000;
   const TAGS = [['alle', 'Alle'], ['superrask', 'Superrask'], ['rask', 'Rask'], ['comfort', 'Comfort food'], ['italiensk', 'Italiensk'],
     ['meksikansk', 'Meksikansk'], ['asiatisk', 'Asiatisk'], ['norsk', 'Norsk'], ['kylling', 'Kylling'], ['kjott', 'Kjøtt'],
-    ['fisk', 'Fisk'], ['pasta', 'Pasta'], ['ovn', 'I ovnen'], ['gryte', 'Gryte'], ['suppe', 'Suppe'], ['vegetar', 'Vegetar'], ['fredagskos', 'Fredagskos'], ['budsjett', 'Budsjett']];
+    ['fisk', 'Fisk'], ['pasta', 'Pasta'], ['ovn', 'I ovnen'], ['gryte', 'Gryte'], ['suppe', 'Suppe'], ['fredagskos', 'Fredagskos'], ['budsjett', 'Budsjett']];
   const TAGNAME = Object.fromEntries(TAGS);
   const MONTHS = ['januar', 'februar', 'mars', 'april', 'mai', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'desember'];
 
