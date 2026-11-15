@@ -293,7 +293,13 @@
     if (op.t === 'actual') {
       const w = h.weeks[op.weekId] = Object.assign({}, h.weeks[op.weekId] || {});
       if (op.v === null) { delete w.actual; } else { w.actual = Math.round(op.v); }
-      w.estimate = op.estimate; w.date = op.date; w.label = op.label; w.items = op.items; w.by = op.by; w.savedAt = op.at; if (op.receipt) w.receipt = op.receipt; else delete w.receipt;
+      w.estimate = op.estimate; w.date = op.date; w.label = op.label; w.items = op.items; w.by = op.by; w.savedAt = op.at;
+    }
+    if (op.t === 'skip') {
+      const w = h.weeks[op.weekId] = Object.assign({}, h.weeks[op.weekId] || {});
+      const s = new Set(w.skip || []); if (op.v) s.add(op.id); else s.delete(op.id);
+      w.skip = Array.from(s); if (!w.skip.length) delete w.skip;
+      if (!w.label && op.label) w.label = op.label; if (!w.date && op.date) w.date = op.date;
     }
     return h;
   }
@@ -337,9 +343,36 @@
         change: first.unit ? Math.round(1000 * (last.unit - first.unit) / first.unit) / 10 : 0, points: obs };
     }).filter(Boolean).sort((a, b) => b.n - a.n || a.p.n.localeCompare(b.p.n, 'nb'));
   }
-  /** Kvitteringer som hører til en uke (id starter med uke-id-en). */
-  function receiptsForWeek(list, weekId) { return (list || []).filter(r => r && String(r.id).startsWith(weekId + '-')).sort((a, b) => String(a.id).localeCompare(String(b.id))); }
+  /** ISO-uke for en dato (ÅÅÅÅ-MM-DD): id, etikett og mandag. */
+  function isoWeek(dateISO) {
+    const d = new Date(dateISO + 'T12:00:00Z'); if (isNaN(d)) return null;
+    const mon = new Date(d); mon.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 6) % 7));
+    const thu = new Date(mon); thu.setUTCDate(mon.getUTCDate() + 3);
+    const y = thu.getUTCFullYear(), jan4 = new Date(Date.UTC(y, 0, 4));
+    const w = 1 + Math.round(((thu - jan4) / 864e5 - 3 + ((jan4.getUTCDay() + 6) % 7)) / 7);
+    return { id: y + '-W' + String(w).padStart(2, '0'), label: 'Uke ' + w, monday: mon.toISOString().slice(0, 10) };
+  }
+  /** Uka en kvittering hører til: datoen på kvitteringen, ellers uka den ble skannet (starten av id-en). */
+  function receiptWeek(r) {
+    const w = r && /^\d{4}-\d{2}-\d{2}$/.test(r.date || '') ? isoWeek(r.date) : null;
+    return w ? w.id : String((r && r.id) || '').slice(0, 8);
+  }
+  function receiptsForWeek(list, weekId) { return (list || []).filter(r => r && receiptWeek(r) === weekId).sort((a, b) => String(a.date || a.id).localeCompare(String(b.date || b.id))); }
+  /** Historikk der ukas faktiske sum er summen av ukas kvitteringer (minus de som er tatt ut av summen). Endrer ikke originalen. */
+  function withReceipts(h, receipts) {
+    h = JSON.parse(JSON.stringify(h || emptyHistory())); h.weeks = h.weeks || {};
+    const by = {};
+    (receipts || []).forEach(r => { if (r && !r.error && typeof r.total === 'number') (by[receiptWeek(r)] = by[receiptWeek(r)] || []).push(r); });
+    Object.keys(by).forEach(id => {
+      const w = h.weeks[id] = h.weeks[id] || {};
+      const skip = new Set(w.skip || []), inc = by[id].filter(r => !skip.has(r.id));
+      w.rcount = inc.length; w.rall = by[id].length;
+      if (!w.label || !w.date) { const iw = by[id][0].date ? isoWeek(by[id][0].date) : null; if (iw) { w.label = w.label || iw.label; w.date = w.date || iw.monday; } else { w.label = w.label || 'Uke ' + Number(id.slice(6)); } }
+      if (inc.length) { w.manual = typeof w.actual === 'number' ? w.actual : undefined; w.actual = Math.round(inc.reduce((s, r) => s + r.total, 0)); w.fromReceipts = true; }
+    });
+    return h;
+  }
 
-  root.Lib = { receiptKey, applyPrices, priceTrends, receiptsForWeek, DAYS, norm, shortName, indexCatalog, indexRecipes, effectiveDays, addableDays, weekMonday, buildList, isHave, weekTotal, freezeHints,
+  root.Lib = { receiptKey, applyPrices, priceTrends, receiptsForWeek, receiptWeek, isoWeek, withReceipts, DAYS, norm, shortName, indexCatalog, indexRecipes, effectiveDays, addableDays, weekMonday, buildList, isHave, weekTotal, freezeHints,
     leftoverHints, conflicts, rankSwaps, searchCatalog, guessSection, rollover, applyOp, fmtAmount, emptyHistory, applyHistOp, monthSummary, addDays, BASE_PORTIONS, fmtNum, fmtQty, ingText, stepText, stepObj };
 })(typeof window !== 'undefined' ? window : globalThis);
