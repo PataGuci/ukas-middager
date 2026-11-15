@@ -402,14 +402,19 @@
     return '<svg class="spark" viewBox="0 0 ' + W + ' ' + H + '" aria-hidden="true"><polyline points="' + xy.join(' ') + '" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>';
   }
   function trendBox() {
-    const tr = L.priceTrends(S.prices, S.cat);
-    if (!tr.length) return '';
-    let h = '<details class="wk trends" id="trends"><summary><span>Faktiske priser</span><span class="wkn">' + tr.length + ' varer</span></summary>';
-    h += '<p class="small">Ordinær pris per pakning slik den sto på kvitteringene. Anslaget i appen bruker medianen av de siste kjøpene.</p><ul class="trend">';
-    tr.forEach(t => {
-      const ch = t.n > 1 ? '<span class="chip' + (t.change > 0 ? ' warn' : t.change < 0 ? ' good' : '') + '">' + (t.change > 0 ? '+' : '') + String(t.change).replace('.', ',') + ' % siden ' + dShort(t.first.d) + '</span>' : '';
-      h += '<li><div class="rl"><span class="rt">' + esc(t.p.n) + '</span><span class="rp">' + kr2(t.last.unit) + '</span></div><div class="rm">' + spark(t.points) +
-        '<span class="chip">' + t.n + ' kjøp</span>' + ch + (t.est ? '<span class="chip">anslag var ' + kr(t.est) + '</span>' : '') + '</div></li>';
+    const gs = L.productGroups(S.prices, S.cat);
+    if (!gs.length) return '';
+    const np = gs.reduce((n, g) => n + g.products.length, 0);
+    let h = '<details class="wk trends" id="trends"><summary><span>Faktiske priser</span><span class="wkn">' + gs.length + ' grupper · ' + np + ' produkter</span></summary>';
+    h += '<p class="small">Gruppert under overkategori. Prisen på gruppen er per katalogpakning (median av de siste kjøpene) og brukes i anslagene. Under ligger hvert produkt med sin egen pris per stk eller kg.</p><ul class="trend">';
+    const chg = (c, n, d, d2) => n > 1 && d !== d2 ? '<span class="chip' + (c > 0 ? ' warn' : c < 0 ? ' good' : '') + '">' + (c > 0 ? '+' : '') + String(c).replace('.', ',') + ' % siden ' + dShort(d) + '</span>' : '';
+    gs.forEach(g => {
+      const t = g.trend;
+      h += '<li><details class="pg" id="pg-' + esc(g.key) + '"><summary><div class="rl"><span class="rt"><b>' + esc(g.name) + '</b></span><span class="rp">' + (t ? kr2(t.p.pr) + '<small>per pakning</small>' : '<small>' + g.products.length + ' produkt' + (g.products.length > 1 ? 'er' : '') + '</small>') + '</span></div>' +
+        (t ? '<div class="rm">' + (t.first.d !== t.last.d ? spark(t.points) : '') + '<span class="chip">' + t.n + ' kjøp</span>' + chg(t.change, t.n, t.first.d, t.last.d) + (t.est ? '<span class="chip">anslag var ' + kr(t.est) + '</span>' : '') + '</div>' : '') + '</summary>';
+      h += '<ul class="prods">' + g.products.map(p => '<li><div class="rl"><span class="rt">' + esc(p.n) + '</span><span class="rp">' + kr2(p.last.p) + (p.unit === 'kg' ? '/kg' : '') +
+        (p.last.o > p.last.p ? '<small>ordinær ' + kr2(p.last.o) + '</small>' : '') + '</span></div><div class="rm">' + (p.first.d !== p.last.d ? spark(p.points.map(x => ({ unit: x.o }))) : '') + '<span class="chip">' + p.count + ' kjøp</span>' + chg(p.change, p.count, p.first.d, p.last.d) + '</div></li>').join('') +
+        (g.products.length ? '' : '<li class="small">Ingen produktdetaljer ennå.</li>') + '</ul></details></li>';
     });
     return h + '</ul></details>';
   }
@@ -429,16 +434,24 @@
   function renderSugg() {
     const q = $('addInput').value.trim();
     if (!q || !S.cat) { $('sugg').classList.add('hidden'); $('addInput').setAttribute('aria-expanded', 'false'); suggItems = []; return; }
-    const hits = L.searchCatalog(S.cat, q, 7);
+    const hits = L.searchCatalog(S.cat, q, 6);
     suggItems = hits.map(p => ({ p, name: p.n, s: p.s }));
-    if (!hits.some(p => L.norm(p.n) === L.norm(q))) suggItems.push({ p: null, name: q, s: L.guessSection(S.cat, q) });
+    // konkrete produkter dere har kjøpt før, med sist betalte pris
+    L.searchProducts(S.prices, S.cat, q, 4).forEach(v => {
+      const c = v.pid && S.cat.byId[v.pid];
+      suggItems.push({ v, p: c || null, name: v.n, s: v.section || L.guessSection(S.cat, v.cat || v.n), vp: v.unit === 'stk' ? v.last.p : null });
+    });
+    if (!suggItems.some(x => L.norm(x.name) === L.norm(q))) suggItems.push({ p: null, name: q, s: L.guessSection(S.cat, q) });
     if (suggIdx >= suggItems.length) suggIdx = -1;
-    $('sugg').innerHTML = suggItems.map((x, i) => '<li><button type="button" role="option" data-sugg="' + i + '" class="' + (i === suggIdx ? 'act' : '') + '"><span>' + (x.p ? esc(x.name) : 'Legg til «' + esc(x.name) + '»') + '</span><small>' + esc(x.s) + (x.p && x.p.pr && !x.p.pantry ? ' · ' + kr(x.p.pr) : '') + '</small></button></li>').join('');
+    $('sugg').innerHTML = suggItems.map((x, i) => '<li><button type="button" role="option" data-sugg="' + i + '" class="' + (i === suggIdx ? 'act' : '') + (x.v ? ' prod' : '') + '"><span>' + (x.v ? esc(x.name) : x.p ? esc(x.name) : 'Legg til «' + esc(x.name) + '»') + '</span><small>' +
+      (x.v ? 'kjøpt ' + x.v.count + ' gang' + (x.v.count > 1 ? 'er' : '') + ' · ' + kr2(x.v.last.p) + (x.v.unit === 'kg' ? '/kg' : '') + (x.p ? ' · under ' + esc(x.p.n) : '') : esc(x.s) + (x.p && x.p.pr && !x.p.pantry ? ' · ' + kr(x.p.pr) : '')) + '</small></button></li>').join('');
     $('sugg').classList.remove('hidden'); $('addInput').setAttribute('aria-expanded', 'true');
   }
   function addSugg(x) {
     if (!x || !S.plan) return;
-    enqueue({ t: 'add', x: { id: 'x' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), p: x.p ? x.p.id : null, name: x.p ? x.p.n : x.name, s: x.s, n: 1, checked: false, addedBy: ME } });
+    const item = { id: 'x' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), p: x.p ? x.p.id : null, name: x.v ? x.name : x.p ? x.p.n : x.name, s: x.s, n: 1, checked: false, addedBy: ME };
+    if (x.v) { item.v = x.v.key; if (typeof x.vp === 'number') item.vp = x.vp; }
+    enqueue({ t: 'add', x: item });
     $('addInput').value = ''; suggIdx = -1; renderSugg(); $('addInput').focus();
   }
   $('addInput').addEventListener('input', () => { suggIdx = -1; renderSugg(); });
