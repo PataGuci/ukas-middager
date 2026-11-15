@@ -86,7 +86,7 @@
     if (!r.ok) return false;
     S.rdirEtag = r.headers.get('ETag');
     const list = await r.json(); let changed = false;
-    S.rimgs = new Set(list.filter(x => /\.jpe?g$/i.test(x.name)).map(x => x.name.replace(/\.[^.]+$/, '')));
+    S.rimgs = new Set(list.filter(x => /\.(jpe?g|pdf)$/i.test(x.name)).map(x => x.name.replace(/\.[^.]+$/, '')));
     for (const x of list.filter(x => /\.json$/.test(x.name))) {
       const id = x.name.replace(/\.json$/, '');
       if (S.rsha[id] === x.sha) continue;
@@ -354,8 +354,10 @@
   const dShort = iso => { if (!iso) return ''; const [, mo, da] = iso.split('-').map(Number); return da + '. ' + MONTHS[mo - 1].slice(0, 3); };
   function receiptBox() {
     let h = '<div class="rcpt"><h3>Kvitteringer</h3>';
-    h += '<label class="btn scan' + (S.upBusy ? ' busy' : '') + '"><input type="file" id="scanInput" accept="image/*" capture="environment" hidden' + (S.upBusy ? ' disabled' : '') + '>' + (S.upBusy ? 'Laster opp …' : 'Skann kvittering') + '</label>';
-    h += '<p class="small">Én kvittering per handletur. Uka finnes ut fra datoen på kvitteringen, så du kan også skanne kvitteringer fra tidligere uker. Ta bildet rett ovenfra i godt lys.</p>';
+    const dis = S.upBusy ? ' disabled' : '';
+    h += S.upBusy ? '<p class="note">Laster opp …</p>' : '<div class="scanrow"><label class="btn scan"><input type="file" id="scanInput" accept="image/*" capture="environment" hidden' + dis + '>Ta bilde</label>' +
+      '<label class="ghost scan"><input type="file" id="fileInput" accept="image/*,application/pdf,.pdf" hidden' + dis + '>Last opp bilde eller PDF</label></div>';
+    h += '<p class="small">Én kvittering per handletur. Digitale kvitteringer fra Trumf kan lastes opp som skjermbilde eller PDF. Uka finnes ut fra datoen på kvitteringen, så du kan også legge inn kvitteringer fra tidligere uker.</p>';
     if (S.pending && !S.receipts[S.pending.id]) h += '<p class="note">Kvitteringen leses nå. Det tar vanligvis under ett minutt.</p>';
     const fresh = Object.values(S.receipts).filter(r => r.error && L.receiptWeek(r) === S.plan.weekId);
     fresh.forEach(r => { h += '<div class="note"><b>Kunne ikke lese en kvittering.</b> ' + esc(r.error) + (r.retry ? ' Den prøves igjen automatisk ved neste opplasting.' : ' Prøv et nytt bilde.') + '</div>'; });
@@ -511,7 +513,7 @@
     S.month = y + '-' + String(mo).padStart(2, '0'); render();
   });
   $('overview').addEventListener('input', e => { if (e.target.id === 'mapq' && S.edit) { S.edit.q = e.target.value; const box = $('mapres'); if (box) box.innerHTML = mapResults(); } });
-  $('overview').addEventListener('change', e => { if (e.target.id === 'scanInput' && e.target.files && e.target.files[0]) uploadReceipt(e.target.files[0]); });
+  $('overview').addEventListener('change', e => { if ((e.target.id === 'scanInput' || e.target.id === 'fileInput') && e.target.files && e.target.files[0]) uploadReceipt(e.target.files[0]); });
 
   // ---------- Kvittering: last opp, koble, bruk totalen ----------
   async function shrink(file) {
@@ -528,13 +530,15 @@
     if (S.upBusy || !S.plan) return;
     S.upBusy = true; render(); setSync('laster opp kvittering …');
     try {
-      const b64 = await shrink(file);
+      const pdf = file.type === 'application/pdf' || /\.pdf$/i.test(file.name || '');
+      if (pdf && file.size > 15e6) throw { msg: 'PDF-en er for stor' };
+      const b64 = pdf ? await new Promise(ok => { const fr = new FileReader(); fr.onload = () => ok(String(fr.result).split(',')[1]); fr.readAsDataURL(file); }) : await shrink(file);
       const id = S.plan.weekId + '-' + Date.now().toString(36);
-      const r = await gh('receipts/' + id + '.jpg', { method: 'PUT', body: JSON.stringify({ message: 'Kvittering fra ' + (ME || 'appen'), content: b64 }) });
+      const r = await gh('receipts/' + id + (pdf ? '.pdf' : '.jpg'), { method: 'PUT', body: JSON.stringify({ message: 'Kvittering fra ' + (ME || 'appen'), content: b64 }) });
       if (r.status === 401 || r.status === 403) throw { auth: true };
       if (!r.ok) throw { status: r.status };
       S.pending = { id, at: Date.now() }; ls.set('pendingReceipt', JSON.stringify(S.pending)); setSync('kvittering lastet opp');
-    } catch (e) { setSync(e && e.auth ? 'nøkkel avvist' : 'opplasting feilet – prøv igjen', true); }
+    } catch (e) { setSync(e && e.auth ? 'nøkkel avvist' : (e && e.msg) || 'opplasting feilet – prøv igjen', true); }
     finally { S.upBusy = false; render(); }
   }
   async function saveMapping(rid, text, pid) {
