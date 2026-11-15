@@ -293,7 +293,7 @@
     if (op.t === 'actual') {
       const w = h.weeks[op.weekId] = Object.assign({}, h.weeks[op.weekId] || {});
       if (op.v === null) { delete w.actual; } else { w.actual = Math.round(op.v); }
-      w.estimate = op.estimate; w.date = op.date; w.label = op.label; w.items = op.items; w.by = op.by; w.savedAt = op.at;
+      w.estimate = op.estimate; w.date = op.date; w.label = op.label; w.items = op.items; w.by = op.by; w.savedAt = op.at; if (op.receipt) w.receipt = op.receipt; else delete w.receipt;
     }
     return h;
   }
@@ -309,6 +309,37 @@
     return { weeks: inMonth, spent, planned, budget, left: budget ? budget - spent - planned : null };
   }
 
-  root.Lib = { DAYS, norm, shortName, indexCatalog, indexRecipes, effectiveDays, addableDays, weekMonday, buildList, isHave, weekTotal, freezeHints,
+  // ---------- Kvitteringer og faktiske priser ----------
+  /** Samme normalisering som kvitteringsrutinen bruker for koblinger (receiptmap.json). */
+  function receiptKey(text) { return String(text || '').toLowerCase().replace(/\s+/g, ' ').trim(); }
+  function median(a) { const s = a.slice().sort((x, y) => x - y), m = s.length >> 1; return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2; }
+  /** Katalog der anslått pris er byttet ut med medianen av de siste kjøpte prisene (ordinær pris per pakning). */
+  function applyPrices(rawCat, prices, lastN) {
+    const items = (prices && prices.items) || {};
+    const out = JSON.parse(JSON.stringify(rawCat));
+    out.products.forEach(p => {
+      const obs = (items[p.id] || []).filter(o => o.unit > 0);
+      if (!obs.length) return;
+      const recent = obs.slice(-(lastN || 4)).map(o => o.unit);
+      p.est = p.pr; p.pr = Math.round(median(recent) * 100) / 100;
+      p.obs = { n: obs.length, last: obs[obs.length - 1] };
+    });
+    return out;
+  }
+  /** Prisutvikling per vare: første og siste kjøpte pris, endring i prosent. */
+  function priceTrends(prices, cat) {
+    const items = (prices && prices.items) || {};
+    return Object.keys(items).map(id => {
+      const p = cat.byId[id]; const obs = items[id].filter(o => o.unit > 0);
+      if (!p || !obs.length) return null;
+      const first = obs[0], last = obs[obs.length - 1];
+      return { id, p, n: obs.length, first, last, est: p.est !== undefined ? p.est : p.pr,
+        change: first.unit ? Math.round(1000 * (last.unit - first.unit) / first.unit) / 10 : 0, points: obs };
+    }).filter(Boolean).sort((a, b) => b.n - a.n || a.p.n.localeCompare(b.p.n, 'nb'));
+  }
+  /** Kvitteringer som hører til en uke (id starter med uke-id-en). */
+  function receiptsForWeek(list, weekId) { return (list || []).filter(r => r && String(r.id).startsWith(weekId + '-')).sort((a, b) => String(a.id).localeCompare(String(b.id))); }
+
+  root.Lib = { receiptKey, applyPrices, priceTrends, receiptsForWeek, DAYS, norm, shortName, indexCatalog, indexRecipes, effectiveDays, addableDays, weekMonday, buildList, isHave, weekTotal, freezeHints,
     leftoverHints, conflicts, rankSwaps, searchCatalog, guessSection, rollover, applyOp, fmtAmount, emptyHistory, applyHistOp, monthSummary, addDays, BASE_PORTIONS, fmtNum, fmtQty, ingText, stepText, stepObj };
 })(typeof window !== 'undefined' ? window : globalThis);
