@@ -129,8 +129,8 @@
     (extras || []).forEach(x => {
       if (x.have) return;
       const p = x.p && cat.byId[x.p];
-      if (!p) { unpriced++; return; }
-      const pr = unitPrice(p, offers) * (x.n || 1);
+      if (!p && typeof x.vp !== 'number') { unpriced++; return; }
+      const pr = (typeof x.vp === 'number' ? x.vp : unitPrice(p, offers)) * (x.n || 1); // konkret produkt: sist betalte pris
       total += pr; if (x.checked) inCart += pr;
     });
     return { total: Math.round(total), inCart: Math.round(inCart), unpriced };
@@ -373,6 +373,40 @@
     return h;
   }
 
-  root.Lib = { receiptKey, applyPrices, priceTrends, receiptsForWeek, receiptWeek, isoWeek, withReceipts, DAYS, norm, shortName, indexCatalog, indexRecipes, effectiveDays, addableDays, weekMonday, buildList, isHave, weekTotal, freezeHints,
+  /** Produkter fra kvitteringene gruppert under overkategori (katalogvare) eller Claudes kategori. */
+  function productGroups(prices, cat) {
+    const trends = {}; priceTrends(prices, cat).forEach(t => { trends[t.id] = t; });
+    const groups = {};
+    const g = (key, name, t) => groups[key] = groups[key] || { key, name, trend: t || null, products: [], buys: 0 };
+    Object.keys(trends).forEach(id => { const gr = g('p:' + id, trends[id].p.n, trends[id]); gr.buys += trends[id].n; });
+    Object.entries((prices && prices.products) || {}).forEach(([k, p]) => {
+      const pts = (p.pts || []).filter(x => x.p > 0); if (!pts.length) return;
+      const c = p.pid && cat.byId[p.pid];
+      const gr = c ? g('p:' + p.pid, c.n, trends[p.pid]) : g('c:' + (p.cat || 'Andre varer'), p.cat || 'Andre varer');
+      const first = pts[0], last = pts[pts.length - 1];
+      gr.products.push({ key: k, n: p.n, unit: p.unit, pid: p.pid || null, cat: p.cat || null, count: pts.length, first, last, points: pts,
+        change: first.o ? Math.round(1000 * (last.o - first.o) / first.o) / 10 : 0 });
+      if (!c) gr.buys += pts.length;
+    });
+    return Object.values(groups).map(gr => { gr.products.sort((a, b) => b.count - a.count || a.n.localeCompare(b.n, 'nb')); return gr; })
+      .sort((a, b) => b.buys - a.buys || a.name.localeCompare(b.name, 'nb'));
+  }
+  /** Konkrete produkter fra kvitteringene som passer søket (navn eller kategori). */
+  function searchProducts(prices, cat, q, limit) {
+    const nq = norm(q); if (!nq) return [];
+    const out = [];
+    Object.entries((prices && prices.products) || {}).forEach(([k, p]) => {
+      const pts = (p.pts || []).filter(x => x.p > 0); if (!pts.length) return;
+      const n = norm(p.n), c = p.pid && cat.byId[p.pid];
+      const hay = [n, norm(p.cat), c ? norm(c.n) : ''];
+      let s = 0;
+      if (n.startsWith(nq)) s = 4; else if (n.split(/[^a-z0-9]+/).some(w => w.startsWith(nq))) s = 3;
+      else if (hay.some(h => h && h.split(/[^a-z0-9]+/).some(w => w.startsWith(nq)))) s = 2; else if (hay.some(h => h.includes(nq))) s = 1;
+      if (s) out.push({ key: k, n: p.n, pid: p.pid || null, cat: p.cat || null, unit: p.unit, last: pts[pts.length - 1], count: pts.length, section: c ? c.s : null, s: s + pts.length / 100 });
+    });
+    return out.sort((a, b) => b.s - a.s).slice(0, limit || 4);
+  }
+
+  root.Lib = { productGroups, searchProducts, receiptKey, applyPrices, priceTrends, receiptsForWeek, receiptWeek, isoWeek, withReceipts, DAYS, norm, shortName, indexCatalog, indexRecipes, effectiveDays, addableDays, weekMonday, buildList, isHave, weekTotal, freezeHints,
     leftoverHints, conflicts, rankSwaps, searchCatalog, guessSection, rollover, applyOp, fmtAmount, emptyHistory, applyHistOp, monthSummary, addDays, BASE_PORTIONS, fmtNum, fmtQty, ingText, stepText, stepObj };
 })(typeof window !== 'undefined' ? window : globalThis);
