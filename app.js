@@ -93,7 +93,7 @@
       const f = await readFile('receipts/' + x.name);
       if (f.data) { S.receipts[id] = f.data; S.rsha[id] = x.sha; delete S.mapWait[id]; changed = true; }
     }
-    if (S.pending && S.receipts[S.pending.id]) { S.pending = null; ls.set('pendingReceipt', 'null'); changed = true; }
+    if (S.pending && S.receipts[S.pending.id]) { S.lastOther = S.pending.id; S.pending = null; ls.set('pendingReceipt', 'null'); changed = true; }
     return true;
   }
 
@@ -306,8 +306,9 @@
     const checked = w.items.filter(i => w.st.checks[i.id] && !L.isHave(i, w.st)).map(i => ({ n: i.name, q: i.qtyText }))
       .concat(w.st.extras.filter(x => x.checked && !x.have).map(x => ({ n: x.name, q: (x.n || 1) + '' })));
     const current = { id: S.plan.weekId, label: S.plan.weekLabel, date: mon, estimate: w.total.total };
-    const sum = L.monthSummary(S.hist, ym, current);
-    const hw = ((S.hist && S.hist.weeks) || {})[S.plan.weekId] || {};
+    const H = L.withReceipts(S.hist, Object.values(S.receipts)); // ukas faktiske sum = summen av ukas kvitteringer
+    const sum = L.monthSummary(H, ym, current);
+    const hw = H.weeks[S.plan.weekId] || {};
     const [y, m] = ym.split('-').map(Number);
     const pct = sum.budget ? Math.min(100, 100 * (sum.spent + sum.planned) / sum.budget) : 0;
     const spentPct = sum.budget ? Math.min(100, 100 * sum.spent / sum.budget) : 0;
@@ -321,16 +322,20 @@
     h += '<form class="row budgetform" id="budgetForm"><label for="budgetInput">Budsjett per måned</label><input id="budgetInput" inputmode="numeric" placeholder="f.eks. 5000" value="' + (sum.budget || '') + '"><button class="ghost" type="submit">Lagre</button></form>';
     if (ym === mon.slice(0, 7)) {
       h += '<div class="thisweek"><h3>' + esc(S.plan.weekLabel || 'Denne uka') + '</h3><div class="pair"><span>Anslått</span><b>ca. ' + kr(w.total.total) + '</b></div>' +
+        (hw.fromReceipts ? '<div class="pair"><span>Faktisk (' + hw.rcount + (hw.rcount === 1 ? ' handletur' : ' handleturer') + ')</span><b>' + kr(hw.actual) + '</b></div>' :
         '<form class="row" id="actualForm"><label for="actualInput" class="lbl">Hva ble totalen på kvitteringen?</label><input id="actualInput" inputmode="decimal" placeholder="kr" value="' + (typeof hw.actual === 'number' ? hw.actual : '') + '"><button class="btn" type="submit">Lagre</button></form>' +
-        '<p class="small">Når du lagrer, tas også en kopi av det som er krysset av, så dere ser hva som ble kjøpt.</p>' + receiptBox() + '</div>';
+        '<p class="small">Skanner du kvitteringene, regnes summen ut av seg selv.</p>') + receiptBox() + '</div>';
     }
     h += '<h3>Uker i ' + MONTHS[m - 1] + '</h3>';
     if (!sum.weeks.length) h += '<p class="note">Ingen uker registrert denne måneden.</p>';
     sum.weeks.forEach(wk => {
       const has = typeof wk.actual === 'number';
-      h += '<details class="wk"><summary><span>' + esc(wk.label || wk.id) + '</span><span class="wkn">' + (has ? kr(wk.actual) : 'ca. ' + kr(wk.estimate || 0) + ' <small>anslag</small>') + '</span></summary>' +
+      const rs = L.receiptsForWeek(Object.values(S.receipts), wk.id), isCur = wk.id === S.plan.weekId && ym === mon.slice(0, 7);
+      h += '<details class="wk" id="wk-' + esc(wk.id) + '"><summary><span>' + esc(wk.label || wk.id) + '</span><span class="wkn">' + (has ? kr(wk.actual) : 'ca. ' + kr(wk.estimate || 0) + ' <small>anslag</small>') + '</span></summary>' +
         (has && wk.estimate ? '<p class="small">Anslått: ca. ' + kr(wk.estimate) + ' · forskjell ' + (wk.actual - wk.estimate > 0 ? '+' : '') + kr(wk.actual - wk.estimate) + '</p>' : '') +
-        ((wk.items || []).length ? '<ul class="bought">' + wk.items.map(i => '<li>' + esc(i.n) + (i.q ? ' <small>' + esc(i.q) + '</small>' : '') + '</li>').join('') + '</ul>' : '<p class="small">Ingen kjøpsliste lagret.</p>') + '</details>';
+        (wk.fromReceipts ? '<p class="small">Summen er fra ' + wk.rcount + (wk.rcount === 1 ? ' kvittering' : ' kvitteringer') + (wk.rall > wk.rcount ? ' (' + (wk.rall - wk.rcount) + ' tatt ut av summen)' : '') + '.</p>' : '') +
+        (rs.length ? (isCur ? '<p class="small">Kvitteringene står under ' + esc(S.plan.weekLabel) + ' over.</p>' : receiptCards(rs, wk.id)) :
+        ((wk.items || []).length ? '<ul class="bought">' + wk.items.map(i => '<li>' + esc(i.n) + (i.q ? ' <small>' + esc(i.q) + '</small>' : '') + '</li>').join('') + '</ul>' : '<p class="small">Ingen kjøpsliste lagret.</p>')) + '</details>';
     });
     h += trendBox();
     h += '</div>';
@@ -348,25 +353,30 @@
   const kr2 = n => (Math.round(n * 100) / 100).toLocaleString('nb-NO', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' kr';
   const dShort = iso => { if (!iso) return ''; const [, mo, da] = iso.split('-').map(Number); return da + '. ' + MONTHS[mo - 1].slice(0, 3); };
   function receiptBox() {
-    const mine = L.receiptsForWeek(Object.values(S.receipts), S.plan.weekId);
-    let h = '<div class="rcpt"><h3>Kvittering</h3>';
+    let h = '<div class="rcpt"><h3>Kvitteringer</h3>';
     h += '<label class="btn scan' + (S.upBusy ? ' busy' : '') + '"><input type="file" id="scanInput" accept="image/*" capture="environment" hidden' + (S.upBusy ? ' disabled' : '') + '>' + (S.upBusy ? 'Laster opp …' : 'Skann kvittering') + '</label>';
-    h += '<p class="small">Ta bilde av hele kvitteringen, rett ovenfra og godt lys. Lange kvitteringer kan fotograferes i ett bilde.</p>';
+    h += '<p class="small">Én kvittering per handletur. Uka finnes ut fra datoen på kvitteringen, så du kan også skanne kvitteringer fra tidligere uker. Ta bildet rett ovenfra i godt lys.</p>';
     if (S.pending && !S.receipts[S.pending.id]) h += '<p class="note">Kvitteringen leses nå. Det tar vanligvis under ett minutt.</p>';
-    mine.slice().reverse().forEach(r => {
-      if (r.error) {
-        h += '<div class="note"><b>Kunne ikke lese kvitteringen' + (r.date ? ' fra ' + dShort(r.date) : '') + '.</b> ' + esc(r.error) + (r.retry ? ' Den prøves igjen automatisk ved neste opplasting.' : ' Prøv et nytt bilde.') + '</div>';
-        return;
-      }
+    const fresh = Object.values(S.receipts).filter(r => r.error && L.receiptWeek(r) === S.plan.weekId);
+    fresh.forEach(r => { h += '<div class="note"><b>Kunne ikke lese en kvittering.</b> ' + esc(r.error) + (r.retry ? ' Den prøves igjen automatisk ved neste opplasting.' : ' Prøv et nytt bilde.') + '</div>'; });
+    const mine = L.receiptsForWeek(Object.values(S.receipts), S.plan.weekId).filter(r => !r.error);
+    const other = S.lastOther && S.receipts[S.lastOther] && L.receiptWeek(S.receipts[S.lastOther]) !== S.plan.weekId ? S.receipts[S.lastOther] : null;
+    if (other) h += '<p class="note">Siste kvittering (' + esc(dShort(other.date)) + ') hører til ' + esc('uke ' + Number(L.receiptWeek(other).slice(6))) + ' og ligger under den uka i oversikten.</p>';
+    return h + receiptCards(mine, S.plan.weekId) + '</div>';
+  }
+  function receiptCards(list, weekId) {
+    const hw = ((S.hist && S.hist.weeks) || {})[weekId] || {};
+    const skip = new Set(hw.skip || []);
+    let h = '';
+    list.filter(r => !r.error).forEach(r => {
       const lines = r.lines || [];
       const linked = lines.filter(l => l.pid).length;
       const off = typeof r.sumCheck === 'number' && typeof r.total === 'number' && Math.abs(r.sumCheck - r.total) > 1;
-      const hw = ((S.hist && S.hist.weeks) || {})[S.plan.weekId] || {};
-      const used = hw.receipt === r.id;
-      h += '<details class="rc" id="rc-' + esc(r.id) + '"' + (S.edit && S.edit.rid === r.id ? ' open' : '') + '><summary><span>' + esc(r.store || 'Kvittering') + (r.date ? ' · ' + dShort(r.date) : '') + '</span><b>' + kr2(r.total || 0) + '</b></summary>';
+      const out = skip.has(r.id);
+      h += '<details class="rc' + (out ? ' out' : '') + '" id="rc-' + esc(r.id) + '"' + (S.edit && S.edit.rid === r.id ? ' open' : '') + '><summary><span>' + esc(r.store || 'Kvittering') + (r.date ? ' · ' + dShort(r.date) : '') + '</span><b>' + kr2(r.total || 0) + '</b></summary>';
       h += '<div class="rm">' + '<span class="chip">' + lines.length + ' linjer</span><span class="chip' + (linked < lines.length ? '' : ' good') + '">' + linked + ' koblet til varer</span>' +
-        (S.mapWait[r.id] ? '<span class="chip">oppdateres …</span>' : '') + (off ? '<span class="chip warn">linjene gir ' + kr2(r.sumCheck) + ' – sjekk</span>' : '') + '</div>';
-      h += used ? '<p class="small">Totalen er lagt inn som faktisk sum for uka.</p>' : '<button class="ghost" type="button" data-usetotal="' + esc(r.id) + '">Bruk ' + kr(r.total || 0) + ' som faktisk sum</button>';
+        (out ? '<span class="chip warn">ikke med i summen</span>' : '') + (S.mapWait[r.id] ? '<span class="chip">oppdateres …</span>' : '') + (off ? '<span class="chip warn">linjene gir ' + kr2(r.sumCheck) + ' – sjekk</span>' : '') + '</div>';
+      h += '<button class="ghost" type="button" data-skip="' + esc(r.id) + '" data-week="' + esc(weekId) + '" data-v="' + (out ? 0 : 1) + '">' + (out ? 'Ta med i ukas sum' : 'Ikke med i ukas sum') + '</button>';
       h += '<ul class="rlines">' + lines.map((l, i) => {
         const p = l.pid && S.cat.byId[l.pid];
         const editing = S.edit && S.edit.rid === r.id && S.edit.i === i;
@@ -375,7 +385,7 @@
           (editing ? '<div class="mapbox"><input type="search" id="mapq" placeholder="Søk i varekatalogen" value="' + esc(S.edit.q || '') + '" autocomplete="off"><div id="mapres">' + mapResults() + '</div></div>' : '') + '</li>';
       }).join('') + '</ul></details>';
     });
-    return h + '</div>';
+    return h;
   }
   function mapResults() {
     if (!S.edit) return '';
@@ -486,8 +496,9 @@
   $('sheetBody').addEventListener('input', e => { if (e.target.id === 'rq') { S.q = e.target.value; render(); } });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && S.sheet) { S.sheet = null; render(); } });
   $('overview').addEventListener('click', e => {
-    const el = e.target.closest('[data-usetotal]');
-    if (el) { const r = S.receipts[el.dataset.usetotal]; if (r) useTotal(r); return; }
+    const sk = e.target.closest('[data-skip]');
+    if (sk) { const r = S.receipts[sk.dataset.skip]; const iw = r && r.date ? L.isoWeek(r.date) : null;
+      histOp({ t: 'skip', weekId: sk.dataset.week, id: sk.dataset.skip, v: sk.dataset.v === '1', label: iw ? iw.label : undefined, date: iw ? iw.monday : undefined }); return; }
     const ed = e.target.closest('[data-editline]');
     if (ed) { const same = S.edit && S.edit.rid === ed.dataset.editline && S.edit.i === +ed.dataset.i; S.edit = same ? null : { rid: ed.dataset.editline, i: +ed.dataset.i, q: '' }; render(); if (S.edit) { const q = $('mapq'); if (q) q.focus(); } return; }
     if (e.target.closest('[data-mapcancel]')) { S.edit = null; render(); return; }
@@ -538,11 +549,6 @@
       setSync('ikke lagret', true);
     } catch (e) { setSync(e && e.auth ? 'nøkkel avvist' : 'frakoblet', true); }
     finally { S.mapBusy = false; render(); }
-  }
-  async function useTotal(r) {
-    const items = (r.lines || []).map(l => ({ n: l.pid && S.cat.byId[l.pid] ? S.cat.byId[l.pid].n : l.text, q: kr2(l.lineTotal - (l.discount || 0)) }));
-    const ok = await histOp({ t: 'actual', weekId: S.plan.weekId, label: S.plan.weekLabel, date: S._monday, estimate: S._estimate, v: r.total, items, by: ME, at: new Date().toISOString(), receipt: r.id });
-    if (ok) render();
   }
 
   $('overview').addEventListener('submit', async e => {
