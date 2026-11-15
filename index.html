@@ -273,6 +273,36 @@ details.day[open] .chev{transform:rotate(-135deg)}
 details.day:not([open]) summary:active{transform:scale(.99)}
 .item .have{width:60px;height:44px;line-height:1.15;font-size:11px}
 .offerline{font-size:13px;color:var(--muted);margin-top:8px}
+
+/* v7: farger på Oversikt og Handleliste også */
+.hero{display:grid;gap:14px;padding:16px;border-radius:18px;background:linear-gradient(135deg,color-mix(in srgb,var(--lemon) 30%,var(--paper)),color-mix(in srgb,var(--carrot) 22%,var(--paper)) 60%,color-mix(in srgb,var(--tomato) 14%,var(--paper)));box-shadow:0 2px 10px rgba(120,70,0,.08)}
+.hero .ghost{background:var(--paper)}
+.hero .bignum b{color:var(--tomato)}
+.hero input{background:var(--paper)}
+.budgetbar{background:color-mix(in srgb,var(--paper) 70%,transparent)}
+.budgetbar .spent{background:linear-gradient(90deg,var(--leaf),var(--lemon))}
+.budgetbar .plan{background:var(--carrot);opacity:.45}
+.over{color:var(--tomato);font-weight:700}
+.thisweek{border-left-color:var(--sea);background:linear-gradient(135deg,var(--paper),color-mix(in srgb,var(--sea) 10%,var(--paper)))}
+.thisweek h3{color:var(--sea)}
+.thisweek .btn,.scanrow .btn{background:var(--sea)}
+.ov>h3{color:var(--leaf)}
+details.wk{border-left:5px solid var(--leaf)}
+details.wk:nth-of-type(4n+2){border-left-color:var(--carrot)}
+details.wk:nth-of-type(4n+3){border-left-color:var(--sea)}
+details.wk:nth-of-type(4n+4){border-left-color:var(--tomato)}
+.receipt{background:linear-gradient(180deg,color-mix(in srgb,var(--leaf) 9%,var(--paper)),var(--paper) 160px)}
+.tools label{color:var(--ink)}
+.sec h2{background:color-mix(in srgb,var(--c) 16%,var(--paper));padding:8px 10px;border-radius:10px;margin:6px -6px 6px}
+.sec h2::after{display:none}
+.sec h2 .cnt{margin-left:auto;background:var(--paper);border-radius:99px;padding:1px 8px}
+.sec .item .box{border-color:color-mix(in srgb,var(--c) 70%,var(--ink))}
+.sum{border-top:0;margin-top:18px;padding:14px;border-radius:14px;background:linear-gradient(135deg,color-mix(in srgb,var(--lemon) 28%,var(--paper)),color-mix(in srgb,var(--carrot) 18%,var(--paper)))}
+.sum .big span:last-child{color:var(--tomato);font-weight:700}
+#addForm input{border:2px solid color-mix(in srgb,var(--leaf) 45%,var(--line));background:var(--paper)}
+#addBtn{background:var(--leaf)}
+details.havebox{background:color-mix(in srgb,var(--sea) 8%,var(--paper));border-radius:12px;padding:10px 12px;margin-top:12px}
+details.havebox summary{color:var(--sea)}
 @media (prefers-reduced-motion: reduce){*{transition:none !important}}
 .rcpt{margin-top:14px;border-top:1px dashed var(--line);padding-top:12px;display:grid;gap:8px}
 .rcpt h3{margin:0}
@@ -376,7 +406,7 @@ svg.bigc .ax{stroke:var(--line);stroke-width:1}
 <div class="cook hidden" id="cook" role="dialog" aria-modal="true" aria-label="Matlaging"></div>
 <div class="sheet hidden" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle"><div class="panel"><header><h2 id="sheetTitle">Bytt middag</h2><button class="ghost" type="button" id="sheetClose">Lukk</button></header><div class="scroll" id="sheetBody"></div></div></div>
 
-<script src="lib.js?v=6"></script>
-<script src="app.js?v=6"></script>
+<script src="lib.js?v=7"></script>
+<script src="app.js?v=7"></script>
 </body>
 </html>

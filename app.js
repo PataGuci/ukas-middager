@@ -317,13 +317,14 @@
     const pct = sum.budget ? Math.min(100, 100 * (sum.spent + sum.planned) / sum.budget) : 0;
     const spentPct = sum.budget ? Math.min(100, 100 * sum.spent / sum.budget) : 0;
     let h = '<div class="ov">';
+    h += '<div class="hero">';
     h += '<div class="monthnav"><button class="ghost sm" type="button" data-month="-1" aria-label="Forrige måned">‹</button><h2>' + MONTHS[m - 1] + ' ' + y + '</h2><button class="ghost sm" type="button" data-month="1" aria-label="Neste måned">›</button></div>';
     h += '<div class="bignum"><span>Brukt</span><b>' + kr(sum.spent) + '</b>' + (sum.budget ? '<span>av ' + kr(sum.budget) + '</span>' : '') + '</div>';
     if (sum.budget) {
       h += '<div class="budgetbar" role="img" aria-label="Brukt ' + Math.round(spentPct) + ' prosent av budsjettet"><i class="spent" style="width:' + spentPct + '%"></i><i class="plan" style="width:' + Math.max(0, pct - spentPct) + '%"></i></div>';
       h += '<p class="small">' + (sum.planned ? 'Planlagt, ikke handlet ennå: ca. ' + kr(sum.planned) + '. ' : '') + (sum.left >= 0 ? 'Igjen: ca. ' + kr(sum.left) : '<span class="over">Over budsjett med ca. ' + kr(-sum.left) + '</span>') + '</p>';
     }
-    h += '<form class="row budgetform" id="budgetForm"><label for="budgetInput">Budsjett per måned</label><input id="budgetInput" inputmode="numeric" placeholder="f.eks. 5000" value="' + (sum.budget || '') + '"><button class="ghost" type="submit">Lagre</button></form>';
+    h += '<form class="row budgetform" id="budgetForm"><label for="budgetInput">Budsjett per måned</label><input id="budgetInput" inputmode="numeric" placeholder="f.eks. 5000" value="' + (sum.budget || '') + '"><button class="ghost" type="submit">Lagre</button></form></div>';
     if (ym === mon.slice(0, 7)) {
       h += '<div class="thisweek"><h3>' + esc(S.plan.weekLabel || 'Denne uka') + '</h3><div class="pair"><span>Anslått</span><b>ca. ' + kr(w.total.total) + '</b></div>' +
         (hw.fromReceipts ? '<div class="pair"><span>Faktisk (' + hw.rcount + (hw.rcount === 1 ? ' handletur' : ' handleturer') + ')</span><b>' + kr(hw.actual) + '</b></div>' :
