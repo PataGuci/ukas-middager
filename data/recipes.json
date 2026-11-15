@@ -5126,198 +5126,6 @@
    "note": "Rå paprika er utelatt, og gulløk brukes i stedet for rødløk."
   },
   {
-   "id": "linsegryte",
-   "name": "Linsegryte med potetmos",
-   "minutes": 60,
-   "tags": [
-    "vegetar",
-    "gryte",
-    "comfort",
-    "budsjett"
-   ],
-   "key": [
-    "linser",
-    "squash"
-   ],
-   "ing": [
-    {
-     "p": "gullok",
-     "a": 0.625,
-     "t": "½ løk",
-     "q": 0.625,
-     "u": "stk",
-     "n": "løk"
-    },
-    {
-     "p": "squash",
-     "a": 0.625,
-     "t": "½ squash",
-     "q": 0.625,
-     "u": "stk",
-     "n": "squash"
-    },
-    {
-     "p": "aubergine",
-     "a": 0.312,
-     "t": "½ aubergine",
-     "q": 0.3125,
-     "u": "stk",
-     "n": "aubergine"
-    },
-    {
-     "p": "ingefaer",
-     "a": 8.75,
-     "t": "1 cm frisk ingefær",
-     "q": 1.25,
-     "u": "cm",
-     "n": "frisk ingefær"
-    },
-    {
-     "p": "chili",
-     "a": 0.312,
-     "t": "½ grønn chili",
-     "q": 0.3125,
-     "u": "stk",
-     "n": "grønn chili"
-    },
-    {
-     "p": "hvitlok",
-     "a": 1,
-     "t": "½ fedd hvitløk",
-     "q": 0.625,
-     "u": "fedd",
-     "n": "hvitløk"
-    },
-    {
-     "p": "linser",
-     "a": 0.312,
-     "t": "1½ dl røde linser",
-     "q": 1.5625,
-     "u": "dl",
-     "n": "røde linser"
-    },
-    {
-     "p": "karri",
-     "a": 1,
-     "t": "½ ss karri",
-     "q": 0.3125,
-     "u": "ss",
-     "n": "karri"
-    },
-    {
-     "p": "gurkemeie",
-     "a": 1,
-     "t": "½ ts gurkemeie",
-     "q": 0.625,
-     "u": "ts",
-     "n": "gurkemeie"
-    },
-    {
-     "p": "hakkedetomater",
-     "a": 250.0,
-     "t": "2½ dl hermetiske tomater",
-     "q": 2.5,
-     "u": "dl",
-     "n": "hermetiske tomater"
-    },
-    {
-     "p": "buljong",
-     "a": 1,
-     "t": "4½ dl grønnsaksbuljong",
-     "q": 0.4375,
-     "u": "l",
-     "n": "grønnsaksbuljong"
-    },
-    {
-     "p": "salt",
-     "a": 1,
-     "t": "salt og pepper",
-     "q": null,
-     "u": "",
-     "n": "salt og pepper"
-    },
-    {
-     "p": "poteter",
-     "a": 375.0,
-     "t": "4 poteter til mos",
-     "q": 3.75,
-     "u": "stk",
-     "n": "poteter til mos"
-    },
-    {
-     "p": "smor",
-     "a": 1,
-     "t": "½ ss smør",
-     "q": 0.625,
-     "u": "ss",
-     "n": "smør"
-    },
-    {
-     "p": "melk",
-     "a": 125.0,
-     "t": "1 dl lettmelk",
-     "q": 1.25,
-     "u": "dl",
-     "n": "lettmelk"
-    },
-    {
-     "p": "yoghurt",
-     "a": 125.0,
-     "t": "1 dl yoghurt naturell",
-     "q": 1.25,
-     "u": "dl",
-     "n": "yoghurt naturell"
-    },
-    {
-     "p": "sitron",
-     "a": 0.625,
-     "t": "½ sitron",
-     "q": 0.625,
-     "u": "stk",
-     "n": "sitron"
-    },
-    {
-     "p": "bladsalat",
-     "a": 93.75,
-     "t": "95 g salat",
-     "q": 93.75,
-     "u": "g",
-     "n": "salat"
-    }
-   ],
-   "steps": [
-    {
-     "h": "Hakk",
-     "t": "Hakk {gullok}, {squash} og {aubergine} i små biter. Finhakk {ingefaer}, {chili} og {hvitlok}.",
-     "m": null
-    },
-    {
-     "h": "Surr",
-     "t": "Surr grønnsakene med {linser}, {karri} og {gurkemeie} i en gryte med litt olje.",
-     "m": 3
-    },
-    {
-     "h": "Småkok",
-     "t": "Ha i {hakkedetomater} og {buljong} og la gryten småkoke til linsene er møre. Smak til med {salt}.",
-     "m": 35
-    },
-    {
-     "h": "Potetmos",
-     "t": "Kok {poteter} møre, hell av vannet og mos med {smor} og {melk}.",
-     "m": 20
-    },
-    {
-     "h": "Server",
-     "t": "Server med {yoghurt}, {bladsalat} og {sitron}.",
-     "m": null
-    }
-   ],
-   "src": "https://www.tine.no/oppskrifter/middag-og-hovedretter/gronnsaker-og-poteter/linsegryte",
-   "srcName": "Tine.no",
-   "serves": 4,
-   "note": null
-  },
-  {
    "id": "ovnstorsk",
    "name": "Ovnsbakt torsk med rotgrønnsaker og sennep",
    "minutes": 35,
@@ -5688,120 +5496,6 @@
    "srcName": "Tine.no",
    "serves": 4,
    "note": "Brødet i originalen er utelatt."
-  },
-  {
-   "id": "marokkanskkylling",
-   "name": "Kyllinggryte med linser",
-   "minutes": 30,
-   "tags": [
-    "rask",
-    "kylling",
-    "gryte"
-   ],
-   "key": [
-    "kyllingfilet",
-    "linser"
-   ],
-   "ing": [
-    {
-     "p": "linser",
-     "a": 0.25,
-     "t": "1 dl røde linser",
-     "q": 1.25,
-     "u": "dl",
-     "n": "røde linser"
-    },
-    {
-     "p": "kyllingfilet",
-     "a": 281.25,
-     "t": "1 kyllingfilet",
-     "q": 1.25,
-     "u": "stk",
-     "n": "kyllingfilet"
-    },
-    {
-     "p": "cremefraiche",
-     "a": 125.0,
-     "t": "1 dl lett crème fraîche",
-     "q": 1.25,
-     "u": "dl",
-     "n": "lett crème fraîche"
-    },
-    {
-     "p": "hvetemel",
-     "a": 1,
-     "t": "1 ts hvetemel",
-     "q": 1.25,
-     "u": "ts",
-     "n": "hvetemel"
-    },
-    {
-     "p": "buljong",
-     "a": 1,
-     "t": "½ hønsebuljongterning",
-     "q": 0.625,
-     "u": "stk",
-     "n": "hønsebuljongterning"
-    },
-    {
-     "p": "sambal",
-     "a": 1,
-     "t": "½ ts sambal oelek eller karri",
-     "q": 0.625,
-     "u": "ts",
-     "n": "sambal oelek eller karri"
-    },
-    {
-     "p": "hvitlok",
-     "a": 1,
-     "t": "1 fedd hvitløk",
-     "q": 1.25,
-     "u": "fedd",
-     "n": "hvitløk"
-    },
-    {
-     "p": "persille",
-     "a": 0.156,
-     "t": "½ dl finhakket persille",
-     "q": 0.3125,
-     "u": "dl",
-     "n": "finhakket persille"
-    },
-    {
-     "p": "bladsalat",
-     "a": 93.75,
-     "t": "95 g blandet salat",
-     "q": 93.75,
-     "u": "g",
-     "n": "blandet salat"
-    }
-   ],
-   "steps": [
-    {
-     "h": "Linser",
-     "t": "Kok {linser} i ca. 5 minutter til de er myke, og sil av vannet.",
-     "m": 5
-    },
-    {
-     "h": "Saus",
-     "t": "Rør {cremefraiche} og {hvetemel} sammen i en kjele, ha i vann, {buljong} og {sambal}.",
-     "m": null
-    },
-    {
-     "h": "Kylling",
-     "t": "Del {kyllingfilet} i biter og ha i gryten sammen med {hvitlok}. Småkok under lokk.",
-     "m": 10
-    },
-    {
-     "h": "Ferdig",
-     "t": "Rør inn linsene og {persille} og varm opp. Server med {bladsalat}.",
-     "m": null
-    }
-   ],
-   "src": "https://www.tine.no/oppskrifter/middag-og-hovedretter/kylling-og-fjarkre/marokansk-kyllinggryte",
-   "srcName": "Tine.no",
-   "serves": 4,
-   "note": null
   },
   {
    "id": "spagettikjottdeig",
@@ -6181,25 +5875,1193 @@
    "note": "Poteter som tilbehør er lagt til."
   },
   {
-   "id": "sotpotetsuppe",
-   "name": "Søtpotetsuppe med røde linser",
+   "id": "kyllingrisgront",
+   "name": "Kylling med karriris og brokkoli",
    "minutes": 30,
    "tags": [
     "rask",
-    "vegetar",
-    "suppe",
-    "comfort"
+    "kylling",
+    "budsjett"
    ],
    "key": [
-    "sotpotet",
-    "linser"
+    "kyllingfilet",
+    "brokkoli"
    ],
    "ing": [
+    {
+     "p": "ris",
+     "a": 159.375,
+     "t": "2 dl ris",
+     "q": 1.875,
+     "u": "dl",
+     "n": "ris"
+    },
+    {
+     "p": "karri",
+     "a": 1,
+     "t": "½ ts karri",
+     "q": 0.625,
+     "u": "ts",
+     "n": "karri"
+    },
+    {
+     "p": "gullok",
+     "a": 0.625,
+     "t": "½ løk",
+     "q": 0.625,
+     "u": "stk",
+     "n": "løk"
+    },
+    {
+     "p": "kyllingfilet",
+     "a": 375.0,
+     "t": "2½ kyllingfilet",
+     "q": 2.5,
+     "u": "stk",
+     "n": "kyllingfilet"
+    },
+    {
+     "p": "smor",
+     "a": 1,
+     "t": "½ ss smør",
+     "q": 0.625,
+     "u": "ss",
+     "n": "smør"
+    },
+    {
+     "p": "salt",
+     "a": 1,
+     "t": "salt og pepper",
+     "q": null,
+     "u": "",
+     "n": "salt og pepper"
+    },
+    {
+     "p": "brokkoli",
+     "a": 0.625,
+     "t": "½ brokkoli",
+     "q": 0.625,
+     "u": "stk",
+     "n": "brokkoli"
+    },
+    {
+     "p": "blomkal",
+     "a": 0.625,
+     "t": "½ blomkål",
+     "q": 0.625,
+     "u": "stk",
+     "n": "blomkål"
+    },
+    {
+     "p": "cremefraiche",
+     "a": 62.5,
+     "t": "½ dl crème fraîche",
+     "q": 0.625,
+     "u": "dl",
+     "n": "crème fraîche"
+    }
+   ],
+   "steps": [
+    {
+     "h": "Ris",
+     "t": "Kok {ris} med {karri} i vannet.",
+     "m": 15
+    },
+    {
+     "h": "Kylling",
+     "t": "Stek {kyllingfilet} og {gullok} i {smor} til kyllingen er gjennomstekt. Krydre med {salt}.",
+     "m": 10
+    },
+    {
+     "h": "Grønnsaker",
+     "t": "Kok {brokkoli} og {blomkal} møre.",
+     "m": 5
+    },
+    {
+     "h": "Server",
+     "t": "Server med {cremefraiche}.",
+     "m": null
+    }
+   ],
+   "src": "https://www.tine.no/oppskrifter/middag-og-hovedretter/kylling-og-fjarkre/kylling-ris-brokkoli-og-blomkal",
+   "srcName": "Tine.no",
+   "serves": 4,
+   "note": "Gulløk i stedet for rødløk."
+  },
+  {
+   "id": "stektriskylling",
+   "name": "Stekt ris med kylling",
+   "minutes": 30,
+   "tags": [
+    "rask",
+    "kylling",
+    "asiatisk"
+   ],
+   "key": [
+    "kyllingfilet",
+    "ris"
+   ],
+   "ing": [
+    {
+     "p": "ris",
+     "a": 159.375,
+     "t": "2 dl ris",
+     "q": 1.875,
+     "u": "dl",
+     "n": "ris"
+    },
+    {
+     "p": "gullok",
+     "a": 0.625,
+     "t": "½ løk",
+     "q": 0.625,
+     "u": "stk",
+     "n": "løk"
+    },
+    {
+     "p": "paprika",
+     "a": 1.25,
+     "t": "1 paprika (rød og grønn)",
+     "q": 1.25,
+     "u": "stk",
+     "n": "paprika (rød og grønn)"
+    },
+    {
+     "p": "tomat",
+     "a": 1.875,
+     "t": "2 tomat",
+     "q": 1.875,
+     "u": "stk",
+     "n": "tomat"
+    },
+    {
+     "p": "hvitlok",
+     "a": 1,
+     "t": "1 fedd hvitløk",
+     "q": 1.25,
+     "u": "fedd",
+     "n": "hvitløk"
+    },
+    {
+     "p": "kyllingfilet",
+     "a": 281.25,
+     "t": "2 kyllingfilet",
+     "q": 1.875,
+     "u": "stk",
+     "n": "kyllingfilet"
+    },
+    {
+     "p": "olje",
+     "a": 1,
+     "t": "1 ss olje",
+     "q": 1.25,
+     "u": "ss",
+     "n": "olje"
+    },
+    {
+     "p": "chilipulver",
+     "a": 1,
+     "t": "½ ts chilipulver",
+     "q": 0.3125,
+     "u": "ts",
+     "n": "chilipulver"
+    },
+    {
+     "p": "salt",
+     "a": 1,
+     "t": "salt og pepper",
+     "q": null,
+     "u": "",
+     "n": "salt og pepper"
+    },
     {
      "p": "smor",
      "a": 1,
      "t": "1 ss smør",
      "q": 1.25,
+     "u": "ss",
+     "n": "smør"
+    }
+   ],
+   "steps": [
+    {
+     "h": "Ris",
+     "t": "Kok {ris}.",
+     "m": 15
+    },
+    {
+     "h": "Brun kyllingen",
+     "t": "Brun {kyllingfilet} i {olje} med {hvitlok}, {chilipulver} og {salt}. Ta den ut.",
+     "m": 5
+    },
+    {
+     "h": "Grønnsaker",
+     "t": "Stek {gullok} og {paprika} i {smor}. Rør inn risen og {tomat}.",
+     "m": 5
+    },
+    {
+     "h": "Trekk",
+     "t": "Legg kyllingen tilbake, dekk til og la det trekke på lav varme.",
+     "m": 10
+    }
+   ],
+   "src": "https://www.tine.no/oppskrifter/middag-og-hovedretter/kylling-og-fjarkre/stekt-ris-med-kylling",
+   "srcName": "Tine.no",
+   "serves": 4,
+   "note": "Paprikaen er stekt i retten, ikke rå."
+  },
+  {
+   "id": "kyllinggrytepoteter",
+   "name": "Kyllinggryte med poteter og tomat",
+   "minutes": 30,
+   "tags": [
+    "rask",
+    "kylling",
+    "gryte",
+    "budsjett"
+   ],
+   "key": [
+    "kyllingfilet",
+    "poteter"
+   ],
+   "ing": [
+    {
+     "p": "hakkedetomater",
+     "a": 250.0,
+     "t": "½ boks hermetiske tomater",
+     "q": 0.625,
+     "u": "boks",
+     "n": "hermetiske tomater"
+    },
+    {
+     "p": "buljong",
+     "a": 1,
+     "t": "1 dl kyllingbuljong",
+     "q": 1.25,
+     "u": "dl",
+     "n": "kyllingbuljong"
+    },
+    {
+     "p": "poteter",
+     "a": 375.0,
+     "t": "4 poteter",
+     "q": 3.75,
+     "u": "stk",
+     "n": "poteter"
+    },
+    {
+     "p": "gullok",
+     "a": 1.25,
+     "t": "1 løk",
+     "q": 1.25,
+     "u": "stk",
+     "n": "løk"
+    },
+    {
+     "p": "stangselleri",
+     "a": 0.281,
+     "t": "2 stilk stangselleri",
+     "q": 1.875,
+     "u": "stilk",
+     "n": "stangselleri"
+    },
+    {
+     "p": "timian",
+     "a": 1,
+     "t": "½ ts timian",
+     "q": 0.625,
+     "u": "ts",
+     "n": "timian"
+    },
+    {
+     "p": "pepper",
+     "a": 1,
+     "t": "pepper",
+     "q": null,
+     "u": "",
+     "n": "pepper"
+    },
+    {
+     "p": "kyllingfilet",
+     "a": 375.0,
+     "t": "2½ kyllingfilet",
+     "q": 2.5,
+     "u": "stk",
+     "n": "kyllingfilet"
+    },
+    {
+     "p": "erter",
+     "a": 75.0,
+     "t": "1 dl frosne erter",
+     "q": 1.25,
+     "u": "dl",
+     "n": "frosne erter"
+    }
+   ],
+   "steps": [
+    {
+     "h": "Kok opp",
+     "t": "Kok opp {hakkedetomater} og {buljong}.",
+     "m": null
+    },
+    {
+     "h": "Poteter",
+     "t": "Ha i {poteter}, {gullok} og {stangselleri}. Krydre med {timian} og {pepper} og småkok.",
+     "m": 12
+    },
+    {
+     "h": "Kylling",
+     "t": "Ha i {kyllingfilet} i terninger og {erter} og la gryten trekke.",
+     "m": 7
+    }
+   ],
+   "src": "https://www.tine.no/oppskrifter/middag-og-hovedretter/kylling-og-fjarkre/kyllinggryte-med-poteter",
+   "srcName": "Tine.no",
+   "serves": 4,
+   "note": null
+  },
+  {
+   "id": "raskkyllinggryte",
+   "name": "Rask kyllinggryte med ris",
+   "minutes": 30,
+   "tags": [
+    "rask",
+    "kylling",
+    "gryte"
+   ],
+   "key": [
+    "kyllingfilet",
+    "spinat"
+   ],
+   "ing": [
+    {
+     "p": "ris",
+     "a": 156.25,
+     "t": "150 g ris",
+     "q": 156.25,
+     "u": "g",
+     "n": "ris"
+    },
+    {
+     "p": "kyllingfilet",
+     "a": 375.0,
+     "t": "375 g kyllingfilet",
+     "q": 375.0,
+     "u": "g",
+     "n": "kyllingfilet"
+    },
+    {
+     "p": "salt",
+     "a": 1,
+     "t": "salt",
+     "q": null,
+     "u": "",
+     "n": "salt"
+    },
+    {
+     "p": "smor",
+     "a": 1,
+     "t": "½ ss smør",
+     "q": 0.625,
+     "u": "ss",
+     "n": "smør"
+    },
+    {
+     "p": "paprika",
+     "a": 0.625,
+     "t": "½ rød paprika",
+     "q": 0.625,
+     "u": "stk",
+     "n": "rød paprika"
+    },
+    {
+     "p": "gullok",
+     "a": 0.625,
+     "t": "½ løk",
+     "q": 0.625,
+     "u": "stk",
+     "n": "løk"
+    },
+    {
+     "p": "eplejuice",
+     "a": 62.5,
+     "t": "½ dl eplejuice",
+     "q": 0.625,
+     "u": "dl",
+     "n": "eplejuice"
+    },
+    {
+     "p": "cremefraiche",
+     "a": 125.0,
+     "t": "125 g crème fraîche",
+     "q": 125.0,
+     "u": "g",
+     "n": "crème fraîche"
+    },
+    {
+     "p": "spinat",
+     "a": 62.5,
+     "t": "60 g spinat",
+     "q": 62.5,
+     "u": "g",
+     "n": "spinat"
+    }
+   ],
+   "steps": [
+    {
+     "h": "Ris",
+     "t": "Kok {ris}.",
+     "m": 12
+    },
+    {
+     "h": "Kylling",
+     "t": "Stek {kyllingfilet} i strimler i {smor} og smak til med {salt}.",
+     "m": 6
+    },
+    {
+     "h": "Grønnsaker",
+     "t": "Ha i {paprika} og {gullok} og stek til de får farge.",
+     "m": 4
+    },
+    {
+     "h": "Saus",
+     "t": "Rør inn {eplejuice} og {cremefraiche}, kok opp og vend inn {spinat}.",
+     "m": 2
+    }
+   ],
+   "src": "https://www.tine.no/oppskrifter/middag-og-hovedretter/kylling-og-fjarkre/rask-kyllinggryte",
+   "srcName": "Tine.no",
+   "serves": 4,
+   "note": "Originalen bruker crème fraîche med paprika og chili; vanlig crème fraîche går like fint."
+  },
+  {
+   "id": "laksbroccoligrateng",
+   "name": "Laks- og brokkoligrateng med sitronsaus",
+   "minutes": 40,
+   "tags": [
+    "fisk",
+    "ovn",
+    "comfort"
+   ],
+   "key": [
+    "roktlaks",
+    "brokkoli"
+   ],
+   "ing": [
+    {
+     "p": "purre",
+     "a": 0.625,
+     "t": "½ purre",
+     "q": 0.625,
+     "u": "stk",
+     "n": "purre"
+    },
+    {
+     "p": "brokkoli",
+     "a": 0.625,
+     "t": "½ liten brokkoli",
+     "q": 0.625,
+     "u": "stk",
+     "n": "liten brokkoli"
+    },
+    {
+     "p": "smor",
+     "a": 1,
+     "t": "30 g smør",
+     "q": 31.25,
+     "u": "g",
+     "n": "smør"
+    },
+    {
+     "p": "spinat",
+     "a": 156.25,
+     "t": "150 g spinat",
+     "q": 156.25,
+     "u": "g",
+     "n": "spinat"
+    },
+    {
+     "p": "salt",
+     "a": 1,
+     "t": "salt og pepper",
+     "q": null,
+     "u": "",
+     "n": "salt og pepper"
+    },
+    {
+     "p": "roktlaks",
+     "a": 0.625,
+     "t": "½ varmrøkt laks (300 g)",
+     "q": 0.625,
+     "u": "stk",
+     "n": "varmrøkt laks (300 g)"
+    },
+    {
+     "p": "hvetemel",
+     "a": 1,
+     "t": "1 ss hvetemel",
+     "q": 0.9375,
+     "u": "ss",
+     "n": "hvetemel"
+    },
+    {
+     "p": "melk",
+     "a": 187.5,
+     "t": "2 dl lettmelk",
+     "q": 1.875,
+     "u": "dl",
+     "n": "lettmelk"
+    },
+    {
+     "p": "matflote",
+     "a": 187.5,
+     "t": "2 dl matfløte",
+     "q": 1.875,
+     "u": "dl",
+     "n": "matfløte"
+    },
+    {
+     "p": "sitron",
+     "a": 0.625,
+     "t": "½ sitron",
+     "q": 0.625,
+     "u": "stk",
+     "n": "sitron"
+    }
+   ],
+   "steps": [
+    {
+     "h": "Grønnsaker",
+     "t": "Ovnen på 200 °C. Stek {purre}, {brokkoli} og {spinat} i {smor} og smak til med {salt}.",
+     "m": 5
+    },
+    {
+     "h": "Form",
+     "t": "Legg grønnsakene i en ildfast form og fordel {roktlaks} oppå.",
+     "m": null
+    },
+    {
+     "h": "Saus",
+     "t": "Smelt smør, rør inn {hvetemel}, og tilsett {melk} og {matflote}. Smak til med {sitron}.",
+     "m": null
+    },
+    {
+     "h": "Stek",
+     "t": "Hell sausen over og stek midt i ovnen til gratengen er gyllen.",
+     "m": 20
+    }
+   ],
+   "src": "https://www.tine.no/oppskrifter/middag-og-hovedretter/fisk-og-skalldyr/laks-og-brokkoligrateng",
+   "srcName": "Tine.no",
+   "serves": 4,
+   "note": null
+  },
+  {
+   "id": "biffwok",
+   "name": "Biffwok med nudler og kremet saus",
+   "minutes": 15,
+   "tags": [
+    "superrask",
+    "kjott",
+    "asiatisk"
+   ],
+   "key": [
+    "biffstrimler",
+    "nudler"
+   ],
+   "ing": [
+    {
+     "p": "nudler",
+     "a": 125.0,
+     "t": "125 g nudler",
+     "q": 125.0,
+     "u": "g",
+     "n": "nudler"
+    },
+    {
+     "p": "soyasaus",
+     "a": 1,
+     "t": "2 ss soyasaus",
+     "q": 1.875,
+     "u": "ss",
+     "n": "soyasaus"
+    },
+    {
+     "p": "olje",
+     "a": 1,
+     "t": "½ ss olje",
+     "q": 0.625,
+     "u": "ss",
+     "n": "olje"
+    },
+    {
+     "p": "biffstrimler",
+     "a": 250.0,
+     "t": "250 g biffstrimler",
+     "q": 250.0,
+     "u": "g",
+     "n": "biffstrimler"
+    },
+    {
+     "p": "hvitlok",
+     "a": 1,
+     "t": "1 fedd hvitløk",
+     "q": 1.25,
+     "u": "fedd",
+     "n": "hvitløk"
+    },
+    {
+     "p": "gullok",
+     "a": 0.625,
+     "t": "½ løk i tynne båter",
+     "q": 0.625,
+     "u": "stk",
+     "n": "løk i tynne båter"
+    },
+    {
+     "p": "brokkoli",
+     "a": 0.625,
+     "t": "½ brokkoli i små biter",
+     "q": 0.625,
+     "u": "stk",
+     "n": "brokkoli i små biter"
+    },
+    {
+     "p": "peanottsmor",
+     "a": 0.125,
+     "t": "1 ss peanøttsmør",
+     "q": 1.25,
+     "u": "ss",
+     "n": "peanøttsmør"
+    },
+    {
+     "p": "kremflote",
+     "a": 125.0,
+     "t": "1 dl kremfløte",
+     "q": 1.25,
+     "u": "dl",
+     "n": "kremfløte"
+    }
+   ],
+   "steps": [
+    {
+     "h": "Nudler",
+     "t": "Hell kokende vann over {nudler} og la dem stå. Skyll og bland med litt {soyasaus}.",
+     "m": 5
+    },
+    {
+     "h": "Biff",
+     "t": "Stek {biffstrimler} og {hvitlok} i {olje} på høy varme.",
+     "m": 3
+    },
+    {
+     "h": "Grønnsaker",
+     "t": "Ha i {gullok} og {brokkoli} og stek.",
+     "m": 3
+    },
+    {
+     "h": "Saus",
+     "t": "Rør inn resten av {soyasaus}, {kremflote} og {peanottsmor} og la det småkoke.",
+     "m": 2
+    }
+   ],
+   "src": "https://www.tine.no/oppskrifter/middag-og-hovedretter/kjott/biffwok-med-gronnsaker",
+   "srcName": "Tine.no",
+   "serves": 4,
+   "note": "Glassnudler er byttet med eggnudler. Vårløk og peanøtter er utelatt, og gulløk brukes i stedet for rødløk."
+  },
+  {
+   "id": "chililaks",
+   "name": "Chili- og limeglasert laks med ris",
+   "minutes": 20,
+   "tags": [
+    "superrask",
+    "fisk",
+    "asiatisk"
+   ],
+   "key": [
+    "laks",
+    "ris"
+   ],
+   "ing": [
+    {
+     "p": "ris",
+     "a": 125.0,
+     "t": "125 g ris",
+     "q": 125.0,
+     "u": "g",
+     "n": "ris"
+    },
+    {
+     "p": "lime",
+     "a": 0.625,
+     "t": "½ lime",
+     "q": 0.625,
+     "u": "stk",
+     "n": "lime"
+    },
+    {
+     "p": "sweetchilisaus",
+     "a": 0.125,
+     "t": "2½ ss søt chilisaus",
+     "q": 2.5,
+     "u": "ss",
+     "n": "søt chilisaus"
+    },
+    {
+     "p": "laks",
+     "a": 312.5,
+     "t": "300 g laksefilet",
+     "q": 312.5,
+     "u": "g",
+     "n": "laksefilet"
+    },
+    {
+     "p": "chili",
+     "a": 0.625,
+     "t": "½ rød chili",
+     "q": 0.625,
+     "u": "stk",
+     "n": "rød chili"
+    },
+    {
+     "p": "hvitlok",
+     "a": 1,
+     "t": "½ fedd hvitløk",
+     "q": 0.625,
+     "u": "fedd",
+     "n": "hvitløk"
+    },
+    {
+     "p": "ingefaer",
+     "a": 6.25,
+     "t": "½ ss finhakket ingefær",
+     "q": 0.625,
+     "u": "ss",
+     "n": "finhakket ingefær"
+    },
+    {
+     "p": "smor",
+     "a": 1,
+     "t": "2½ ss smør",
+     "q": 2.5,
+     "u": "ss",
+     "n": "smør"
+    },
+    {
+     "p": "hodekal",
+     "a": 0.312,
+     "t": "½ kål, strimlet",
+     "q": 0.3125,
+     "u": "stk",
+     "n": "kål, strimlet"
+    },
+    {
+     "p": "soyasaus",
+     "a": 1,
+     "t": "2½ ss soyasaus",
+     "q": 2.5,
+     "u": "ss",
+     "n": "soyasaus"
+    },
+    {
+     "p": "sesam",
+     "a": 1,
+     "t": "1 ss sesamfrø",
+     "q": 1.25,
+     "u": "ss",
+     "n": "sesamfrø"
+    }
+   ],
+   "steps": [
+    {
+     "h": "Ris",
+     "t": "Kok {ris}.",
+     "m": 12
+    },
+    {
+     "h": "Laks",
+     "t": "Bland {lime} og {sweetchilisaus}, pensle laksen ({laks}) og stek øverst i ovnen på 230 °C.",
+     "m": 6
+    },
+    {
+     "h": "Kål",
+     "t": "Stek {chili}, {hvitlok} og {ingefaer} i {smor}. Rør inn {hodekal}, {soyasaus} og {sesam}.",
+     "m": 3
+    },
+    {
+     "h": "Server",
+     "t": "Server laksen med kål og ris.",
+     "m": null
+    }
+   ],
+   "src": "https://www.tine.no/oppskrifter/middag-og-hovedretter/fisk-og-skalldyr/chili-og-limeglasert-laks-med-ris",
+   "srcName": "Tine.no",
+   "serves": 4,
+   "note": "Kinakål er byttet med hodekål."
+  },
+  {
+   "id": "seiwok",
+   "name": "Asiatisk seiwok",
+   "minutes": 20,
+   "tags": [
+    "superrask",
+    "fisk",
+    "asiatisk"
+   ],
+   "key": [
+    "sei",
+    "nudler"
+   ],
+   "ing": [
+    {
+     "p": "sei",
+     "a": 375.0,
+     "t": "375 g seifilet i biter",
+     "q": 375.0,
+     "u": "g",
+     "n": "seifilet i biter"
+    },
+    {
+     "p": "olje",
+     "a": 1,
+     "t": "1 ss olje",
+     "q": 1.25,
+     "u": "ss",
+     "n": "olje"
+    },
+    {
+     "p": "soyasaus",
+     "a": 1,
+     "t": "2½ ss soyasaus",
+     "q": 2.5,
+     "u": "ss",
+     "n": "soyasaus"
+    },
+    {
+     "p": "sesam",
+     "a": 1,
+     "t": "1 ss sesamfrø",
+     "q": 1.25,
+     "u": "ss",
+     "n": "sesamfrø"
+    },
+    {
+     "p": "brokkoli",
+     "a": 0.625,
+     "t": "½ liten brokkoli",
+     "q": 0.625,
+     "u": "stk",
+     "n": "liten brokkoli"
+    },
+    {
+     "p": "gullok",
+     "a": 0.625,
+     "t": "½ løk",
+     "q": 0.625,
+     "u": "stk",
+     "n": "løk"
+    },
+    {
+     "p": "gulrot",
+     "a": 93.75,
+     "t": "1 gulrot",
+     "q": 1.25,
+     "u": "stk",
+     "n": "gulrot"
+    },
+    {
+     "p": "nudler",
+     "a": 156.25,
+     "t": "150 g eggnudler",
+     "q": 156.25,
+     "u": "g",
+     "n": "eggnudler"
+    },
+    {
+     "p": "bonnespirer",
+     "a": 0.625,
+     "t": "1 dl bønnespirer",
+     "q": 1.25,
+     "u": "dl",
+     "n": "bønnespirer"
+    },
+    {
+     "p": "koriander",
+     "a": 0.375,
+     "t": "2 ss hakket koriander",
+     "q": 1.875,
+     "u": "ss",
+     "n": "hakket koriander"
+    },
+    {
+     "p": "salt",
+     "a": 1,
+     "t": "salt og pepper",
+     "q": null,
+     "u": "",
+     "n": "salt og pepper"
+    }
+   ],
+   "steps": [
+    {
+     "h": "Nudler",
+     "t": "Kok {nudler}.",
+     "m": 5
+    },
+    {
+     "h": "Fisk",
+     "t": "Stek {sei} raskt i omganger i {olje} og dryss over {soyasaus} og {sesam}.",
+     "m": 5
+    },
+    {
+     "h": "Grønnsaker",
+     "t": "Stek {brokkoli}, {gullok} og {gulrot}.",
+     "m": 5
+    },
+    {
+     "h": "Bland",
+     "t": "Bland nudler, grønnsaker, {bonnespirer} og {koriander}. Smak til med {salt}.",
+     "m": null
+    }
+   ],
+   "src": "https://www.tine.no/oppskrifter/middag-og-hovedretter/fisk-og-skalldyr/asiatisk-seiwok",
+   "srcName": "Tine.no",
+   "serves": 4,
+   "note": "Fiskesaus er utelatt, og gulløk brukes i stedet for rødløk."
+  },
+  {
+   "id": "restegrateng",
+   "name": "Restegrateng med fisk og grønnsaker",
+   "minutes": 30,
+   "tags": [
+    "rask",
+    "fisk",
+    "ovn",
+    "budsjett"
+   ],
+   "key": [
+    "torsk",
+    "poteter"
+   ],
+   "ing": [
+    {
+     "p": "poteter",
+     "a": 500.0,
+     "t": "5 poteter",
+     "q": 5.0,
+     "u": "stk",
+     "n": "poteter"
+    },
+    {
+     "p": "brokkoli",
+     "a": 0.309,
+     "t": "95 g brokkoli",
+     "q": 93.75,
+     "u": "g",
+     "n": "brokkoli"
+    },
+    {
+     "p": "blomkal",
+     "a": 0.309,
+     "t": "95 g blomkål",
+     "q": 93.75,
+     "u": "g",
+     "n": "blomkål"
+    },
+    {
+     "p": "gulrot",
+     "a": 62.5,
+     "t": "60 g gulrot",
+     "q": 62.5,
+     "u": "g",
+     "n": "gulrot"
+    },
+    {
+     "p": "paprika",
+     "a": 0.412,
+     "t": "60 g paprika",
+     "q": 62.5,
+     "u": "g",
+     "n": "paprika"
+    },
+    {
+     "p": "gullok",
+     "a": 0.625,
+     "t": "½ løk",
+     "q": 0.625,
+     "u": "stk",
+     "n": "løk"
+    },
+    {
+     "p": "torsk",
+     "a": 375.0,
+     "t": "375 g fiskefilet",
+     "q": 375.0,
+     "u": "g",
+     "n": "fiskefilet"
+    },
+    {
+     "p": "melk",
+     "a": 250.0,
+     "t": "2½ dl lettmelk",
+     "q": 2.5,
+     "u": "dl",
+     "n": "lettmelk"
+    },
+    {
+     "p": "egg",
+     "a": 2.5,
+     "t": "2½ egg",
+     "q": 2.5,
+     "u": "stk",
+     "n": "egg"
+    },
+    {
+     "p": "salt",
+     "a": 1,
+     "t": "salt og pepper",
+     "q": null,
+     "u": "",
+     "n": "salt og pepper"
+    },
+    {
+     "p": "revetost",
+     "a": 50.0,
+     "t": "1 dl revet ost",
+     "q": 1.25,
+     "u": "dl",
+     "n": "revet ost"
+    }
+   ],
+   "steps": [
+    {
+     "h": "Form",
+     "t": "Ovnen på 200 °C. Kutt {poteter}, {brokkoli}, {blomkal}, {gulrot}, {paprika} og {gullok} i biter og legg i en form. Smuldre {torsk} over.",
+     "m": null
+    },
+    {
+     "h": "Eggeblanding",
+     "t": "Visp {melk} og {egg}, krydre med {salt} og hell over. Strø på {revetost}.",
+     "m": null
+    },
+    {
+     "h": "Stek",
+     "t": "Stek til gratengen er gyllen.",
+     "m": 25
+    }
+   ],
+   "src": "https://www.tine.no/oppskrifter/middag-og-hovedretter/fisk-og-skalldyr/restegrateng-med-fisk-og-gronnsaker",
+   "srcName": "Tine.no",
+   "serves": 4,
+   "note": "Rå poteter må stå litt lenger i ovnen."
+  },
+  {
+   "id": "spagettiketchup",
+   "name": "Spagetti med kjøttdeig og ketchup",
+   "minutes": 30,
+   "tags": [
+    "rask",
+    "kjott",
+    "pasta",
+    "budsjett"
+   ],
+   "key": [
+    "kjottdeig",
+    "spaghetti"
+   ],
+   "ing": [
+    {
+     "p": "spaghetti",
+     "a": 250.0,
+     "t": "250 g spagetti",
+     "q": 250.0,
+     "u": "g",
+     "n": "spagetti"
+    },
+    {
+     "p": "smor",
+     "a": 1,
+     "t": "1 ss smør",
+     "q": 1.25,
+     "u": "ss",
+     "n": "smør"
+    },
+    {
+     "p": "kjottdeig",
+     "a": 250.0,
+     "t": "250 g kjøttdeig",
+     "q": 250.0,
+     "u": "g",
+     "n": "kjøttdeig"
+    },
+    {
+     "p": "ketchup",
+     "a": 0.188,
+     "t": "6 ss ketchup",
+     "q": 6.25,
+     "u": "ss",
+     "n": "ketchup"
+    }
+   ],
+   "steps": [
+    {
+     "h": "Pasta",
+     "t": "Kok {spaghetti}.",
+     "m": 10
+    },
+    {
+     "h": "Kjøttdeig",
+     "t": "Stek {kjottdeig} i omganger i {smor}.",
+     "m": 8
+    },
+    {
+     "h": "Saus",
+     "t": "Ha kjøttdeigen tilbake i pannen med {ketchup} og la den småkoke.",
+     "m": 3
+    }
+   ],
+   "src": "https://www.tine.no/oppskrifter/middag-og-hovedretter/pasta-og-ris/spagetti-med-kjottdeig-og-ketsjup",
+   "srcName": "Tine.no",
+   "serves": 4,
+   "note": null
+  },
+  {
+   "id": "pastagrateng",
+   "name": "Pastagrateng med kjøttsaus",
+   "minutes": 35,
+   "tags": [
+    "kjott",
+    "pasta",
+    "ovn",
+    "comfort"
+   ],
+   "key": [
+    "kjottdeig",
+    "pasta"
+   ],
+   "ing": [
+    {
+     "p": "pasta",
+     "a": 156.25,
+     "t": "150 g farfalle eller annen pasta",
+     "q": 156.25,
+     "u": "g",
+     "n": "farfalle eller annen pasta"
+    },
+    {
+     "p": "kjottdeig",
+     "a": 250.0,
+     "t": "250 g kjøttdeig",
+     "q": 250.0,
+     "u": "g",
+     "n": "kjøttdeig"
+    },
+    {
+     "p": "smor",
+     "a": 1,
+     "t": "½ ss smør",
+     "q": 0.625,
      "u": "ss",
      "n": "smør"
     },
@@ -6212,68 +7074,28 @@
      "n": "løk"
     },
     {
+     "p": "hakkedetomater",
+     "a": 250.0,
+     "t": "½ boks hermetiske tomater",
+     "q": 0.625,
+     "u": "boks",
+     "n": "hermetiske tomater"
+    },
+    {
+     "p": "soltorkedetomater",
+     "a": 0.188,
+     "t": "4 soltørkede tomater",
+     "q": 3.75,
+     "u": "stk",
+     "n": "soltørkede tomater"
+    },
+    {
      "p": "hvitlok",
      "a": 1,
      "t": "½ fedd hvitløk",
      "q": 0.625,
      "u": "fedd",
      "n": "hvitløk"
-    },
-    {
-     "p": "ingefaer",
-     "a": 18.75,
-     "t": "2 ss revet ingefær",
-     "q": 1.875,
-     "u": "ss",
-     "n": "revet ingefær"
-    },
-    {
-     "p": "sotpotet",
-     "a": 312.5,
-     "t": "1 søtpotet",
-     "q": 1.25,
-     "u": "stk",
-     "n": "søtpotet"
-    },
-    {
-     "p": "linser",
-     "a": 0.312,
-     "t": "1½ dl røde linser",
-     "q": 1.5625,
-     "u": "dl",
-     "n": "røde linser"
-    },
-    {
-     "p": "gulrot",
-     "a": 140.625,
-     "t": "2 gulrot",
-     "q": 1.875,
-     "u": "stk",
-     "n": "gulrot"
-    },
-    {
-     "p": "spisskummen",
-     "a": 1,
-     "t": "1 ts spisskummen",
-     "q": 1.25,
-     "u": "ts",
-     "n": "spisskummen"
-    },
-    {
-     "p": "buljong",
-     "a": 1,
-     "t": "6 dl grønnsaksbuljong",
-     "q": 0.625,
-     "u": "l",
-     "n": "grønnsaksbuljong"
-    },
-    {
-     "p": "kremflote",
-     "a": 125.0,
-     "t": "1 dl kremfløte",
-     "q": 1.25,
-     "u": "dl",
-     "n": "kremfløte"
     },
     {
      "p": "salt",
@@ -6284,40 +7106,202 @@
      "n": "salt og pepper"
     },
     {
-     "p": "romme",
-     "a": 37.5,
-     "t": "2½ ss lettrømme",
+     "p": "oregano",
+     "a": 1,
+     "t": "½ ts oregano",
+     "q": 0.3125,
+     "u": "ts",
+     "n": "oregano"
+    },
+    {
+     "p": "basilikumtorket",
+     "a": 1,
+     "t": "½ ts basilikum",
+     "q": 0.3125,
+     "u": "ts",
+     "n": "basilikum"
+    },
+    {
+     "p": "melk",
+     "a": 250.0,
+     "t": "2½ dl helmelk",
      "q": 2.5,
+     "u": "dl",
+     "n": "helmelk"
+    },
+    {
+     "p": "hvetemel",
+     "a": 1,
+     "t": "1 ss hvetemel",
+     "q": 1.25,
      "u": "ss",
-     "n": "lettrømme"
+     "n": "hvetemel"
+    },
+    {
+     "p": "revetost",
+     "a": 125.0,
+     "t": "3 dl revet ost (3 dl i saus, 2 dl på toppen)",
+     "q": 3.125,
+     "u": "dl",
+     "n": "revet ost (3 dl i saus, 2 dl på toppen)"
     }
    ],
    "steps": [
     {
-     "h": "Fres",
-     "t": "Stek {gullok}, {hvitlok} og {ingefaer} i {smor}.",
-     "m": 2
+     "h": "Pasta",
+     "t": "Ovnen på 200 °C. Kok {pasta}.",
+     "m": 10
     },
     {
-     "h": "Kok",
-     "t": "Ha i {sotpotet}, {linser}, {gulrot} og {spisskummen}. Hell over {buljong} og la suppen koke.",
+     "h": "Kjøttsaus",
+     "t": "Stek {kjottdeig} og {gullok} i {smor}, ha i {hakkedetomater}, {soltorkedetomater}, {hvitlok} og krydder ({salt}, {oregano}, {basilikumtorket}) og småkok.",
+     "m": 10
+    },
+    {
+     "h": "Ostesaus",
+     "t": "Lag saus av {melk}, {hvetemel} og {revetost}.",
+     "m": 5
+    },
+    {
+     "h": "Stek",
+     "t": "Legg pasta, kjøttsaus og ostesaus i en form, strø på ost og stek.",
      "m": 20
-    },
-    {
-     "h": "Kjør glatt",
-     "t": "Kjør suppen glatt med stavmikser og rør inn {kremflote}. Smak til med {salt}.",
-     "m": null
-    },
-    {
-     "h": "Server",
-     "t": "Server med {romme}.",
-     "m": null
     }
    ],
-   "src": "https://www.tine.no/oppskrifter/middag-og-hovedretter/supper/sotpotetsuppe-med-rode-linser",
+   "src": "https://www.tine.no/oppskrifter/middag-og-hovedretter/pasta-og-ris/pastagrateng",
    "srcName": "Tine.no",
    "serves": 4,
-   "note": "Baconet i originalen er utelatt."
+   "note": null
+  },
+  {
+   "id": "ovnslaksurtesaus",
+   "name": "Ovnsbakt laks med urtesaus og ris",
+   "minutes": 30,
+   "tags": [
+    "rask",
+    "fisk",
+    "ovn"
+   ],
+   "key": [
+    "laks",
+    "ris"
+   ],
+   "ing": [
+    {
+     "p": "laks",
+     "a": 375.0,
+     "t": "375 g laksefilet",
+     "q": 375.0,
+     "u": "g",
+     "n": "laksefilet"
+    },
+    {
+     "p": "hvitlok",
+     "a": 1,
+     "t": "½ fedd hvitløk",
+     "q": 0.625,
+     "u": "fedd",
+     "n": "hvitløk"
+    },
+    {
+     "p": "olivenolje",
+     "a": 0.062,
+     "t": "1 ss olivenolje",
+     "q": 1.25,
+     "u": "ss",
+     "n": "olivenolje"
+    },
+    {
+     "p": "lime",
+     "a": 0.625,
+     "t": "½ lime",
+     "q": 0.625,
+     "u": "stk",
+     "n": "lime"
+    },
+    {
+     "p": "salt",
+     "a": 1,
+     "t": "salt og pepper",
+     "q": null,
+     "u": "",
+     "n": "salt og pepper"
+    },
+    {
+     "p": "buljong",
+     "a": 1,
+     "t": "½ fiskebuljongterning",
+     "q": 0.625,
+     "u": "stk",
+     "n": "fiskebuljongterning"
+    },
+    {
+     "p": "cremefraiche",
+     "a": 187.5,
+     "t": "2 dl lett crème fraîche",
+     "q": 1.875,
+     "u": "dl",
+     "n": "lett crème fraîche"
+    },
+    {
+     "p": "dill",
+     "a": 0.312,
+     "t": "½ dill",
+     "q": 0.3125,
+     "u": "stk",
+     "n": "dill"
+    },
+    {
+     "p": "gresslokpotte",
+     "a": 0.312,
+     "t": "½ gressløk",
+     "q": 0.3125,
+     "u": "stk",
+     "n": "gressløk"
+    },
+    {
+     "p": "ris",
+     "a": 150.0,
+     "t": "150 g ris",
+     "q": 150.0,
+     "u": "g",
+     "n": "ris"
+    },
+    {
+     "p": "wokgronnsaker",
+     "a": 187.5,
+     "t": "200 g wokgrønnsaker",
+     "q": 187.5,
+     "u": "g",
+     "n": "wokgrønnsaker"
+    }
+   ],
+   "steps": [
+    {
+     "h": "Marinade",
+     "t": "Ovnen på 175 °C. Bland {hvitlok}, {olivenolje} og {lime}, pensle {laks} og krydre med {salt}.",
+     "m": null
+    },
+    {
+     "h": "Stek",
+     "t": "Stek laksen midt i ovnen.",
+     "m": 12
+    },
+    {
+     "h": "Ris og wok",
+     "t": "Kok {ris} og wok {wokgronnsaker}.",
+     "m": 12
+    },
+    {
+     "h": "Saus",
+     "t": "Kok opp {buljong} og {cremefraiche}, og rør inn {dill} og {gresslokpotte}.",
+     "m": 3
+    }
+   ],
+   "src": "https://www.tine.no/oppskrifter/middag-og-hovedretter/fisk-og-skalldyr/ovnsbakt-laks-med-urtesaus-og-wokede-gronnsaker",
+   "srcName": "Tine.no",
+   "serves": 4,
+   "note": "Marineringen på en time er utelatt, og ferdige wokgrønnsaker er byttet med paprika, asparges og mais."
   }
  ]
 }
