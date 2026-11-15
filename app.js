@@ -7,7 +7,7 @@
   const POLL_MS = 6000;
   const TAGS = [['alle', 'Alle'], ['superrask', 'Superrask'], ['rask', 'Rask'], ['comfort', 'Comfort food'], ['italiensk', 'Italiensk'],
     ['meksikansk', 'Meksikansk'], ['asiatisk', 'Asiatisk'], ['norsk', 'Norsk'], ['kylling', 'Kylling'], ['kjott', 'Kjøtt'],
-    ['fisk', 'Fisk'], ['pasta', 'Pasta'], ['ovn', 'I ovnen'], ['gryte', 'Gryte'], ['suppe', 'Suppe'], ['fredagskos', 'Fredagskos'], ['budsjett', 'Budsjett']];
+    ['fisk', 'Fisk'], ['pasta', 'Pasta'], ['ovn', 'I ovnen'], ['gryte', 'Gryte'], ['suppe', 'Suppe'], ['vegetar', 'Vegetar'], ['fredagskos', 'Fredagskos'], ['budsjett', 'Budsjett']];
   const TAGNAME = Object.fromEntries(TAGS);
   const MONTHS = ['januar', 'februar', 'mars', 'april', 'mai', 'juni', 'juli', 'august', 'september', 'oktober', 'november', 'desember'];
 
@@ -196,6 +196,7 @@
       if (i.offer) chips += '<span class="chip offer">' + esc(i.offer) + '</span>';
       if (i.pantry) chips += '<span class="chip">sjekk skapet</span>';
       if (i.needText) chips += '<span class="chip">' + esc(i.needText) + '</span>';
+      if (i.parts && i.parts.length > 1 && !i.pantry && i.p.sz !== 1) chips += '<span class="chip warn">' + i.parts.map(x => esc(x.name.split(' ')[0]) + ' ' + L.fmtAmount(x.a, i.p.u)).join(' + ') + '</span>';
       if (i.adjusted) chips += '<span class="chip">listen sa ' + i.auto + '</span>';
       chips += '<span class="chip">' + Array.from(new Set(i.days.map(dayShort))).join(', ') + '</span>';
       if (isDone) chips += who(st.checks[i.id].by);
@@ -246,7 +247,7 @@
         '<div class="rm">' + (d.swapped ? '<span class="chip swap">byttet</span>' : '') + (!d.planned ? '<span class="chip swap">lagt til</span>' : '') + r.tags.map(tg => '<span class="chip">' + esc(TAGNAME[tg] || tg) + '</span>').join('') + conf.map(c => '<span class="chip warn">' + esc(c) + '</span>').join('') + '</div>' +
         '<div class="porow"><span>Porsjoner</span><span class="step"><button type="button" class="sb" data-portions="' + esc(d.key) + '" data-d="-0.5" aria-label="Færre porsjoner">−</button><span class="sq">' + L.fmtNum(d.portions) + '</span><button type="button" class="sb" data-portions="' + esc(d.key) + '" data-d="0.5" aria-label="Flere porsjoner">+</button></span></div>' +
         '<button class="btn startcook" type="button" data-cook="' + esc(d.key) + '">Start matlagingen</button>' +
-        '<div><h3>Ingredienser</h3><ul>' + r.ing.map(x => '<li>' + esc(L.ingText(x, d.portions)) + '</li>').join('') + '</ul></div>' +
+        '<div><h3>Ingredienser</h3><ul>' + r.ing.map(x => '<li>' + esc(L.ingText(x, d.portions)) + (x.add ? ' <span class="chip add">tillegg</span>' : '') + '</li>').join('') + '</ul></div>' +
         '<div><h3>Fremgangsmåte</h3><ol class="steps">' + r.steps.map(x => { const o = L.stepObj(x); return '<li>' + (o.h ? '<b>' + esc(o.h) + '.</b> ' : '') + esc(L.stepText(o, r, d.portions)) + (o.m ? ' <span class="chip">' + o.m + ' min</span>' : '') + '</li>'; }).join('') + '</ol></div>' +
         (r.src ? '<p class="src">Kilde: <a href="' + esc(r.src) + '" target="_blank" rel="noopener">' + esc(r.srcName || 'oppskriften') + '</a>' + (r.serves && r.serves !== 2.5 ? ', omregnet fra ' + r.serves + ' porsjoner' : '') + '.' + (r.note ? ' ' + esc(r.note) : '') + '</p>' : '') +
         '<div class="daybtns"><button class="btn" type="button" data-swap="' + esc(d.key) + '">Bytt middag</button>' +
@@ -401,6 +402,27 @@
     const xy = v.map((y, i) => (i * W / (v.length - 1)).toFixed(1) + ',' + (hi === lo ? H / 2 : H - 2 - (y - lo) * (H - 4) / (hi - lo)).toFixed(1));
     return '<svg class="spark" viewBox="0 0 ' + W + ' ' + H + '" aria-hidden="true"><polyline points="' + xy.join(' ') + '" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>';
   }
+  /** Større prisgraf: x etter dato, y fra laveste til høyeste pris. v = ordinær pris, w = betalt (ev. rabattert). */
+  function bigChart(pts, unitLabel) {
+    const W = 320, H = 150, L0 = 38, R0 = 12, T0 = 14, B0 = 26;
+    const ts = pts.map(p => Date.parse(p.d + 'T12:00:00Z')), t0 = Math.min(...ts), t1 = Math.max(...ts);
+    const vals = pts.flatMap(p => [p.v, p.w]).filter(x => typeof x === 'number'), lo0 = Math.min(...vals), hi0 = Math.max(...vals);
+    const pad = (hi0 - lo0) * 0.15 || hi0 * 0.1 || 1, lo = Math.max(0, lo0 - pad), hi = hi0 + pad;
+    const X = t => L0 + (t1 === t0 ? (W - L0 - R0) / 2 : (t - t0) * (W - L0 - R0) / (t1 - t0));
+    const Y = v => T0 + (hi - v) * (H - T0 - B0) / (hi - lo);
+    const line = key => pts.map((p, i) => X(ts[i]).toFixed(1) + ',' + Y(p[key]).toFixed(1)).join(' ');
+    const lab = (i, key, dy) => '<text x="' + X(ts[i]).toFixed(1) + '" y="' + (Y(pts[i][key]) + dy).toFixed(1) + '" text-anchor="' + (i === 0 ? 'start' : i === pts.length - 1 ? 'end' : 'middle') + '" class="cl">' + String(pts[i][key].toFixed(2)).replace('.', ',') + '</text>';
+    const disc = pts.some(p => p.w < p.v - 0.005);
+    return '<svg class="bigc" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Prisutvikling, ' + esc(unitLabel) + '">' +
+      '<line x1="' + L0 + '" y1="' + (H - B0) + '" x2="' + (W - R0) + '" y2="' + (H - B0) + '" class="ax"/>' +
+      '<text x="' + (L0 - 4) + '" y="' + (Y(hi0) + 3).toFixed(1) + '" text-anchor="end" class="cl">' + String(hi0.toFixed(0)) + '</text><text x="' + (L0 - 4) + '" y="' + (Y(lo0) + 3).toFixed(1) + '" text-anchor="end" class="cl">' + String(lo0.toFixed(0)) + '</text>' +
+      (disc ? '<polyline points="' + line('w') + '" fill="none" stroke="currentColor" stroke-width="1.2" stroke-dasharray="3 3" opacity=".55"/>' : '') +
+      '<polyline points="' + line('v') + '" fill="none" stroke="currentColor" stroke-width="2"/>' +
+      pts.map((p, i) => '<circle cx="' + X(ts[i]).toFixed(1) + '" cy="' + Y(p.v).toFixed(1) + '" r="3.2" fill="currentColor"/>').join('') +
+      lab(0, 'v', -7) + (pts.length > 1 ? lab(pts.length - 1, 'v', -7) : '') +
+      '<text x="' + L0 + '" y="' + (H - 8) + '" text-anchor="start" class="cl">' + dShort(pts[0].d) + '</text><text x="' + (W - R0) + '" y="' + (H - 8) + '" text-anchor="end" class="cl">' + dShort(pts[pts.length - 1].d) + '</text></svg>' +
+      '<p class="small">Heltrukket: ordinær pris (' + esc(unitLabel) + ')' + (disc ? '. Stiplet: det dere faktisk betalte etter rabatt.' : '.') + '</p>';
+  }
   function trendBox() {
     const gs = L.productGroups(S.prices, S.cat);
     if (!gs.length) return '';
@@ -412,8 +434,13 @@
       const t = g.trend;
       h += '<li><details class="pg" id="pg-' + esc(g.key) + '"><summary><div class="rl"><span class="rt"><b>' + esc(g.name) + '</b></span><span class="rp">' + (t ? kr2(t.p.pr) + '<small>per pakning</small>' : '<small>' + g.products.length + ' produkt' + (g.products.length > 1 ? 'er' : '') + '</small>') + '</span></div>' +
         (t ? '<div class="rm">' + (t.first.d !== t.last.d ? spark(t.points) : '') + '<span class="chip">' + t.n + ' kjøp</span>' + chg(t.change, t.n, t.first.d, t.last.d) + (t.est ? '<span class="chip">anslag var ' + kr(t.est) + '</span>' : '') + '</div>' : '') + '</summary>';
-      h += '<ul class="prods">' + g.products.map(p => '<li><div class="rl"><span class="rt">' + esc(p.n) + '</span><span class="rp">' + kr2(p.last.p) + (p.unit === 'kg' ? '/kg' : '') +
-        (p.last.o > p.last.p ? '<small>ordinær ' + kr2(p.last.o) + '</small>' : '') + '</span></div><div class="rm">' + (p.first.d !== p.last.d ? spark(p.points.map(x => ({ unit: x.o }))) : '') + '<span class="chip">' + p.count + ' kjøp</span>' + chg(p.change, p.count, p.first.d, p.last.d) + '</div></li>').join('') +
+      h += '<ul class="prods">' + g.products.map(p => {
+        const dates = new Set(p.points.map(x => x.d)).size;
+        const row = '<div class="rl"><span class="rt">' + esc(p.n) + '</span><span class="rp">' + kr2(p.last.p) + (p.unit === 'kg' ? '/kg' : '') +
+          (p.last.o > p.last.p ? '<small>ordinær ' + kr2(p.last.o) + '</small>' : '') + '</span></div><div class="rm">' + (dates > 1 ? spark(p.points.map(x => ({ unit: x.o }))) : '') + '<span class="chip">' + p.count + ' kjøp</span>' + chg(p.change, p.count, p.first.d, p.last.d) + '</div>';
+        return '<li><details class="pc" id="pc-' + esc(p.key) + '"><summary>' + row + '</summary>' +
+          (dates > 1 ? bigChart(p.points.map(x => ({ d: x.d, v: x.o, w: x.p })), p.unit === 'kg' ? 'kr/kg' : 'kr/stk') : '<p class="small">Grafen kommer når produktet er kjøpt på to ulike dager.</p>') + '</details></li>';
+      }).join('') +
         (g.products.length ? '' : '<li class="small">Ingen produktdetaljer ennå.</li>') + '</ul></details></li>';
     });
     return h + '</ul></details>';
