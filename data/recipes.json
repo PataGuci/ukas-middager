@@ -564,7 +564,8 @@
      "t": "2 dl ris til servering",
      "q": 1.875,
      "u": "dl",
-     "n": "ris til servering"
+     "n": "ris til servering",
+     "add": true
     },
     {
      "p": "salt",
@@ -1142,7 +1143,8 @@
      "t": "2 dl ris til servering",
      "q": 1.875,
      "u": "dl",
-     "n": "ris til servering"
+     "n": "ris til servering",
+     "add": true
     }
    ],
    "steps": [
@@ -1664,7 +1666,8 @@
      "t": "2 dl ris til servering",
      "q": 1.875,
      "u": "dl",
-     "n": "ris til servering"
+     "n": "ris til servering",
+     "add": true
     }
    ],
    "steps": [
@@ -1919,7 +1922,8 @@
      "t": "375 g pommes frites til",
      "q": 375.0,
      "u": "g",
-     "n": "pommes frites til"
+     "n": "pommes frites til",
+     "add": true
     }
    ],
    "steps": [
@@ -3350,7 +3354,8 @@
      "t": "375 g pommes frites til",
      "q": 375.0,
      "u": "g",
-     "n": "pommes frites til"
+     "n": "pommes frites til",
+     "add": true
     }
    ],
    "steps": [
@@ -3576,7 +3581,8 @@
      "t": "7 poteter",
      "q": 6.6667,
      "u": "stk",
-     "n": "poteter"
+     "n": "poteter",
+     "add": true
     },
     {
      "p": "gulrot",
@@ -3584,7 +3590,8 @@
      "t": "2½ gulrot",
      "q": 2.5,
      "u": "stk",
-     "n": "gulrot"
+     "n": "gulrot",
+     "add": true
     },
     {
      "p": "tyttebaer",
@@ -3592,7 +3599,8 @@
      "t": "1 glass tyttebær",
      "q": 0.8333,
      "u": "glass",
-     "n": "tyttebær"
+     "n": "tyttebær",
+     "add": true
     }
    ],
    "steps": [
@@ -3934,7 +3942,8 @@
      "t": "4 poteter til",
      "q": 3.75,
      "u": "stk",
-     "n": "poteter til"
+     "n": "poteter til",
+     "add": true
     },
     {
      "p": "gulrot",
@@ -3942,7 +3951,8 @@
      "t": "2 gulrot til råkost",
      "q": 1.875,
      "u": "stk",
-     "n": "gulrot til råkost"
+     "n": "gulrot til råkost",
+     "add": true
     }
    ],
    "steps": [
@@ -4054,7 +4064,8 @@
      "t": "2 dl ris til",
      "q": 1.875,
      "u": "dl",
-     "n": "ris til"
+     "n": "ris til",
+     "add": true
     },
     {
      "p": "isberg",
@@ -4062,7 +4073,8 @@
      "t": "½ salat til",
      "q": 0.3125,
      "u": "stk",
-     "n": "salat til"
+     "n": "salat til",
+     "add": true
     }
    ],
    "steps": [
@@ -4124,7 +4136,8 @@
      "t": "½ brokkoli (i stedet for asparges)",
      "q": 0.625,
      "u": "stk",
-     "n": "brokkoli (i stedet for asparges)"
+     "n": "brokkoli (i stedet for asparges)",
+     "add": true
     },
     {
      "p": "cremefraiche",
@@ -4720,7 +4733,8 @@
      "t": "5 poteter til",
      "q": 5.0,
      "u": "stk",
-     "n": "poteter til"
+     "n": "poteter til",
+     "add": true
     },
     {
      "p": "bladsalat",
@@ -4728,7 +4742,8 @@
      "t": "½ pose salat til",
      "q": 0.625,
      "u": "pose",
-     "n": "salat til"
+     "n": "salat til",
+     "add": true
     }
    ],
    "steps": [
@@ -5109,6 +5124,1200 @@
    "srcName": "Tine.no",
    "serves": 4,
    "note": "Rå paprika er utelatt, og gulløk brukes i stedet for rødløk."
+  },
+  {
+   "id": "linsegryte",
+   "name": "Linsegryte med potetmos",
+   "minutes": 60,
+   "tags": [
+    "vegetar",
+    "gryte",
+    "comfort",
+    "budsjett"
+   ],
+   "key": [
+    "linser",
+    "squash"
+   ],
+   "ing": [
+    {
+     "p": "gullok",
+     "a": 0.625,
+     "t": "½ løk",
+     "q": 0.625,
+     "u": "stk",
+     "n": "løk"
+    },
+    {
+     "p": "squash",
+     "a": 0.625,
+     "t": "½ squash",
+     "q": 0.625,
+     "u": "stk",
+     "n": "squash"
+    },
+    {
+     "p": "aubergine",
+     "a": 0.312,
+     "t": "½ aubergine",
+     "q": 0.3125,
+     "u": "stk",
+     "n": "aubergine"
+    },
+    {
+     "p": "ingefaer",
+     "a": 8.75,
+     "t": "1 cm frisk ingefær",
+     "q": 1.25,
+     "u": "cm",
+     "n": "frisk ingefær"
+    },
+    {
+     "p": "chili",
+     "a": 0.312,
+     "t": "½ grønn chili",
+     "q": 0.3125,
+     "u": "stk",
+     "n": "grønn chili"
+    },
+    {
+     "p": "hvitlok",
+     "a": 1,
+     "t": "½ fedd hvitløk",
+     "q": 0.625,
+     "u": "fedd",
+     "n": "hvitløk"
+    },
+    {
+     "p": "linser",
+     "a": 0.312,
+     "t": "1½ dl røde linser",
+     "q": 1.5625,
+     "u": "dl",
+     "n": "røde linser"
+    },
+    {
+     "p": "karri",
+     "a": 1,
+     "t": "½ ss karri",
+     "q": 0.3125,
+     "u": "ss",
+     "n": "karri"
+    },
+    {
+     "p": "gurkemeie",
+     "a": 1,
+     "t": "½ ts gurkemeie",
+     "q": 0.625,
+     "u": "ts",
+     "n": "gurkemeie"
+    },
+    {
+     "p": "hakkedetomater",
+     "a": 250.0,
+     "t": "2½ dl hermetiske tomater",
+     "q": 2.5,
+     "u": "dl",
+     "n": "hermetiske tomater"
+    },
+    {
+     "p": "buljong",
+     "a": 1,
+     "t": "4½ dl grønnsaksbuljong",
+     "q": 0.4375,
+     "u": "l",
+     "n": "grønnsaksbuljong"
+    },
+    {
+     "p": "salt",
+     "a": 1,
+     "t": "salt og pepper",
+     "q": null,
+     "u": "",
+     "n": "salt og pepper"
+    },
+    {
+     "p": "poteter",
+     "a": 375.0,
+     "t": "4 poteter til mos",
+     "q": 3.75,
+     "u": "stk",
+     "n": "poteter til mos"
+    },
+    {
+     "p": "smor",
+     "a": 1,
+     "t": "½ ss smør",
+     "q": 0.625,
+     "u": "ss",
+     "n": "smør"
+    },
+    {
+     "p": "melk",
+     "a": 125.0,
+     "t": "1 dl lettmelk",
+     "q": 1.25,
+     "u": "dl",
+     "n": "lettmelk"
+    },
+    {
+     "p": "yoghurt",
+     "a": 125.0,
+     "t": "1 dl yoghurt naturell",
+     "q": 1.25,
+     "u": "dl",
+     "n": "yoghurt naturell"
+    },
+    {
+     "p": "sitron",
+     "a": 0.625,
+     "t": "½ sitron",
+     "q": 0.625,
+     "u": "stk",
+     "n": "sitron"
+    },
+    {
+     "p": "bladsalat",
+     "a": 93.75,
+     "t": "95 g salat",
+     "q": 93.75,
+     "u": "g",
+     "n": "salat"
+    }
+   ],
+   "steps": [
+    {
+     "h": "Hakk",
+     "t": "Hakk {gullok}, {squash} og {aubergine} i små biter. Finhakk {ingefaer}, {chili} og {hvitlok}.",
+     "m": null
+    },
+    {
+     "h": "Surr",
+     "t": "Surr grønnsakene med {linser}, {karri} og {gurkemeie} i en gryte med litt olje.",
+     "m": 3
+    },
+    {
+     "h": "Småkok",
+     "t": "Ha i {hakkedetomater} og {buljong} og la gryten småkoke til linsene er møre. Smak til med {salt}.",
+     "m": 35
+    },
+    {
+     "h": "Potetmos",
+     "t": "Kok {poteter} møre, hell av vannet og mos med {smor} og {melk}.",
+     "m": 20
+    },
+    {
+     "h": "Server",
+     "t": "Server med {yoghurt}, {bladsalat} og {sitron}.",
+     "m": null
+    }
+   ],
+   "src": "https://www.tine.no/oppskrifter/middag-og-hovedretter/gronnsaker-og-poteter/linsegryte",
+   "srcName": "Tine.no",
+   "serves": 4,
+   "note": null
+  },
+  {
+   "id": "ovnstorsk",
+   "name": "Ovnsbakt torsk med rotgrønnsaker og sennep",
+   "minutes": 35,
+   "tags": [
+    "fisk",
+    "ovn",
+    "norsk"
+   ],
+   "key": [
+    "torsk",
+    "kalrot"
+   ],
+   "ing": [
+    {
+     "p": "poteter",
+     "a": 250.0,
+     "t": "2½ poteter",
+     "q": 2.5,
+     "u": "stk",
+     "n": "poteter"
+    },
+    {
+     "p": "gulrot",
+     "a": 140.625,
+     "t": "2 gulrot",
+     "q": 1.875,
+     "u": "stk",
+     "n": "gulrot"
+    },
+    {
+     "p": "kalrot",
+     "a": 0.312,
+     "t": "½ kålrot",
+     "q": 0.3125,
+     "u": "stk",
+     "n": "kålrot"
+    },
+    {
+     "p": "sellerirot",
+     "a": 0.312,
+     "t": "½ sellerirot",
+     "q": 0.3125,
+     "u": "stk",
+     "n": "sellerirot"
+    },
+    {
+     "p": "gullok",
+     "a": 1.25,
+     "t": "1 løk",
+     "q": 1.25,
+     "u": "stk",
+     "n": "løk"
+    },
+    {
+     "p": "olivenolje",
+     "a": 0.125,
+     "t": "2½ ss olivenolje",
+     "q": 2.5,
+     "u": "ss",
+     "n": "olivenolje"
+    },
+    {
+     "p": "salt",
+     "a": 1,
+     "t": "salt og pepper",
+     "q": null,
+     "u": "",
+     "n": "salt og pepper"
+    },
+    {
+     "p": "timian",
+     "a": 1,
+     "t": "½ ts timian",
+     "q": 0.625,
+     "u": "ts",
+     "n": "timian"
+    },
+    {
+     "p": "sennep2",
+     "a": 0.125,
+     "t": "2½ ss god sennep",
+     "q": 2.5,
+     "u": "ss",
+     "n": "god sennep"
+    },
+    {
+     "p": "torsk",
+     "a": 437.5,
+     "t": "450 g torskefilet",
+     "q": 437.5,
+     "u": "g",
+     "n": "torskefilet"
+    },
+    {
+     "p": "romme",
+     "a": 125.0,
+     "t": "1 dl lettrømme",
+     "q": 1.25,
+     "u": "dl",
+     "n": "lettrømme"
+    }
+   ],
+   "steps": [
+    {
+     "h": "Forbered",
+     "t": "Sett ovnen på 175 °C. Skrell og del {poteter}, {gulrot}, {kalrot}, {sellerirot} og {gullok} i jevne biter.",
+     "m": null
+    },
+    {
+     "h": "Grønnsakene",
+     "t": "Ha grønnsakene på en stekebrett, ha på {olivenolje}, {salt} og {timian}, og stek.",
+     "m": 20
+    },
+    {
+     "h": "Fisken",
+     "t": "Smør {sennep2} på {torsk} og brett filetene.",
+     "m": null
+    },
+    {
+     "h": "Ferdigstek",
+     "t": "Legg fisken oppå grønnsakene og stek videre.",
+     "m": 12
+    },
+    {
+     "h": "Server",
+     "t": "Server med {romme}.",
+     "m": null
+    }
+   ],
+   "src": "https://www.tine.no/oppskrifter/middag-og-hovedretter/fisk-og-skalldyr/ovnsbakt-torsk-med-rotgronnsaker-og-sennep",
+   "srcName": "Tine.no",
+   "serves": 4,
+   "note": "Gulløk i stedet for rødløk, og tørket timian i stedet for frisk."
+  },
+  {
+   "id": "fiskesuppe",
+   "name": "Fiskesuppe med rotgrønnsaker",
+   "minutes": 30,
+   "tags": [
+    "rask",
+    "fisk",
+    "suppe"
+   ],
+   "key": [
+    "laks",
+    "matflote"
+   ],
+   "ing": [
+    {
+     "p": "poteter",
+     "a": 125.0,
+     "t": "1 poteter",
+     "q": 1.25,
+     "u": "stk",
+     "n": "poteter"
+    },
+    {
+     "p": "gulrot",
+     "a": 93.75,
+     "t": "1 gulrot",
+     "q": 1.25,
+     "u": "stk",
+     "n": "gulrot"
+    },
+    {
+     "p": "sellerirot",
+     "a": 0.156,
+     "t": "½ sellerirot",
+     "q": 0.1562,
+     "u": "stk",
+     "n": "sellerirot"
+    },
+    {
+     "p": "gullok",
+     "a": 0.625,
+     "t": "½ løk",
+     "q": 0.625,
+     "u": "stk",
+     "n": "løk"
+    },
+    {
+     "p": "hvitlok",
+     "a": 1,
+     "t": "1 fedd hvitløk",
+     "q": 1.25,
+     "u": "fedd",
+     "n": "hvitløk"
+    },
+    {
+     "p": "buljong",
+     "a": 1,
+     "t": "6 dl fiskebuljong",
+     "q": 0.625,
+     "u": "l",
+     "n": "fiskebuljong"
+    },
+    {
+     "p": "salt",
+     "a": 1,
+     "t": "salt og pepper",
+     "q": null,
+     "u": "",
+     "n": "salt og pepper"
+    },
+    {
+     "p": "matflote",
+     "a": 187.5,
+     "t": "2 dl matfløte",
+     "q": 1.875,
+     "u": "dl",
+     "n": "matfløte"
+    },
+    {
+     "p": "laks",
+     "a": 250.0,
+     "t": "250 g laks i biter",
+     "q": 250.0,
+     "u": "g",
+     "n": "laks i biter"
+    }
+   ],
+   "steps": [
+    {
+     "h": "Grønnsaker",
+     "t": "Skrell og riv eller skjær {poteter}, {gulrot} og {sellerirot} i tynne strimler. Finhakk {gullok} og skjær {hvitlok} i skiver.",
+     "m": null
+    },
+    {
+     "h": "Kok",
+     "t": "Kok opp {buljong} med grønnsakene og småkok i 5–10 minutter. Smak til med {salt}.",
+     "m": 8
+    },
+    {
+     "h": "Fløte",
+     "t": "Rør inn {matflote} og la suppen koke opp. Skjær {laks} i biter.",
+     "m": null
+    },
+    {
+     "h": "Fisken",
+     "t": "Legg fisken i suppen, slå av platen og la den trekke.",
+     "m": 5
+    }
+   ],
+   "src": "https://www.tine.no/oppskrifter/middag-og-hovedretter/supper/fiskesuppe",
+   "srcName": "Tine.no",
+   "serves": 4,
+   "note": "Laks er valgt som fisk. Originalen foreslår også steinbit, blåskjell eller reker."
+  },
+  {
+   "id": "kyllingspinatpasta",
+   "name": "Spagetti med kylling og spinat i ostesaus",
+   "minutes": 30,
+   "tags": [
+    "rask",
+    "kylling",
+    "pasta",
+    "italiensk"
+   ],
+   "key": [
+    "kyllingfilet",
+    "spinat"
+   ],
+   "ing": [
+    {
+     "p": "spaghetti",
+     "a": 250.0,
+     "t": "250 g spagetti",
+     "q": 250.0,
+     "u": "g",
+     "n": "spagetti"
+    },
+    {
+     "p": "smor",
+     "a": 1,
+     "t": "1 ss smør",
+     "q": 1.25,
+     "u": "ss",
+     "n": "smør"
+    },
+    {
+     "p": "kyllingfilet",
+     "a": 281.25,
+     "t": "2 kyllingfilet i biter",
+     "q": 1.875,
+     "u": "stk",
+     "n": "kyllingfilet i biter"
+    },
+    {
+     "p": "hvitlok",
+     "a": 1,
+     "t": "1 fedd hvitløk",
+     "q": 1.25,
+     "u": "fedd",
+     "n": "hvitløk"
+    },
+    {
+     "p": "muskat",
+     "a": 1,
+     "t": "½ ts malt muskat",
+     "q": 0.625,
+     "u": "ts",
+     "n": "malt muskat"
+    },
+    {
+     "p": "spinat",
+     "a": 187.5,
+     "t": "200 g frisk spinat",
+     "q": 187.5,
+     "u": "g",
+     "n": "frisk spinat"
+    },
+    {
+     "p": "kremflote",
+     "a": 93.75,
+     "t": "1 dl kremfløte",
+     "q": 0.9375,
+     "u": "dl",
+     "n": "kremfløte"
+    },
+    {
+     "p": "kremost",
+     "a": 93.75,
+     "t": "95 g kremost naturell",
+     "q": 93.75,
+     "u": "g",
+     "n": "kremost naturell"
+    },
+    {
+     "p": "parmesan",
+     "a": 31.25,
+     "t": "30 g revet parmesan",
+     "q": 31.25,
+     "u": "g",
+     "n": "revet parmesan"
+    },
+    {
+     "p": "salt",
+     "a": 1,
+     "t": "salt og pepper",
+     "q": null,
+     "u": "",
+     "n": "salt og pepper"
+    }
+   ],
+   "steps": [
+    {
+     "h": "Pasta",
+     "t": "Kok {spaghetti} etter pakken og spar litt kokevann.",
+     "m": 10
+    },
+    {
+     "h": "Kylling",
+     "t": "Stek {kyllingfilet} og {hvitlok} i {smor}. Strø over {muskat} og ha i {spinat} til den faller sammen.",
+     "m": 8
+    },
+    {
+     "h": "Saus",
+     "t": "Ha i {kremflote}, {kremost} og litt kokevann og la sausen småkoke. Smak til med {salt}.",
+     "m": 3
+    },
+    {
+     "h": "Bland",
+     "t": "Rør inn pastaen og {parmesan}. Tilsett kokevann hvis sausen blir tørr.",
+     "m": null
+    }
+   ],
+   "src": "https://www.tine.no/oppskrifter/middag-og-hovedretter/pasta-og-ris/spagetti-med-kylling-og-spinat-i-ostesaus",
+   "srcName": "Tine.no",
+   "serves": 4,
+   "note": "Brødet i originalen er utelatt."
+  },
+  {
+   "id": "marokkanskkylling",
+   "name": "Kyllinggryte med linser",
+   "minutes": 30,
+   "tags": [
+    "rask",
+    "kylling",
+    "gryte"
+   ],
+   "key": [
+    "kyllingfilet",
+    "linser"
+   ],
+   "ing": [
+    {
+     "p": "linser",
+     "a": 0.25,
+     "t": "1 dl røde linser",
+     "q": 1.25,
+     "u": "dl",
+     "n": "røde linser"
+    },
+    {
+     "p": "kyllingfilet",
+     "a": 281.25,
+     "t": "1 kyllingfilet",
+     "q": 1.25,
+     "u": "stk",
+     "n": "kyllingfilet"
+    },
+    {
+     "p": "cremefraiche",
+     "a": 125.0,
+     "t": "1 dl lett crème fraîche",
+     "q": 1.25,
+     "u": "dl",
+     "n": "lett crème fraîche"
+    },
+    {
+     "p": "hvetemel",
+     "a": 1,
+     "t": "1 ts hvetemel",
+     "q": 1.25,
+     "u": "ts",
+     "n": "hvetemel"
+    },
+    {
+     "p": "buljong",
+     "a": 1,
+     "t": "½ hønsebuljongterning",
+     "q": 0.625,
+     "u": "stk",
+     "n": "hønsebuljongterning"
+    },
+    {
+     "p": "sambal",
+     "a": 1,
+     "t": "½ ts sambal oelek eller karri",
+     "q": 0.625,
+     "u": "ts",
+     "n": "sambal oelek eller karri"
+    },
+    {
+     "p": "hvitlok",
+     "a": 1,
+     "t": "1 fedd hvitløk",
+     "q": 1.25,
+     "u": "fedd",
+     "n": "hvitløk"
+    },
+    {
+     "p": "persille",
+     "a": 0.156,
+     "t": "½ dl finhakket persille",
+     "q": 0.3125,
+     "u": "dl",
+     "n": "finhakket persille"
+    },
+    {
+     "p": "bladsalat",
+     "a": 93.75,
+     "t": "95 g blandet salat",
+     "q": 93.75,
+     "u": "g",
+     "n": "blandet salat"
+    }
+   ],
+   "steps": [
+    {
+     "h": "Linser",
+     "t": "Kok {linser} i ca. 5 minutter til de er myke, og sil av vannet.",
+     "m": 5
+    },
+    {
+     "h": "Saus",
+     "t": "Rør {cremefraiche} og {hvetemel} sammen i en kjele, ha i vann, {buljong} og {sambal}.",
+     "m": null
+    },
+    {
+     "h": "Kylling",
+     "t": "Del {kyllingfilet} i biter og ha i gryten sammen med {hvitlok}. Småkok under lokk.",
+     "m": 10
+    },
+    {
+     "h": "Ferdig",
+     "t": "Rør inn linsene og {persille} og varm opp. Server med {bladsalat}.",
+     "m": null
+    }
+   ],
+   "src": "https://www.tine.no/oppskrifter/middag-og-hovedretter/kylling-og-fjarkre/marokansk-kyllinggryte",
+   "srcName": "Tine.no",
+   "serves": 4,
+   "note": null
+  },
+  {
+   "id": "spagettikjottdeig",
+   "name": "Spagetti med kjøttdeig og tomatsaus",
+   "minutes": 30,
+   "tags": [
+    "rask",
+    "kjott",
+    "pasta",
+    "italiensk",
+    "budsjett"
+   ],
+   "key": [
+    "kjottdeig",
+    "spaghetti"
+   ],
+   "ing": [
+    {
+     "p": "hvitlok",
+     "a": 1,
+     "t": "1 fedd hvitløk",
+     "q": 1.25,
+     "u": "fedd",
+     "n": "hvitløk"
+    },
+    {
+     "p": "gulrot",
+     "a": 93.75,
+     "t": "1 gulrot",
+     "q": 1.25,
+     "u": "stk",
+     "n": "gulrot"
+    },
+    {
+     "p": "gullok",
+     "a": 0.625,
+     "t": "½ løk",
+     "q": 0.625,
+     "u": "stk",
+     "n": "løk"
+    },
+    {
+     "p": "kjottdeig",
+     "a": 250.0,
+     "t": "250 g kjøttdeig",
+     "q": 250.0,
+     "u": "g",
+     "n": "kjøttdeig"
+    },
+    {
+     "p": "smor",
+     "a": 1,
+     "t": "1 ss smør",
+     "q": 1.25,
+     "u": "ss",
+     "n": "smør"
+    },
+    {
+     "p": "hakkedetomater",
+     "a": 500.0,
+     "t": "1 boks hermetiske tomater",
+     "q": 1.25,
+     "u": "boks",
+     "n": "hermetiske tomater"
+    },
+    {
+     "p": "salt",
+     "a": 1,
+     "t": "salt",
+     "q": null,
+     "u": "",
+     "n": "salt"
+    },
+    {
+     "p": "spaghetti",
+     "a": 250.0,
+     "t": "250 g spagetti",
+     "q": 250.0,
+     "u": "g",
+     "n": "spagetti"
+    },
+    {
+     "p": "revetost",
+     "a": 18.75,
+     "t": "2½ ss revet ost",
+     "q": 2.5,
+     "u": "ss",
+     "n": "revet ost"
+    }
+   ],
+   "steps": [
+    {
+     "h": "Hakk",
+     "t": "Finhakk {hvitlok}, {gulrot} og {gullok}.",
+     "m": null
+    },
+    {
+     "h": "Stek",
+     "t": "Stek {kjottdeig} og grønnsakene i {smor} til det er gjennomstekt, og ha over i en gryte med {hakkedetomater}.",
+     "m": 8
+    },
+    {
+     "h": "Pasta og saus",
+     "t": "Kok {spaghetti} mens sausen småkoker. Smak til med {salt}.",
+     "m": 12
+    },
+    {
+     "h": "Server",
+     "t": "Server spagettien med sausen og {revetost}.",
+     "m": null
+    }
+   ],
+   "src": "https://www.tine.no/oppskrifter/middag-og-hovedretter/pasta-og-ris/spaghetti-og-kjottdeig",
+   "srcName": "Tine.no",
+   "serves": 4,
+   "note": "Baconet i originalen er utelatt."
+  },
+  {
+   "id": "onepotpasta",
+   "name": "One pot-pasta med kjøttdeig",
+   "minutes": 40,
+   "tags": [
+    "kjott",
+    "pasta",
+    "italiensk",
+    "gryte"
+   ],
+   "key": [
+    "kjottdeig",
+    "spaghetti"
+   ],
+   "ing": [
+    {
+     "p": "olivenolje",
+     "a": 0.094,
+     "t": "2 ss olivenolje",
+     "q": 1.875,
+     "u": "ss",
+     "n": "olivenolje"
+    },
+    {
+     "p": "gullok",
+     "a": 0.625,
+     "t": "½ løk",
+     "q": 0.625,
+     "u": "stk",
+     "n": "løk"
+    },
+    {
+     "p": "hvitlok",
+     "a": 1,
+     "t": "½ fedd hvitløk",
+     "q": 0.625,
+     "u": "fedd",
+     "n": "hvitløk"
+    },
+    {
+     "p": "kjottdeig",
+     "a": 250.0,
+     "t": "250 g kjøttdeig",
+     "q": 250.0,
+     "u": "g",
+     "n": "kjøttdeig"
+    },
+    {
+     "p": "salt",
+     "a": 1,
+     "t": "salt og pepper",
+     "q": null,
+     "u": "",
+     "n": "salt og pepper"
+    },
+    {
+     "p": "hakkedetomater",
+     "a": 250.0,
+     "t": "250 g hakket tomat",
+     "q": 250.0,
+     "u": "g",
+     "n": "hakket tomat"
+    },
+    {
+     "p": "buljong",
+     "a": 1,
+     "t": "4½ dl kyllingbuljong",
+     "q": 0.4375,
+     "u": "l",
+     "n": "kyllingbuljong"
+    },
+    {
+     "p": "spaghetti",
+     "a": 187.5,
+     "t": "200 g spagetti eller annen pasta",
+     "q": 187.5,
+     "u": "g",
+     "n": "spagetti eller annen pasta"
+    },
+    {
+     "p": "basilikum",
+     "a": 0.312,
+     "t": "½ basilikum",
+     "q": 0.3125,
+     "u": "stk",
+     "n": "basilikum"
+    },
+    {
+     "p": "revetost",
+     "a": 93.75,
+     "t": "95 g revet ost",
+     "q": 93.75,
+     "u": "g",
+     "n": "revet ost"
+    }
+   ],
+   "steps": [
+    {
+     "h": "Fres",
+     "t": "Fres {gullok} og {hvitlok} i {olivenolje} i en stor, ildfast gryte.",
+     "m": 1
+    },
+    {
+     "h": "Brun",
+     "t": "Stek {kjottdeig} til den er brun, og krydre med {salt}.",
+     "m": 5
+    },
+    {
+     "h": "Kok",
+     "t": "Ha i {hakkedetomater} og {buljong}, kok opp og legg i {spaghetti}. Småkok og rør jevnlig.",
+     "m": 12
+    },
+    {
+     "h": "Gratiner",
+     "t": "Rør inn {basilikum}, strø over {revetost} og sett gryten i ovnen på grill til osten er gyllen.",
+     "m": 5
+    }
+   ],
+   "src": "https://www.tine.no/oppskrifter/middag-og-hovedretter/pasta-og-ris/one-pot-lasagne",
+   "srcName": "Tine.no",
+   "serves": 4,
+   "note": null
+  },
+  {
+   "id": "gronnsakspanne",
+   "name": "Grønnsakspanne med kjøttdeig",
+   "minutes": 30,
+   "tags": [
+    "rask",
+    "kjott",
+    "budsjett"
+   ],
+   "key": [
+    "kjottdeig",
+    "erter"
+   ],
+   "ing": [
+    {
+     "p": "kjottdeig",
+     "a": 250.0,
+     "t": "250 g kjøttdeig",
+     "q": 250.0,
+     "u": "g",
+     "n": "kjøttdeig"
+    },
+    {
+     "p": "olje",
+     "a": 1,
+     "t": "½ ss olje",
+     "q": 0.625,
+     "u": "ss",
+     "n": "olje"
+    },
+    {
+     "p": "gulrot",
+     "a": 140.625,
+     "t": "2 gulrot",
+     "q": 1.875,
+     "u": "stk",
+     "n": "gulrot"
+    },
+    {
+     "p": "gullok",
+     "a": 1.25,
+     "t": "1 løk",
+     "q": 1.25,
+     "u": "stk",
+     "n": "løk"
+    },
+    {
+     "p": "hvitlok",
+     "a": 1,
+     "t": "1 fedd hvitløk",
+     "q": 1.25,
+     "u": "fedd",
+     "n": "hvitløk"
+    },
+    {
+     "p": "salt",
+     "a": 1,
+     "t": "salt og pepper",
+     "q": null,
+     "u": "",
+     "n": "salt og pepper"
+    },
+    {
+     "p": "paprikapulver",
+     "a": 1,
+     "t": "½ ts paprikapulver",
+     "q": 0.625,
+     "u": "ts",
+     "n": "paprikapulver"
+    },
+    {
+     "p": "oregano",
+     "a": 1,
+     "t": "½ ts oregano",
+     "q": 0.625,
+     "u": "ts",
+     "n": "oregano"
+    },
+    {
+     "p": "timian",
+     "a": 1,
+     "t": "½ ts timian",
+     "q": 0.625,
+     "u": "ts",
+     "n": "timian"
+    },
+    {
+     "p": "hakkedetomater",
+     "a": 250.0,
+     "t": "½ boks hermetiske tomater",
+     "q": 0.625,
+     "u": "boks",
+     "n": "hermetiske tomater"
+    },
+    {
+     "p": "erter",
+     "a": 93.75,
+     "t": "95 g frosne erter",
+     "q": 93.75,
+     "u": "g",
+     "n": "frosne erter"
+    },
+    {
+     "p": "poteter",
+     "a": 250.0,
+     "t": "2½ poteter til servering",
+     "q": 2.5,
+     "u": "stk",
+     "n": "poteter til servering"
+    }
+   ],
+   "steps": [
+    {
+     "h": "Brun",
+     "t": "Stek {kjottdeig} i {olje} til den er godt brun.",
+     "m": 5
+    },
+    {
+     "h": "Grønnsaker",
+     "t": "Ha i hakket {gulrot}, {gullok} og {hvitlok} og stek videre. Krydre med {paprikapulver}, {oregano}, {timian} og {salt}.",
+     "m": 5
+    },
+    {
+     "h": "Tomat",
+     "t": "Hell i {hakkedetomater} og småkok til det tykner. Kok {poteter} til servering.",
+     "m": 10
+    },
+    {
+     "h": "Erter",
+     "t": "Rør inn {erter} og varm gjennom.",
+     "m": 2
+    }
+   ],
+   "src": "https://www.tine.no/oppskrifter/middag-og-hovedretter/kjott/gronnsakspanne-med-kjottdeig",
+   "srcName": "Tine.no",
+   "serves": 4,
+   "note": "Poteter som tilbehør er lagt til."
+  },
+  {
+   "id": "sotpotetsuppe",
+   "name": "Søtpotetsuppe med røde linser",
+   "minutes": 30,
+   "tags": [
+    "rask",
+    "vegetar",
+    "suppe",
+    "comfort"
+   ],
+   "key": [
+    "sotpotet",
+    "linser"
+   ],
+   "ing": [
+    {
+     "p": "smor",
+     "a": 1,
+     "t": "1 ss smør",
+     "q": 1.25,
+     "u": "ss",
+     "n": "smør"
+    },
+    {
+     "p": "gullok",
+     "a": 0.625,
+     "t": "½ løk",
+     "q": 0.625,
+     "u": "stk",
+     "n": "løk"
+    },
+    {
+     "p": "hvitlok",
+     "a": 1,
+     "t": "½ fedd hvitløk",
+     "q": 0.625,
+     "u": "fedd",
+     "n": "hvitløk"
+    },
+    {
+     "p": "ingefaer",
+     "a": 18.75,
+     "t": "2 ss revet ingefær",
+     "q": 1.875,
+     "u": "ss",
+     "n": "revet ingefær"
+    },
+    {
+     "p": "sotpotet",
+     "a": 312.5,
+     "t": "1 søtpotet",
+     "q": 1.25,
+     "u": "stk",
+     "n": "søtpotet"
+    },
+    {
+     "p": "linser",
+     "a": 0.312,
+     "t": "1½ dl røde linser",
+     "q": 1.5625,
+     "u": "dl",
+     "n": "røde linser"
+    },
+    {
+     "p": "gulrot",
+     "a": 140.625,
+     "t": "2 gulrot",
+     "q": 1.875,
+     "u": "stk",
+     "n": "gulrot"
+    },
+    {
+     "p": "spisskummen",
+     "a": 1,
+     "t": "1 ts spisskummen",
+     "q": 1.25,
+     "u": "ts",
+     "n": "spisskummen"
+    },
+    {
+     "p": "buljong",
+     "a": 1,
+     "t": "6 dl grønnsaksbuljong",
+     "q": 0.625,
+     "u": "l",
+     "n": "grønnsaksbuljong"
+    },
+    {
+     "p": "kremflote",
+     "a": 125.0,
+     "t": "1 dl kremfløte",
+     "q": 1.25,
+     "u": "dl",
+     "n": "kremfløte"
+    },
+    {
+     "p": "salt",
+     "a": 1,
+     "t": "salt og pepper",
+     "q": null,
+     "u": "",
+     "n": "salt og pepper"
+    },
+    {
+     "p": "romme",
+     "a": 37.5,
+     "t": "2½ ss lettrømme",
+     "q": 2.5,
+     "u": "ss",
+     "n": "lettrømme"
+    }
+   ],
+   "steps": [
+    {
+     "h": "Fres",
+     "t": "Stek {gullok}, {hvitlok} og {ingefaer} i {smor}.",
+     "m": 2
+    },
+    {
+     "h": "Kok",
+     "t": "Ha i {sotpotet}, {linser}, {gulrot} og {spisskummen}. Hell over {buljong} og la suppen koke.",
+     "m": 20
+    },
+    {
+     "h": "Kjør glatt",
+     "t": "Kjør suppen glatt med stavmikser og rør inn {kremflote}. Smak til med {salt}.",
+     "m": null
+    },
+    {
+     "h": "Server",
+     "t": "Server med {romme}.",
+     "m": null
+    }
+   ],
+   "src": "https://www.tine.no/oppskrifter/middag-og-hovedretter/supper/sotpotetsuppe-med-rode-linser",
+   "srcName": "Tine.no",
+   "serves": 4,
+   "note": "Baconet i originalen er utelatt."
   }
  ]
 }
