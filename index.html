@@ -303,6 +303,9 @@ details.wk:nth-of-type(4n+4){border-left-color:var(--tomato)}
 #addBtn{background:var(--leaf)}
 details.havebox{background:color-mix(in srgb,var(--sea) 8%,var(--paper));border-radius:12px;padding:10px 12px;margin-top:12px}
 details.havebox summary{color:var(--sea)}
+
+.sec h2::before{display:none}
+.si{width:30px;height:30px;padding:4px;flex:none;border-radius:9px;background:var(--paper);color:var(--c);fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 @media (prefers-reduced-motion: reduce){*{transition:none !important}}
 .rcpt{margin-top:14px;border-top:1px dashed var(--line);padding-top:12px;display:grid;gap:8px}
 .rcpt h3{margin:0}
@@ -407,6 +410,6 @@ svg.bigc .ax{stroke:var(--line);stroke-width:1}
 <div class="sheet hidden" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle"><div class="panel"><header><h2 id="sheetTitle">Bytt middag</h2><button class="ghost" type="button" id="sheetClose">Lukk</button></header><div class="scroll" id="sheetBody"></div></div></div>
 
 <script src="lib.js?v=7"></script>
-<script src="app.js?v=7"></script>
+<script src="app.js?v=8"></script>
 </body>
 </html>

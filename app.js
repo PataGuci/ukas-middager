@@ -184,6 +184,8 @@
       '<span class="nm"><span class="t">' + esc(o.name) + '</span>' + (o.chips ? '<span class="meta">' + o.chips + '</span>' : '') + '</span></button>' + right + '</li>';
   }
 
+  const SEC_ICON = {"Frukt og grønt": "<path d=\"M12 7c-2-1.5-7-1.5-7 4.5 0 4.5 3 9.5 5 9.5 1 0 1.5-.5 2-.5s1 .5 2 .5c2 0 5-5 5-9.5 0-6-5-6-7-4.5z\"/><path d=\"M12 7c0-2 .5-3.5 2-4.5M13 5c1.5-1.5 3.5-1.5 5-1-1 2-3 2.5-5 1z\"/>", "Brød og bakst": "<path d=\"M4 11a4 4 0 0 1 3-6h10a4 4 0 0 1 3 6v8H4z\"/><path d=\"M9 9l-1 3M13 9l-1 3M17 9l-1 3\"/>", "Kjøtt og kylling": "<path d=\"M15 4a5 5 0 0 1 5 5c0 4-5 6-8 6l-3 3\"/><path d=\"M15 4c-3 0-6 3-6 6 0 1 0 2 1 3\"/><circle cx=\"6\" cy=\"19\" r=\"1.6\"/><circle cx=\"8\" cy=\"21\" r=\"1.2\"/>", "Fisk": "<path d=\"M3 12c3-5 9-6 13-3l5-3v12l-5-3c-4 3-10 2-13-3z\"/><circle cx=\"8\" cy=\"11\" r=\".8\" fill=\"currentColor\"/>", "Pålegg": "<path d=\"M3 17 19 7l2 4v8H3z\"/><path d=\"M3 17h18\"/><circle cx=\"9\" cy=\"14.5\" r=\".9\"/><circle cx=\"15\" cy=\"11.5\" r=\"1\"/><circle cx=\"14\" cy=\"17\" r=\".9\"/>", "Meieri og egg": "<path d=\"M8 3h7v3l2 3v12H6V9l2-3z\"/><path d=\"M6 13h11\"/>", "Frys": "<path d=\"M12 2v20M3 7l18 10M3 17 21 7\"/><path d=\"M9 3l3 2 3-2M9 21l3-2 3 2\"/>", "Tørrvarer og hermetikk": "<ellipse cx=\"12\" cy=\"5\" rx=\"7\" ry=\"2.5\"/><path d=\"M5 5v14c0 1.4 3 2.5 7 2.5s7-1.1 7-2.5V5M5 10c0 1.4 3 2.5 7 2.5s7-1.1 7-2.5\"/>", "Krydder": "<path d=\"M8 9h8v12H8z\"/><path d=\"M9 9l1-5h4l1 5\"/><circle cx=\"11\" cy=\"6\" r=\".5\" fill=\"currentColor\"/><circle cx=\"13\" cy=\"6\" r=\".5\" fill=\"currentColor\"/>", "Snacks og godteri": "<ellipse cx=\"12\" cy=\"12\" rx=\"5\" ry=\"4\"/><path d=\"M7 12 3 8v8zM17 12l4-4v8z\"/>", "Drikke": "<path d=\"M10 2h4v3l2 3v13H8V8l2-3z\"/><path d=\"M8 12h8v5H8z\"/>", "Baby": "<path d=\"M10 2h4v3h-4zM8 5h8v3H8zM9 8h6v13H9z\"/><path d=\"M9 12h3M9 15h3\"/>", "Husholdning": "<path d=\"M8 8h6l2 3v10H6V11z\"/><path d=\"M8 8V4h5l4 2-4 1v1\"/>", "Hygiene": "<path d=\"M12 3c3 4 6 7 6 11a6 6 0 0 1-12 0c0-4 3-7 6-11z\"/><path d=\"M9.5 14a2.5 2.5 0 0 0 2.5 2.5\"/>", "Annet": "<path d=\"M5 8h14l-1 13H6z\"/><path d=\"M9 8V6a3 3 0 0 1 6 0v2\"/>"};
+  const secIcon = n => '<svg class="si" viewBox="0 0 24 24" aria-hidden="true">' + (SEC_ICON[n] || SEC_ICON['Annet']) + '</svg>';
   function renderList(w) {
     const st = w.st, sections = S.cat.sections;
     const rows = {}; sections.forEach(s => rows[s] = []);
@@ -224,7 +226,7 @@
     let h = '';
     sections.forEach((sec, si) => {
       const r = rows[sec]; if (!r || !r.length) return;
-      h += '<div class="sec c' + (si % 6) + (r.every(x => x.done) ? ' alldone' : '') + '"><h2>' + esc(sec) + ' <span class="cnt">' + r.filter(x => x.done).length + '/' + r.length + '</span></h2><ul class="items">' + r.map(row).join('') + '</ul></div>';
+      h += '<div class="sec c' + (si % 6) + (r.every(x => x.done) ? ' alldone' : '') + '"><h2>' + secIcon(sec) + esc(sec) + ' <span class="cnt">' + r.filter(x => x.done).length + '/' + r.length + '</span></h2><ul class="items">' + r.map(row).join('') + '</ul></div>';
     });
     $('sections').innerHTML = (total && done === total ? '<div class="cheer"><b>Alt er i kurven!</b><span>God tur hjem.</span></div>' : '') + (h || (total ? '' : '<p class="note">Lista er tom.</p>'));
     $('haveBox').innerHTML = haveRows.length ? '<details class="havebox"><summary>Har hjemme (' + haveRows.length + ')</summary><ul class="items">' + haveRows.map(row).join('') + '</ul></details>' : '';
