@@ -22,6 +22,8 @@
 
   const S = { cat: null, lib: null, plan: null, planEtag: null, st: null, stSha: null, stEtag: null, queue: [], busy: false,
     hist: null, histSha: null, histEtag: null, histBusy: false,
+    rawCat: null, prices: null, pricesEtag: null, rdirEtag: null, receipts: {}, rsha: {}, edit: null, mapBusy: false, mapWait: {}, upBusy: false,
+    pending: (() => { try { return JSON.parse(ls.get('pendingReceipt') || 'null'); } catch (e) { return null; } })(),
     hideDone: ls.get('hideDone') === '1', view: ls.get('view') || 'oversikt', sheet: null, filter: 'alle', q: '', month: null };
   try { const c = JSON.parse(ls.get('cache3') || 'null'); if (c && c.plan && c.plan.v === 2) { S.plan = c.plan; S.st = c.st; S.hist = c.hist; } } catch (e) { }
 
@@ -71,6 +73,30 @@
   async function loadState(force) { const f = await readFile('state.json', force ? null : S.stEtag); if (!f.changed) return false; S.st = f.data; S.stSha = f.sha; S.stEtag = f.etag; return true; }
   async function loadHist(force) { const f = await readFile('history.json', force ? null : S.histEtag); if (!f.changed) return false; S.hist = f.data; S.histSha = f.sha; S.histEtag = f.etag; return true; }
 
+  async function loadPrices() {
+    const f = await readFile('prices.json', S.pricesEtag); if (!f.changed) return false;
+    S.prices = f.data; S.pricesEtag = f.etag; if (S.rawCat) S.cat = L.indexCatalog(L.applyPrices(S.rawCat, S.prices)); return true;
+  }
+  /** Kvitteringer: list mappen (med ETag), hent bare JSON-filer som er nye eller endret. */
+  async function loadReceipts() {
+    const r = await gh('receipts', { headers: S.rdirEtag ? { 'If-None-Match': S.rdirEtag } : {} });
+    if (r.status === 304) return false;
+    if (r.status === 404) { S.rdirEtag = null; return false; }
+    if (r.status === 401 || r.status === 403) throw { auth: true };
+    if (!r.ok) return false;
+    S.rdirEtag = r.headers.get('ETag');
+    const list = await r.json(); let changed = false;
+    S.rimgs = new Set(list.filter(x => /\.jpe?g$/i.test(x.name)).map(x => x.name.replace(/\.[^.]+$/, '')));
+    for (const x of list.filter(x => /\.json$/.test(x.name))) {
+      const id = x.name.replace(/\.json$/, '');
+      if (S.rsha[id] === x.sha) continue;
+      const f = await readFile('receipts/' + x.name);
+      if (f.data) { S.receipts[id] = f.data; S.rsha[id] = x.sha; delete S.mapWait[id]; changed = true; }
+    }
+    if (S.pending && S.receipts[S.pending.id]) { S.pending = null; ls.set('pendingReceipt', 'null'); changed = true; }
+    return true;
+  }
+
   function curState() {
     if (!S.plan) return L.rollover(null, '');
     if (S.st && S.st.weekId === S.plan.weekId) return S.st;
@@ -115,7 +141,13 @@
     if (document.hidden) return;
     try {
       const a = await loadPlan(), b = await loadState(false), c = await loadHist(false);
-      if (a || b || c) { saveCache(); render(); }
+      // priser og kvitteringer endres sjelden: sjekk hvert 10. poll, eller oftere når en kvittering venter eller oversikten er åpen
+      S.pollN = (S.pollN || 0) + 1;
+      const slow = S.pollN % 10 === 1, recNow = slow || !!S.pending || Object.keys(S.mapWait).length > 0 || (S.view === 'oversikt' && S.pollN % 3 === 1);
+      const d = slow ? await loadPrices().catch(() => false) : false;
+      const e = recNow ? await loadReceipts().catch(err => { if (err && err.auth) throw err; return false; }) : false;
+      if (a || b || c) saveCache();
+      if (a || b || c || d || e) render();
       if (!S.queue.length) setSync('oppdatert ' + new Date().toLocaleTimeString('nb-NO', { hour: '2-digit', minute: '2-digit' }));
       setStatus(!S.plan ? 'Ingen liste ennå. Ukas liste kommer søndag kveld.' : (S.plan.v !== 2 ? 'Ukeplanen har et gammelt format. Den nye kommer søndag.' : ''));
       flush();
@@ -198,7 +230,7 @@
     const t = w.total;
     $('sum').innerHTML = '<div class="big"><span>Anslått sum</span><span>ca. ' + kr(t.total) + '</span></div>' +
       '<div><span>I kurven</span><span>ca. ' + kr(t.inCart) + '</span></div>' +
-      '<small>Prisene er anslag for Kiwi' + (t.unpriced ? ', ' + t.unpriced + ' vare' + (t.unpriced > 1 ? 'r' : '') + ' uten pris' : '') + '. Trykk − ned til 0 for varer dere har hjemme.</small>';
+      '<small>' + (() => { const n = w.items.filter(i => i.p.obs).length; return n ? n + ' av varene har pris fra egne kvitteringer, resten er anslag for Kiwi' : 'Prisene er anslag for Kiwi'; })() + (t.unpriced ? ', ' + t.unpriced + ' vare' + (t.unpriced > 1 ? 'r' : '') + ' uten pris' : '') + '. Trykk − ned til 0 for varer dere har hjemme.</small>';
   }
 
   // ---------- Render: dinners ----------
@@ -290,7 +322,7 @@
     if (ym === mon.slice(0, 7)) {
       h += '<div class="thisweek"><h3>' + esc(S.plan.weekLabel || 'Denne uka') + '</h3><div class="pair"><span>Anslått</span><b>ca. ' + kr(w.total.total) + '</b></div>' +
         '<form class="row" id="actualForm"><label for="actualInput" class="lbl">Hva ble totalen på kvitteringen?</label><input id="actualInput" inputmode="decimal" placeholder="kr" value="' + (typeof hw.actual === 'number' ? hw.actual : '') + '"><button class="btn" type="submit">Lagre</button></form>' +
-        '<p class="small">Når du lagrer, tas også en kopi av det som er krysset av, så dere ser hva som ble kjøpt.</p></div>';
+        '<p class="small">Når du lagrer, tas også en kopi av det som er krysset av, så dere ser hva som ble kjøpt.</p>' + receiptBox() + '</div>';
     }
     h += '<h3>Uker i ' + MONTHS[m - 1] + '</h3>';
     if (!sum.weeks.length) h += '<p class="note">Ingen uker registrert denne måneden.</p>';
@@ -300,12 +332,74 @@
         (has && wk.estimate ? '<p class="small">Anslått: ca. ' + kr(wk.estimate) + ' · forskjell ' + (wk.actual - wk.estimate > 0 ? '+' : '') + kr(wk.actual - wk.estimate) + '</p>' : '') +
         ((wk.items || []).length ? '<ul class="bought">' + wk.items.map(i => '<li>' + esc(i.n) + (i.q ? ' <small>' + esc(i.q) + '</small>' : '') + '</li>').join('') + '</ul>' : '<p class="small">Ingen kjøpsliste lagret.</p>') + '</details>';
     });
+    h += trendBox();
     h += '</div>';
     const focus = document.activeElement && document.activeElement.id;
-    if (focus === 'actualInput' || focus === 'budgetInput') return; // ikke tegn på nytt mens noen skriver
+    if (focus === 'actualInput' || focus === 'budgetInput') return;
+    if (focus === 'mapq') { const box = $('mapres'); if (box) box.innerHTML = mapResults(); return; } // ikke tegn på nytt mens noen skriver
+    const openIds = new Set([...$('overview').querySelectorAll('details[id]')].filter(d => d.open).map(d => d.id));
     $('overview').innerHTML = h;
+    openIds.forEach(id => { const d = document.getElementById(id); if (d) d.open = true; });
     S._checkedSnapshot = checked;
     S._estimate = w.total.total; S._monday = mon;
+  }
+
+  // ---------- Render: kvitteringer og priser ----------
+  const kr2 = n => (Math.round(n * 100) / 100).toLocaleString('nb-NO', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' kr';
+  const dShort = iso => { if (!iso) return ''; const [, mo, da] = iso.split('-').map(Number); return da + '. ' + MONTHS[mo - 1].slice(0, 3); };
+  function receiptBox() {
+    const mine = L.receiptsForWeek(Object.values(S.receipts), S.plan.weekId);
+    let h = '<div class="rcpt"><h3>Kvittering</h3>';
+    h += '<label class="btn scan' + (S.upBusy ? ' busy' : '') + '"><input type="file" id="scanInput" accept="image/*" capture="environment" hidden' + (S.upBusy ? ' disabled' : '') + '>' + (S.upBusy ? 'Laster opp …' : 'Skann kvittering') + '</label>';
+    h += '<p class="small">Ta bilde av hele kvitteringen, rett ovenfra og godt lys. Lange kvitteringer kan fotograferes i ett bilde.</p>';
+    if (S.pending && !S.receipts[S.pending.id]) h += '<p class="note">Kvitteringen leses nå. Det tar vanligvis under ett minutt.</p>';
+    mine.slice().reverse().forEach(r => {
+      if (r.error) {
+        h += '<div class="note"><b>Kunne ikke lese kvitteringen' + (r.date ? ' fra ' + dShort(r.date) : '') + '.</b> ' + esc(r.error) + (r.retry ? ' Den prøves igjen automatisk ved neste opplasting.' : ' Prøv et nytt bilde.') + '</div>';
+        return;
+      }
+      const lines = r.lines || [];
+      const linked = lines.filter(l => l.pid).length;
+      const off = typeof r.sumCheck === 'number' && typeof r.total === 'number' && Math.abs(r.sumCheck - r.total) > 1;
+      const hw = ((S.hist && S.hist.weeks) || {})[S.plan.weekId] || {};
+      const used = hw.receipt === r.id;
+      h += '<details class="rc" id="rc-' + esc(r.id) + '"' + (S.edit && S.edit.rid === r.id ? ' open' : '') + '><summary><span>' + esc(r.store || 'Kvittering') + (r.date ? ' · ' + dShort(r.date) : '') + '</span><b>' + kr2(r.total || 0) + '</b></summary>';
+      h += '<div class="rm">' + '<span class="chip">' + lines.length + ' linjer</span><span class="chip' + (linked < lines.length ? '' : ' good') + '">' + linked + ' koblet til varer</span>' +
+        (S.mapWait[r.id] ? '<span class="chip">oppdateres …</span>' : '') + (off ? '<span class="chip warn">linjene gir ' + kr2(r.sumCheck) + ' – sjekk</span>' : '') + '</div>';
+      h += used ? '<p class="small">Totalen er lagt inn som faktisk sum for uka.</p>' : '<button class="ghost" type="button" data-usetotal="' + esc(r.id) + '">Bruk ' + kr(r.total || 0) + ' som faktisk sum</button>';
+      h += '<ul class="rlines">' + lines.map((l, i) => {
+        const p = l.pid && S.cat.byId[l.pid];
+        const editing = S.edit && S.edit.rid === r.id && S.edit.i === i;
+        return '<li><div class="rl"><span class="rt">' + esc(l.text) + '</span><span class="rp">' + kr2(l.lineTotal - (l.discount || 0)) + (l.discount ? '<small>' + kr2(l.lineTotal) + ' − ' + kr2(l.discount) + '</small>' : '') + '</span></div>' +
+          '<button type="button" class="rmap' + (p ? '' : ' none') + '" data-editline="' + esc(r.id) + '" data-i="' + i + '">' + (p ? esc(p.n) + (l.unit ? ' · ' + kr2(l.unit) + '/pk' : '') : 'ikke koblet – trykk for å velge vare') + '</button>' +
+          (editing ? '<div class="mapbox"><input type="search" id="mapq" placeholder="Søk i varekatalogen" value="' + esc(S.edit.q || '') + '" autocomplete="off"><div id="mapres">' + mapResults() + '</div></div>' : '') + '</li>';
+      }).join('') + '</ul></details>';
+    });
+    return h + '</div>';
+  }
+  function mapResults() {
+    if (!S.edit) return '';
+    const hits = S.edit.q ? L.searchCatalog(S.cat, S.edit.q, 8) : [];
+    return '<div class="maplist">' + hits.map(p => '<button type="button" data-mappick="' + esc(p.id) + '">' + esc(p.n) + ' <small>' + esc(p.s) + '</small></button>').join('') +
+      '<button type="button" data-mappick="">Ikke en vare i katalogen (pant, pose o.l.)</button><button type="button" class="ghost" data-mapcancel>Avbryt</button></div>';
+  }
+  function spark(points) {
+    if (points.length < 2) return '';
+    const v = points.map(o => o.unit), lo = Math.min(...v), hi = Math.max(...v), W = 90, H = 24;
+    const xy = v.map((y, i) => (i * W / (v.length - 1)).toFixed(1) + ',' + (hi === lo ? H / 2 : H - 2 - (y - lo) * (H - 4) / (hi - lo)).toFixed(1));
+    return '<svg class="spark" viewBox="0 0 ' + W + ' ' + H + '" aria-hidden="true"><polyline points="' + xy.join(' ') + '" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>';
+  }
+  function trendBox() {
+    const tr = L.priceTrends(S.prices, S.cat);
+    if (!tr.length) return '';
+    let h = '<details class="wk trends" id="trends"><summary><span>Faktiske priser</span><span class="wkn">' + tr.length + ' varer</span></summary>';
+    h += '<p class="small">Ordinær pris per pakning slik den sto på kvitteringene. Anslaget i appen bruker medianen av de siste kjøpene.</p><ul class="trend">';
+    tr.forEach(t => {
+      const ch = t.n > 1 ? '<span class="chip' + (t.change > 0 ? ' warn' : t.change < 0 ? ' good' : '') + '">' + (t.change > 0 ? '+' : '') + String(t.change).replace('.', ',') + ' % siden ' + dShort(t.first.d) + '</span>' : '';
+      h += '<li><div class="rl"><span class="rt">' + esc(t.p.n) + '</span><span class="rp">' + kr2(t.last.unit) + '</span></div><div class="rm">' + spark(t.points) +
+        '<span class="chip">' + t.n + ' kjøp</span>' + ch + (t.est ? '<span class="chip">anslag var ' + kr(t.est) + '</span>' : '') + '</div></li>';
+    });
+    return h + '</ul></details>';
   }
 
   function render() {
@@ -392,12 +486,65 @@
   $('sheetBody').addEventListener('input', e => { if (e.target.id === 'rq') { S.q = e.target.value; render(); } });
   document.addEventListener('keydown', e => { if (e.key === 'Escape' && S.sheet) { S.sheet = null; render(); } });
   $('overview').addEventListener('click', e => {
+    const el = e.target.closest('[data-usetotal]');
+    if (el) { const r = S.receipts[el.dataset.usetotal]; if (r) useTotal(r); return; }
+    const ed = e.target.closest('[data-editline]');
+    if (ed) { const same = S.edit && S.edit.rid === ed.dataset.editline && S.edit.i === +ed.dataset.i; S.edit = same ? null : { rid: ed.dataset.editline, i: +ed.dataset.i, q: '' }; render(); if (S.edit) { const q = $('mapq'); if (q) q.focus(); } return; }
+    if (e.target.closest('[data-mapcancel]')) { S.edit = null; render(); return; }
+    const mp = e.target.closest('[data-mappick]');
+    if (mp && S.edit) { const r = S.receipts[S.edit.rid]; const l = r && r.lines[S.edit.i]; S.edit = null; if (l) saveMapping(r.id, l.text, mp.dataset.mappick); render(); return; }
     const m = e.target.closest('[data-month]'); if (!m) return;
     const base = S.month || (L.weekMonday(S.plan) || todayISO()).slice(0, 7);
     let [y, mo] = base.split('-').map(Number); mo += Number(m.dataset.month);
     if (mo < 1) { mo = 12; y--; } if (mo > 12) { mo = 1; y++; }
     S.month = y + '-' + String(mo).padStart(2, '0'); render();
   });
+  $('overview').addEventListener('input', e => { if (e.target.id === 'mapq' && S.edit) { S.edit.q = e.target.value; const box = $('mapres'); if (box) box.innerHTML = mapResults(); } });
+  $('overview').addEventListener('change', e => { if (e.target.id === 'scanInput' && e.target.files && e.target.files[0]) uploadReceipt(e.target.files[0]); });
+
+  // ---------- Kvittering: last opp, koble, bruk totalen ----------
+  async function shrink(file) {
+    let src;
+    try { src = await createImageBitmap(file, { imageOrientation: 'from-image' }); }
+    catch (e) { src = await new Promise((ok, bad) => { const i = new Image(); i.onload = () => ok(i); i.onerror = bad; i.src = URL.createObjectURL(file); }); }
+    const w = src.width, h = src.height, s = Math.min(1, 1400 / Math.min(w, h), 7000 / Math.max(w, h));
+    const c = document.createElement('canvas'); c.width = Math.round(w * s); c.height = Math.round(h * s);
+    c.getContext('2d').drawImage(src, 0, 0, c.width, c.height);
+    const blob = await new Promise(ok => c.toBlob(ok, 'image/jpeg', 0.82));
+    return new Promise(ok => { const fr = new FileReader(); fr.onload = () => ok(String(fr.result).split(',')[1]); fr.readAsDataURL(blob); });
+  }
+  async function uploadReceipt(file) {
+    if (S.upBusy || !S.plan) return;
+    S.upBusy = true; render(); setSync('laster opp kvittering …');
+    try {
+      const b64 = await shrink(file);
+      const id = S.plan.weekId + '-' + Date.now().toString(36);
+      const r = await gh('receipts/' + id + '.jpg', { method: 'PUT', body: JSON.stringify({ message: 'Kvittering fra ' + (ME || 'appen'), content: b64 }) });
+      if (r.status === 401 || r.status === 403) throw { auth: true };
+      if (!r.ok) throw { status: r.status };
+      S.pending = { id, at: Date.now() }; ls.set('pendingReceipt', JSON.stringify(S.pending)); setSync('kvittering lastet opp');
+    } catch (e) { setSync(e && e.auth ? 'nøkkel avvist' : 'opplasting feilet – prøv igjen', true); }
+    finally { S.upBusy = false; render(); }
+  }
+  async function saveMapping(rid, text, pid) {
+    if (S.mapBusy) return; S.mapBusy = true; setSync('lagrer kobling …');
+    try {
+      for (let attempt = 0; attempt < 4; attempt++) {
+        const f = await readFile('receiptmap.json');
+        const map = Object.assign({}, f.data || {}); map[L.receiptKey(text)] = pid || '';
+        const w = await writeFile('receiptmap.json', map, f.sha, 'Kvittering: kobling');
+        if (w.ok) { S.mapWait[rid] = true; setSync('lagret – kvitteringen oppdateres'); return; }
+      }
+      setSync('ikke lagret', true);
+    } catch (e) { setSync(e && e.auth ? 'nøkkel avvist' : 'frakoblet', true); }
+    finally { S.mapBusy = false; render(); }
+  }
+  async function useTotal(r) {
+    const items = (r.lines || []).map(l => ({ n: l.pid && S.cat.byId[l.pid] ? S.cat.byId[l.pid].n : l.text, q: kr2(l.lineTotal - (l.discount || 0)) }));
+    const ok = await histOp({ t: 'actual', weekId: S.plan.weekId, label: S.plan.weekLabel, date: S._monday, estimate: S._estimate, v: r.total, items, by: ME, at: new Date().toISOString(), receipt: r.id });
+    if (ok) render();
+  }
+
   $('overview').addEventListener('submit', async e => {
     e.preventDefault();
     if (e.target.id === 'budgetForm') { const v = parseFloat(($('budgetInput').value || '').replace(/\s/g, '').replace(',', '.')); $('budgetInput').blur(); await histOp({ t: 'budget', v: isNaN(v) ? 0 : v }); }
@@ -511,7 +658,7 @@
   async function loadStatic() {
     try {
       const [c, r] = await Promise.all([fetch('data/catalog.json', { cache: 'no-cache' }).then(x => x.json()), fetch('data/recipes.json', { cache: 'no-cache' }).then(x => x.json())]);
-      S.cat = L.indexCatalog(c); S.lib = r; render();
+      S.rawCat = c; S.cat = L.indexCatalog(L.applyPrices(c, S.prices)); S.lib = r; render();
     } catch (e) { setStatus('Kunne ikke laste varekatalogen. Sjekk nettet og åpne appen på nytt.'); }
   }
   let timer = null;
