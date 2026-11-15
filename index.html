@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#1d6a48">
+<meta name="theme-color" content="#fbf6ec">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Middager">
@@ -216,6 +216,31 @@ ol.steps b{font-weight:700}
 .cnav{display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:18px}
 .cnb{width:64px;height:64px;border-radius:50%;border:0;background:#222a26;color:#eef3ef;font-size:34px;cursor:pointer}
 .cnb:disabled{opacity:.3;cursor:default}
+
+/* v5: friskere farger, matmønster i bakgrunnen og "Bra for kroppen" */
+:root{--bg:#fbf6ec;--tomato:#e4572e;--lemon:#f2b705;--carrot:#f28c28;--leaf:#3a9d5d;--sea:#2b7bb9;--doodle-op:.16}
+@media (prefers-color-scheme: dark){:root{--bg:#121512;--doodle-op:.07}}
+body{position:relative;isolation:isolate}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22260%22%20height%3D%22260%22%20viewBox%3D%220%200%20260%20260%22%3E%20%3Cg%20transform%3D%22translate%2840%2044%29%20rotate%28-12%29%22%3E%3Ccircle%20r%3D%2219%22%20fill%3D%22%23e4572e%22/%3E%3Cpath%20d%3D%22M-8-17%200-10%208-17%204-20%200-24-4-20z%22%20fill%3D%22%233a9d5d%22/%3E%3Cellipse%20cx%3D%22-7%22%20cy%3D%22-4%22%20rx%3D%224%22%20ry%3D%226%22%20fill%3D%22%23fff%22%20opacity%3D%22.35%22/%3E%3C/g%3E%20%3Cg%20transform%3D%22translate%28190%2040%29%20rotate%2820%29%22%3E%3Ccircle%20r%3D%2218%22%20fill%3D%22%23f5c518%22/%3E%3Ccircle%20r%3D%2214%22%20fill%3D%22%23fde98a%22/%3E%3Cg%20stroke%3D%22%23f5c518%22%20stroke-width%3D%222%22%3E%3Cpath%20d%3D%22M0-14V14M-14%200H14M-10-10%2010%2010M10-10-10%2010%22/%3E%3C/g%3E%3C/g%3E%20%3Cg%20transform%3D%22translate%28120%20120%29%20rotate%2835%29%22%3E%3Cpath%20d%3D%22M0-34%209%2024Q0%2032-9%2024Z%22%20fill%3D%22%23f28c28%22/%3E%3Cpath%20d%3D%22M-3%2022h6M-5%2010h7M-6-2h6%22%20stroke%3D%22%23c96a14%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22/%3E%3Cpath%20d%3D%22M0-34-10-50M0-34%200-52M0-34%2010-50%22%20stroke%3D%22%233a9d5d%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%20%3Cg%20transform%3D%22translate%2852%20196%29%20rotate%28-30%29%22%3E%3Cpath%20d%3D%22M-30%200Q0-18%2030%200Q0%2014-30%200Z%22%20fill%3D%22%236bb85a%22/%3E%3Ccircle%20cx%3D%22-14%22%20cy%3D%22-1%22%20r%3D%226%22%20fill%3D%22%23a6dd84%22/%3E%3Ccircle%20cx%3D%220%22%20cy%3D%22-2%22%20r%3D%226%22%20fill%3D%22%23a6dd84%22/%3E%3Ccircle%20cx%3D%2214%22%20cy%3D%22-1%22%20r%3D%226%22%20fill%3D%22%23a6dd84%22/%3E%3C/g%3E%20%3Cg%20transform%3D%22translate%28205%20175%29%20rotate%28-25%29%22%3E%3Cpath%20d%3D%22M-26%206Q-8%2018%2018%20-2Q26-10%2022-16Q16-6%200%200Q-14%204-26%206Z%22%20fill%3D%22%23d7263d%22/%3E%3Cpath%20d%3D%22M22-16Q26-24%2032-24%22%20stroke%3D%22%233a9d5d%22%20stroke-width%3D%224%22%20fill%3D%22none%22%20stroke-linecap%3D%22round%22/%3E%3C/g%3E%20%3Cg%20transform%3D%22translate%28128%20222%29%20rotate%2815%29%22%3E%3Cpath%20d%3D%22M0-18Q16-6%200%2018Q-16-6%200-18Z%22%20fill%3D%22%233a9d5d%22/%3E%3Cpath%20d%3D%22M0-14V14%22%20stroke%3D%22%232c7a47%22%20stroke-width%3D%222%22/%3E%3C/g%3E%20%3Cg%20transform%3D%22translate%28230%20110%29%20rotate%28-8%29%22%3E%3Cellipse%20rx%3D%2215%22%20ry%3D%2220%22%20fill%3D%22%235b8c3a%22/%3E%3Cellipse%20rx%3D%2211%22%20ry%3D%2216%22%20fill%3D%22%23c9e08a%22/%3E%3Ccircle%20cy%3D%224%22%20r%3D%226%22%20fill%3D%22%238a5a2b%22/%3E%3C/g%3E%20%3Cg%20transform%3D%22translate%28118%2030%29%22%3E%3Ccircle%20r%3D%225%22%20fill%3D%22%23e4572e%22/%3E%3Ccircle%20cx%3D%2214%22%20cy%3D%226%22%20r%3D%224%22%20fill%3D%22%23f5c518%22/%3E%3Ccircle%20cx%3D%22-12%22%20cy%3D%228%22%20r%3D%223.5%22%20fill%3D%22%236bb85a%22/%3E%3C/g%3E%20%3C/svg%3E");background-size:260px 260px;opacity:var(--doodle-op)}
+h1#title{background:linear-gradient(90deg,var(--accent),var(--leaf) 45%,var(--carrot) 75%,var(--tomato));-webkit-background-clip:text;background-clip:text;color:transparent}
+nav{background:color-mix(in srgb,var(--carrot) 18%,var(--line))}
+nav button[aria-selected="true"]{box-shadow:0 2px 0 var(--carrot) inset,0 1px 2px rgba(0,0,0,.12)}
+.bar>i{background:linear-gradient(90deg,var(--leaf),var(--lemon),var(--carrot))}
+details.day{border-left:6px solid var(--line)}
+details.day.p-fisk{border-left-color:var(--sea)}
+details.day.p-kylling{border-left-color:var(--lemon)}
+details.day.p-kjott{border-left-color:var(--tomato)}
+details.day.p-annet{border-left-color:var(--leaf)}
+details.day.today{border-width:2px;border-left-width:6px}
+.health{background:color-mix(in srgb,var(--leaf) 10%,var(--paper));border-radius:12px;padding:10px 12px}
+.health h3{color:var(--leaf)}
+.health ul{list-style:none;margin:0;padding:0;display:grid;gap:5px}
+.health li{position:relative;padding-left:18px;font-size:15px;line-height:1.35}
+.health li::before{content:"";position:absolute;left:2px;top:.45em;width:9px;height:9px;border-radius:50%;background:var(--leaf)}
+.health li.h-protein::before{background:var(--tomato)}
+.health li.h-veg::before{background:var(--leaf)}
+.health li.h-note::before{background:var(--lemon)}
+.health li.h-note{color:var(--muted)}
 @media (prefers-reduced-motion: reduce){*{transition:none !important}}
 .rcpt{margin-top:14px;border-top:1px dashed var(--line);padding-top:12px;display:grid;gap:8px}
 .rcpt h3{margin:0}
@@ -319,7 +344,7 @@ svg.bigc .ax{stroke:var(--line);stroke-width:1}
 <div class="cook hidden" id="cook" role="dialog" aria-modal="true" aria-label="Matlaging"></div>
 <div class="sheet hidden" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle"><div class="panel"><header><h2 id="sheetTitle">Bytt middag</h2><button class="ghost" type="button" id="sheetClose">Lukk</button></header><div class="scroll" id="sheetBody"></div></div></div>
 
-<script src="lib.js?v=4"></script>
-<script src="app.js?v=4"></script>
+<script src="lib.js?v=5"></script>
+<script src="app.js?v=5"></script>
 </body>
 </html>

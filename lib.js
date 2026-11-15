@@ -288,6 +288,49 @@
   }
   function stepObj(step) { return typeof step === 'string' ? { h: '', t: step, m: null } : step; }
 
+
+  // ---------- Hvorfor retten er bra for kroppen (generell ernæringsinfo ut fra hovedingrediensene) ----------
+  const PROTEIN = [
+    [['laks', 'roktlaks'], 'Laks gir omega-3-fett, vitamin D og protein'],
+    [['torsk', 'sei'], 'Hvit fisk gir magert protein, jod og selen'],
+    [['fiskeboller', 'fiskekaker'], 'Fiskemat gir protein og jod'],
+    [['kyllingfilet', 'kyllinglarfilet', 'kyllingklubber', 'kyllingdeig'], 'Kylling gir magert protein som metter godt'],
+    [['kjottdeig', 'karbonadedeig', 'biffstrimler', 'gryteskjott', 'entrecote'], 'Storfekjøtt gir protein, jern, sink og vitamin B12'],
+    [['kidneybonner', 'hvitebonner'], 'Bønner gir fiber og plantebasert protein'],
+    [['egg'], 'Egg gir protein, vitamin B12 og vitamin D']];
+  const GREENS = [
+    [['spinat'], 'Spinat gir folat, vitamin K og jern'],
+    [['brokkoli'], 'Brokkoli gir vitamin C, vitamin K og folat'],
+    [['gulrot', 'sotpotet'], 'Gulrot gir betakaroten, som kroppen gjør om til vitamin A'],
+    [['paprika'], 'Paprika er en av de beste kildene til vitamin C'],
+    [['hakkedetomater', 'tomat', 'cherrytomat', 'pizzasaus'], 'Tomat gir vitamin C og antioksidanten lykopen'],
+    [['erter', 'sukkererter'], 'Erter gir fiber og litt protein'],
+    [['wokgronnsaker'], 'Wokgrønnsakene gir vitamin C og fiber'],
+    [['blomkal', 'hodekal'], 'Kål gir vitamin C og fiber'],
+    [['purre'], 'Purre gir fiber og folat'],
+    [['sjampinjong'], 'Sopp gir B-vitaminer og selen'],
+    [['squash'], 'Squash gir vitamin C med få kalorier'],
+    [['sellerirot', 'kalrot', 'fennikel', 'stangselleri'], 'Rotgrønnsakene gir fiber og kalium'],
+    [['avokado'], 'Avokado gir sunt, umettet fett og fiber'],
+    [['cashew', 'mandelflak', 'peanottsmor'], 'Nøtter gir umettet fett og vitamin E'],
+    [['poteter', 'smapoteter'], 'Poteter gir kalium, vitamin C og fiber'],
+    [['yoghurt'], 'Yoghurt gir kalsium og protein']];
+  const RICH = new Set(['revetost', 'cremefraiche', 'matflote', 'kremflote', 'romme', 'kremost', 'pommes', 'nachochips', 'majones', 'parmesan']);
+  const VEG = new Set(GREENS.flatMap(g => g[0]).concat(['agurk', 'isberg', 'bladsalat', 'ruccola', 'eple', 'chili', 'varlok', 'gullok']));
+  function healthNotes(recipe) {
+    if (!recipe || !recipe.ing) return [];
+    const ids = new Set(recipe.ing.map(i => i.p));
+    const out = [];
+    const prot = PROTEIN.find(([k]) => k.some(id => ids.has(id)));
+    if (prot) out.push({ kind: 'protein', text: prot[1] });
+    GREENS.filter(([k]) => k.some(id => ids.has(id))).slice(0, prot ? 2 : 3).forEach(g => out.push({ kind: 'veg', text: g[1] }));
+    const vegCount = [...ids].filter(id => VEG.has(id)).length;
+    if (vegCount >= 5) out.push({ kind: 'veg', text: vegCount + ' ulike grønnsaker i én rett gir god variasjon' });
+    const rich = [...ids].filter(id => RICH.has(id)).length;
+    if (rich >= 3) out.push({ kind: 'note', text: 'Rik på fløte og ost: god kosmat, men server gjerne salat eller grønnsaker ved siden av' });
+    return out;
+  }
+
   // ---------- Budget history ----------
   function emptyHistory() { return { budget: 0, weeks: {} }; }
   function applyHistOp(h, op) {
@@ -411,6 +454,6 @@
     return out.sort((a, b) => b.s - a.s).slice(0, limit || 4);
   }
 
-  root.Lib = { productGroups, searchProducts, receiptKey, applyPrices, priceTrends, receiptsForWeek, receiptWeek, isoWeek, withReceipts, DAYS, norm, shortName, indexCatalog, indexRecipes, effectiveDays, addableDays, weekMonday, buildList, isHave, weekTotal, freezeHints,
+  root.Lib = { healthNotes, productGroups, searchProducts, receiptKey, applyPrices, priceTrends, receiptsForWeek, receiptWeek, isoWeek, withReceipts, DAYS, norm, shortName, indexCatalog, indexRecipes, effectiveDays, addableDays, weekMonday, buildList, isHave, weekTotal, freezeHints,
     leftoverHints, conflicts, rankSwaps, searchCatalog, guessSection, rollover, applyOp, fmtAmount, emptyHistory, applyHistOp, monthSummary, addDays, BASE_PORTIONS, fmtNum, fmtQty, ingText, stepText, stepObj };
 })(typeof window !== 'undefined' ? window : globalThis);

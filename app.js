@@ -242,9 +242,12 @@
       const r = d.r, t = d.date === today;
       if (!r) return;
       const conf = L.conflicts(w.days, idx, r, S.cat);
-      dh += '<details class="day' + (t ? ' today' : '') + '"' + (t ? ' open' : '') + ' id="dag-' + esc(d.key) + '"><summary><span class="dl">' + esc((d.label || '').slice(0, 3)) + '<b>' + (d.date ? Number(d.date.slice(8, 10)) : '') + '</b></span>' +
+      const prot = r.tags.includes('fisk') ? ' p-fisk' : r.tags.includes('kylling') ? ' p-kylling' : r.tags.includes('kjott') ? ' p-kjott' : ' p-annet';
+      const hn = L.healthNotes(r);
+      dh += '<details class="day' + prot + (t ? ' today' : '') + '"' + (t ? ' open' : '') + ' id="dag-' + esc(d.key) + '"><summary><span class="dl">' + esc((d.label || '').slice(0, 3)) + '<b>' + (d.date ? Number(d.date.slice(8, 10)) : '') + '</b></span>' +
         '<span class="dish">' + esc(r.name) + (t ? '<span class="today-tag">i dag</span>' : '') + '</span><span class="min">' + r.minutes + ' min</span></summary><div class="body">' +
         '<div class="rm">' + (d.swapped ? '<span class="chip swap">byttet</span>' : '') + (!d.planned ? '<span class="chip swap">lagt til</span>' : '') + r.tags.map(tg => '<span class="chip">' + esc(TAGNAME[tg] || tg) + '</span>').join('') + conf.map(c => '<span class="chip warn">' + esc(c) + '</span>').join('') + '</div>' +
+        (hn.length ? '<div class="health"><h3>Bra for kroppen</h3><ul>' + hn.map(n => '<li class="h-' + n.kind + '">' + esc(n.text) + '.</li>').join('') + '</ul></div>' : '') +
         '<div class="porow"><span>Porsjoner</span><span class="step"><button type="button" class="sb" data-portions="' + esc(d.key) + '" data-d="-0.5" aria-label="Færre porsjoner">−</button><span class="sq">' + L.fmtNum(d.portions) + '</span><button type="button" class="sb" data-portions="' + esc(d.key) + '" data-d="0.5" aria-label="Flere porsjoner">+</button></span></div>' +
         '<button class="btn startcook" type="button" data-cook="' + esc(d.key) + '">Start matlagingen</button>' +
         '<div><h3>Ingredienser</h3><ul>' + r.ing.map(x => '<li>' + esc(L.ingText(x, d.portions)) + (x.add ? ' <span class="chip add">tillegg</span>' : '') + '</li>').join('') + '</ul></div>' +
