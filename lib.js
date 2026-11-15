@@ -84,7 +84,7 @@
   /** Aggregate the week's ingredients into whole packs (or pieces for loose produce). Overrides in st.qty win. */
   function buildList(days, cat, offers, st) {
     const qty = (st && st.qty) || {};
-    const need = {}, usedBy = {};
+    const need = {}, usedBy = {}, parts = {};
     days.forEach((d, i) => {
       if (!d.r) return;
       const f = (d.portions || BASE_PORTIONS) / BASE_PORTIONS;
@@ -92,6 +92,7 @@
         const p = cat.byId[x.p];
         need[x.p] = (need[x.p] || 0) + (p && p.pantry ? x.a : x.a * f);
         (usedBy[x.p] = usedBy[x.p] || []).push(d.key || i);
+        (parts[x.p] = parts[x.p] || []).push({ k: d.key || i, name: d.r.name, a: p && p.pantry ? x.a : x.a * f });
       });
     });
     return Object.keys(need).map(pid => {
@@ -112,7 +113,7 @@
         qtyText: p.pantry ? '' : packs + ' ' + unitWord(p, packs),
         needText: p.pantry || isLoose(p) ? '' : 'trenger ' + fmtAmount(need[pid], p.u),
         leftover: p.pantry ? 0 : Math.max(0, packs * p.sz - need[pid]),
-        days: usedBy[pid]
+        days: usedBy[pid], parts: parts[pid]
       };
     }).filter(Boolean);
   }
