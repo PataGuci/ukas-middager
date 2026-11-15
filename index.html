@@ -243,6 +243,15 @@ ul.rlines li,ul.trend li{border-top:1px solid var(--line);padding-top:6px}
 .maplist button small{color:var(--muted)}
 .trends .rm{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:4px}
 .spark{width:90px;height:24px;color:var(--accent)}
+details.pg summary{cursor:pointer;list-style:none}
+details.pg summary::-webkit-details-marker{display:none}
+details.pg[open] summary .rt b::after{content:' ▾'}
+details.pg:not([open]) summary .rt b::after{content:' ▸'}
+ul.prods{list-style:none;margin:6px 0 0 12px;padding:0;display:grid;gap:6px;border-left:2px solid var(--line);padding-left:10px}
+.sugg button.prod{flex-direction:column;gap:2px}
+.sugg button.prod small{white-space:normal}
+.sugg .prod span::before{content:'↳ ';color:var(--muted)}
+details.wk details.pg summary{display:block;padding:0;font-weight:400}
 </style>
 </head>
 <body>
