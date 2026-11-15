@@ -177,7 +177,7 @@
     const data = o.kind === 'item' ? 'data-item' : 'data-extra';
     let right = '';
     if (o.restore) right = '<button class="have" type="button" data-restore="' + esc(o.id) + '" data-kind="' + o.kind + '">Angre</button>';
-    else if (o.pantry) right = '<button class="have" type="button" data-have="' + esc(o.id) + '" aria-label="Har allerede ' + esc(o.name) + '">Har</button>';
+    else if (o.pantry) right = '<button class="have" type="button" data-have="' + esc(o.id) + '" aria-label="Har allerede ' + esc(o.name) + '">Har<br>hjemme</button>';
     else right = stepper(o.kind === 'item' ? 'qty' : 'xqty', o.id, o.qty);
     return '<li class="item' + (o.done ? ' done' : '') + (o.pantry ? ' pantry' : '') + '">' +
       '<button class="tick" type="button" ' + data + '="' + esc(o.id) + '" aria-pressed="' + !!o.done + '"><span class="box">' + CHECK_SVG + '</span>' +
@@ -196,9 +196,9 @@
       if (i.offer) chips += '<span class="chip offer">' + esc(i.offer) + '</span>';
       if (i.pantry) chips += '<span class="chip">sjekk skapet</span>';
       if (i.needText) chips += '<span class="chip">' + esc(i.needText) + '</span>';
-      if (i.parts && i.parts.length > 1 && !i.pantry && i.p.sz !== 1) chips += '<span class="chip warn">' + i.parts.map(x => esc(x.name.split(' ')[0]) + ' ' + L.fmtAmount(x.a, i.p.u)).join(' + ') + '</span>';
+      if (i.parts && i.parts.length > 1 && !i.pantry && i.p.sz !== 1) chips += '<span class="chip split">deles: ' + i.parts.map(x => esc(x.name.split(' ')[0]) + ' ' + L.fmtAmount(x.a, i.p.u)).join(' + ') + '</span>';
       if (i.adjusted) chips += '<span class="chip">listen sa ' + i.auto + '</span>';
-      chips += '<span class="chip">' + Array.from(new Set(i.days.map(dayShort))).join(', ') + '</span>';
+      chips += '<span class="chip day">til ' + Array.from(new Set(i.days.map(dayShort))).join(' + ') + '</span>';
       if (isDone) chips += who(st.checks[i.id].by);
       const r = { kind: 'item', id: i.id, name: i.name, qty: i.qtyText, chips, done: isDone, pantry: i.pantry };
       if (have) { haveRows.push(Object.assign(r, { restore: true, done: false })); return; }
@@ -222,22 +222,22 @@
     $('count').textContent = done + ' av ' + total;
     $('barfill').style.width = total ? (100 * done / total) + '%' : '0';
     let h = '';
-    sections.forEach(sec => {
+    sections.forEach((sec, si) => {
       const r = rows[sec]; if (!r || !r.length) return;
-      h += '<div class="sec"><h2>' + esc(sec) + ' <span class="cnt">' + r.filter(x => x.done).length + '/' + r.length + '</span></h2><ul class="items">' + r.map(row).join('') + '</ul></div>';
+      h += '<div class="sec c' + (si % 6) + (r.every(x => x.done) ? ' alldone' : '') + '"><h2>' + esc(sec) + ' <span class="cnt">' + r.filter(x => x.done).length + '/' + r.length + '</span></h2><ul class="items">' + r.map(row).join('') + '</ul></div>';
     });
-    $('sections').innerHTML = h || '<p class="note">Alt er krysset av.</p>';
+    $('sections').innerHTML = (total && done === total ? '<div class="cheer"><b>Alt er i kurven!</b><span>God tur hjem.</span></div>' : '') + (h || (total ? '' : '<p class="note">Lista er tom.</p>'));
     $('haveBox').innerHTML = haveRows.length ? '<details class="havebox"><summary>Har hjemme (' + haveRows.length + ')</summary><ul class="items">' + haveRows.map(row).join('') + '</ul></details>' : '';
     const t = w.total;
     $('sum').innerHTML = '<div class="big"><span>Anslått sum</span><span>ca. ' + kr(t.total) + '</span></div>' +
       '<div><span>I kurven</span><span>ca. ' + kr(t.inCart) + '</span></div>' +
-      '<small>' + (() => { const n = w.items.filter(i => i.p.obs).length; return n ? n + ' av varene har pris fra egne kvitteringer, resten er anslag for Kiwi' : 'Prisene er anslag for Kiwi'; })() + (t.unpriced ? ', ' + t.unpriced + ' vare' + (t.unpriced > 1 ? 'r' : '') + ' uten pris' : '') + '. Trykk − ned til 0 for varer dere har hjemme.</small>';
+      '<small>' + (() => { const n = w.items.filter(i => i.p.obs).length; return n ? n + ' av varene har pris fra egne kvitteringer, resten er anslag for Kiwi' : 'Prisene er anslag for Kiwi'; })() + (t.unpriced ? ', ' + t.unpriced + ' vare' + (t.unpriced > 1 ? 'r' : '') + ' uten pris' : '') + '. Trykk − ned til 0 for varer dere har hjemme.</small>' + (S.plan.offerStatus ? '<div class="offerline">' + esc(S.plan.offerStatus) + '</div>' : '');
   }
 
   // ---------- Render: dinners ----------
   function renderDays(w) {
     const today = todayISO(); let dh = '';
-    if (S.plan.offerStatus) dh += '<div class="note">' + esc(S.plan.offerStatus) + '</div>';
+    dh += '<p class="hint">Trykk på en dag for å se oppskriften. Fargen viser hva retten er laget av.</p><div class="legend"><span class="lg p-fisk">fisk</span><span class="lg p-kylling">kylling</span><span class="lg p-kjott">kjøtt</span><span class="lg p-annet">annet</span></div>';
     w.days.forEach((d, idx) => {
       const r = d.r, t = d.date === today;
       if (!r) return;
@@ -245,7 +245,7 @@
       const prot = r.tags.includes('fisk') ? ' p-fisk' : r.tags.includes('kylling') ? ' p-kylling' : r.tags.includes('kjott') ? ' p-kjott' : ' p-annet';
       const hn = L.healthNotes(r);
       dh += '<details class="day' + prot + (t ? ' today' : '') + '"' + (t ? ' open' : '') + ' id="dag-' + esc(d.key) + '"><summary><span class="dl">' + esc((d.label || '').slice(0, 3)) + '<b>' + (d.date ? Number(d.date.slice(8, 10)) : '') + '</b></span>' +
-        '<span class="dish">' + esc(r.name) + (t ? '<span class="today-tag">i dag</span>' : '') + '</span><span class="min">' + r.minutes + ' min</span></summary><div class="body">' +
+        '<span class="dish">' + esc(r.name) + (t ? '<span class="today-tag">i dag</span>' : '') + '</span><span class="min">' + r.minutes + ' min<i class="chev" aria-hidden="true"></i></span></summary><div class="body">' +
         '<div class="rm">' + (d.swapped ? '<span class="chip swap">byttet</span>' : '') + (!d.planned ? '<span class="chip swap">lagt til</span>' : '') + r.tags.map(tg => '<span class="chip">' + esc(TAGNAME[tg] || tg) + '</span>').join('') + conf.map(c => '<span class="chip warn">' + esc(c) + '</span>').join('') + '</div>' +
         (hn.length ? '<div class="health"><h3>Bra for kroppen</h3><ul>' + hn.map(n => '<li class="h-' + n.kind + '">' + esc(n.text) + '.</li>').join('') + '</ul></div>' : '') +
         '<div class="porow"><span>Porsjoner</span><span class="step"><button type="button" class="sb" data-portions="' + esc(d.key) + '" data-d="-0.5" aria-label="Færre porsjoner">−</button><span class="sq">' + L.fmtNum(d.portions) + '</span><button type="button" class="sb" data-portions="' + esc(d.key) + '" data-d="0.5" aria-label="Flere porsjoner">+</button></span></div>' +
