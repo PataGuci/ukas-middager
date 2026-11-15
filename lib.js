@@ -27,7 +27,10 @@
 
   function indexCatalog(cat) {
     const byId = {};
-    cat.products.forEach(p => { byId[p.id] = p; });
+    // Visningsnavn uten vekt/mengde («Kyllingfilet 1 kg» → «Kyllingfilet»). Størrelser kommer fra kvitteringene.
+    const SIZE = /(\s+\d+([.,]\d+)?\s*(g|kg|ml|dl|cl|l|stk|pk)\b.*|\s*\(\d[^)]*\))$/i, cnt = {};
+    cat.products.forEach(p => { const b = (p.full || p.n).replace(SIZE, ''); cnt[b] = (cnt[b] || 0) + 1; });
+    cat.products.forEach(p => { if (!p.full) p.full = p.n; const b = p.full.replace(SIZE, ''); p.n = cnt[b] > 1 ? p.full : b; byId[p.id] = p; });
     const sections = cat.sections.slice();
     if (!sections.includes('Annet')) sections.push('Annet');
     const search = cat.products.map(p => ({ p, n: norm(p.n), words: norm(p.n).split(/[^a-z0-9]+/).filter(Boolean), k: (p.k || []).map(norm) }));
