@@ -22,7 +22,7 @@
 
   const S = { cat: null, lib: null, plan: null, planEtag: null, st: null, stSha: null, stEtag: null, queue: [], busy: false,
     hist: null, histSha: null, histEtag: null, histBusy: false,
-    rawCat: null, prices: null, pricesEtag: null, rdirEtag: null, receipts: {}, rsha: {}, edit: null, mapBusy: false, mapWait: {}, upBusy: false,
+    rawCat: null, prices: null, pricesEtag: null, rdirEtag: null, receipts: {}, rsha: {}, edit: null, mapBusy: false, mapWait: {}, mapLocal: {}, upBusy: false, custom: null, customEtag: null, customLocal: [], newItem: null, noteEdit: null, noteDraft: '',
     pending: (() => { try { return JSON.parse(ls.get('pendingReceipt') || 'null'); } catch (e) { return null; } })(),
     hideDone: ls.get('hideDone') === '1', view: ls.get('view') || 'oversikt', sheet: null, filter: 'alle', q: '', month: null };
   try { const c = JSON.parse(ls.get('cache3') || 'null'); if (c && c.plan && c.plan.v === 2) { S.plan = c.plan; S.st = c.st; S.hist = c.hist; } } catch (e) { }
@@ -75,7 +75,36 @@
 
   async function loadPrices() {
     const f = await readFile('prices.json', S.pricesEtag); if (!f.changed) return false;
-    S.prices = f.data; S.pricesEtag = f.etag; if (S.rawCat) S.cat = L.indexCatalog(L.applyPrices(S.rawCat, S.prices)); return true;
+    S.prices = f.data; S.pricesEtag = f.etag; rebuildCat(); return true;
+  }
+  function customList() { return ((S.custom && S.custom.products) || []).concat(S.customLocal); }
+  function rebuildCat() { if (S.rawCat) S.cat = L.indexCatalog(L.applyPrices(L.mergeCustom(S.rawCat, customList()), S.prices)); }
+  async function loadCustom() {
+    const f = await readFile('custom.json', S.customEtag); if (!f.changed) return false;
+    S.custom = f.data; S.customEtag = f.etag;
+    const have = new Set(((f.data && f.data.products) || []).map(p => p.id));
+    S.customLocal = S.customLocal.filter(p => !have.has(p.id));
+    rebuildCat(); return true;
+  }
+  /** Ny vare i katalogen: vises med en gang, lagres i bakgrunnen. Finnes navnet fra før, brukes den. */
+  function makeProduct(name, sec) {
+    name = String(name || '').trim().replace(/\s+/g, ' ');
+    const same = S.cat && S.cat.products.find(p => L.norm(p.n) === L.norm(name) && p.s === sec);
+    if (same) return { p: same, saved: Promise.resolve(same) };
+    const p = { id: 'u-' + Date.now().toString(36) + Math.random().toString(36).slice(2, 5), n: name.charAt(0).toUpperCase() + name.slice(1), s: sec, sz: 1, u: 'stk', k: [], by: ME, at: new Date().toISOString() };
+    S.customLocal.push(p); rebuildCat();
+    const saved = (async () => {
+      for (let i = 0; i < 4; i++) {
+        const f = await readFile('custom.json');
+        const d = f.data && Array.isArray(f.data.products) ? f.data : { products: [] };
+        if (!d.products.some(x => x.id === p.id)) d.products.push(p);
+        const w = await writeFile('custom.json', d, f.sha, 'Ny vare: ' + p.n);
+        if (w.ok) { S.custom = d; S.customEtag = null; S.customLocal = S.customLocal.filter(x => x.id !== p.id); rebuildCat(); setSync('ny vare lagret'); return p; }
+      }
+      throw { msg: 'ikke lagret' };
+    })();
+    saved.catch(e => setSync(e && e.auth ? 'nøkkel avvist' : 'ny vare ble ikke lagret', true));
+    return { p: S.cat.byId[p.id] || p, saved };
   }
   /** Kvitteringer: list mappen (med ETag), hent bare JSON-filer som er nye eller endret. */
   async function loadReceipts() {
@@ -144,7 +173,7 @@
       // priser og kvitteringer endres sjelden: sjekk hvert 10. poll, eller oftere når en kvittering venter eller oversikten er åpen
       S.pollN = (S.pollN || 0) + 1;
       const slow = S.pollN % 10 === 1, recNow = slow || !!S.pending || Object.keys(S.mapWait).length > 0 || (S.view === 'oversikt' && S.pollN % 3 === 1);
-      const d = slow ? await loadPrices().catch(() => false) : false;
+      const d = slow ? (await loadPrices().catch(() => false)) | (await loadCustom().catch(() => false)) : false;
       const e = recNow ? await loadReceipts().catch(err => { if (err && err.auth) throw err; return false; }) : false;
       if (a || b || c) saveCache();
       if (a || b || c || d || e) render();
@@ -181,7 +210,11 @@
     else right = stepper(o.kind === 'item' ? 'qty' : 'xqty', o.id, o.qty);
     return '<li class="item' + (o.done ? ' done' : '') + (o.pantry ? ' pantry' : '') + '">' +
       '<button class="tick" type="button" ' + data + '="' + esc(o.id) + '" aria-pressed="' + !!o.done + '"><span class="box">' + CHECK_SVG + '</span>' +
-      '<span class="nm"><span class="t">' + esc(o.name) + '</span>' + (o.chips ? '<span class="meta">' + o.chips + '</span>' : '') + '</span></button>' + right + '</li>';
+      '<span class="nm"><span class="t">' + esc(o.name) + '</span>' +
+      (o.kind === 'extra' && !o.restore ? (o.note ? '<span class="sub" data-note="' + esc(o.id) + '" role="button">' + esc(o.note) + '</span>' : '<span class="addnote" data-note="' + esc(o.id) + '" role="button">+ type / merke</span>') : '') +
+      (o.chips ? '<span class="meta">' + o.chips + '</span>' : '') + '</span></button>' + right +
+      (S.noteEdit === o.id ? '<form class="noteform" data-noteform="' + esc(o.id) + '"><input id="noteInput" maxlength="60" placeholder="Hvilken type? f.eks. Hansa pils 6-pk" value="' + esc(S.noteDraft) + '" autocomplete="off" enterkeyhint="done"><button class="btn" type="submit">OK</button>' +
+        (o.note ? '<button class="ghost" type="button" data-noteclear="' + esc(o.id) + '">Fjern</button>' : '') + '</form>' : '') + '</li>';
   }
 
   const SEC_ICON = {"Frukt og grønt": "<path d=\"M12 7c-2-1.5-7-1.5-7 4.5 0 4.5 3 9.5 5 9.5 1 0 1.5-.5 2-.5s1 .5 2 .5c2 0 5-5 5-9.5 0-6-5-6-7-4.5z\"/><path d=\"M12 7c0-2 .5-3.5 2-4.5M13 5c1.5-1.5 3.5-1.5 5-1-1 2-3 2.5-5 1z\"/>", "Brød og bakst": "<path d=\"M4 11a4 4 0 0 1 3-6h10a4 4 0 0 1 3 6v8H4z\"/><path d=\"M9 9l-1 3M13 9l-1 3M17 9l-1 3\"/>", "Kjøtt og kylling": "<path d=\"M15 4a5 5 0 0 1 5 5c0 4-5 6-8 6l-3 3\"/><path d=\"M15 4c-3 0-6 3-6 6 0 1 0 2 1 3\"/><circle cx=\"6\" cy=\"19\" r=\"1.6\"/><circle cx=\"8\" cy=\"21\" r=\"1.2\"/>", "Fisk": "<path d=\"M3 12c3-5 9-6 13-3l5-3v12l-5-3c-4 3-10 2-13-3z\"/><circle cx=\"8\" cy=\"11\" r=\".8\" fill=\"currentColor\"/>", "Pålegg": "<path d=\"M3 17 19 7l2 4v8H3z\"/><path d=\"M3 17h18\"/><circle cx=\"9\" cy=\"14.5\" r=\".9\"/><circle cx=\"15\" cy=\"11.5\" r=\"1\"/><circle cx=\"14\" cy=\"17\" r=\".9\"/>", "Meieri og egg": "<path d=\"M8 3h7v3l2 3v12H6V9l2-3z\"/><path d=\"M6 13h11\"/>", "Frys": "<path d=\"M12 2v20M3 7l18 10M3 17 21 7\"/><path d=\"M9 3l3 2 3-2M9 21l3-2 3 2\"/>", "Tørrvarer og hermetikk": "<ellipse cx=\"12\" cy=\"5\" rx=\"7\" ry=\"2.5\"/><path d=\"M5 5v14c0 1.4 3 2.5 7 2.5s7-1.1 7-2.5V5M5 10c0 1.4 3 2.5 7 2.5s7-1.1 7-2.5\"/>", "Krydder": "<path d=\"M8 9h8v12H8z\"/><path d=\"M9 9l1-5h4l1 5\"/><circle cx=\"11\" cy=\"6\" r=\".5\" fill=\"currentColor\"/><circle cx=\"13\" cy=\"6\" r=\".5\" fill=\"currentColor\"/>", "Snacks og godteri": "<ellipse cx=\"12\" cy=\"12\" rx=\"5\" ry=\"4\"/><path d=\"M7 12 3 8v8zM17 12l4-4v8z\"/>", "Drikke": "<path d=\"M10 2h4v3l2 3v13H8V8l2-3z\"/><path d=\"M8 12h8v5H8z\"/>", "Baby": "<path d=\"M10 2h4v3h-4zM8 5h8v3H8zM9 8h6v13H9z\"/><path d=\"M9 12h3M9 15h3\"/>", "Husholdning": "<path d=\"M8 8h6l2 3v10H6V11z\"/><path d=\"M8 8V4h5l4 2-4 1v1\"/>", "Hygiene": "<path d=\"M12 3c3 4 6 7 6 11a6 6 0 0 1-12 0c0-4 3-7 6-11z\"/><path d=\"M9.5 14a2.5 2.5 0 0 0 2.5 2.5\"/>", "Annet": "<path d=\"M5 8h14l-1 13H6z\"/><path d=\"M9 8V6a3 3 0 0 1 6 0v2\"/>"};
@@ -212,10 +245,10 @@
       const p = x.p && S.cat.byId[x.p];
       let chips = '<span class="chip">lagt til</span>';
       if (x.carried) chips += '<span class="chip">fra forrige uke</span>';
-      if (!p) chips += '<span class="chip">uten pris</span>';
+      if (typeof x.vp !== 'number' && !(p && p.pr > 0)) chips += '<span class="chip">uten pris</span>';
       chips += who(x.checked ? x.by : x.addedBy);
       const n = x.n || 1;
-      const r = { kind: 'extra', id: x.id, name: x.name, qty: n + (p && p.sz !== 1 ? ' pk' : ' stk'), chips, done: !!x.checked };
+      const r = { kind: 'extra', id: x.id, name: x.name, note: x.note || '', qty: n + (p && p.sz !== 1 ? ' pk' : ' stk'), chips, done: !!x.checked };
       if (x.have) { haveRows.push(Object.assign(r, { restore: true, done: false })); return; }
       total++; if (x.checked) done++;
       if (S.hideDone && x.checked) return;
@@ -228,7 +261,9 @@
       const r = rows[sec]; if (!r || !r.length) return;
       h += '<div class="sec c' + (si % 6) + (r.every(x => x.done) ? ' alldone' : '') + '"><h2>' + secIcon(sec) + esc(sec) + ' <span class="cnt">' + r.filter(x => x.done).length + '/' + r.length + '</span></h2><ul class="items">' + r.map(row).join('') + '</ul></div>';
     });
+    const noteFocus = document.activeElement && document.activeElement.id === 'noteInput';
     $('sections').innerHTML = (total && done === total ? '<div class="cheer"><b>Alt er i kurven!</b><span>God tur hjem.</span></div>' : '') + (h || (total ? '' : '<p class="note">Lista er tom.</p>'));
+    if (noteFocus && $('noteInput')) { const i = $('noteInput'); i.focus(); i.setSelectionRange(i.value.length, i.value.length); }
     $('haveBox').innerHTML = haveRows.length ? '<details class="havebox"><summary>Har hjemme (' + haveRows.length + ')</summary><ul class="items">' + haveRows.map(row).join('') + '</ul></details>' : '';
     const t = w.total;
     $('sum').innerHTML = '<div class="big"><span>Anslått sum</span><span>ca. ' + kr(t.total) + '</span></div>' +
@@ -379,18 +414,18 @@
     let h = '';
     list.filter(r => !r.error).forEach(r => {
       const lines = r.lines || [];
-      const linked = lines.filter(l => l.pid).length;
+      const linked = lines.filter(l => linePid(l)).length;
       const off = typeof r.sumCheck === 'number' && typeof r.total === 'number' && Math.abs(r.sumCheck - r.total) > 1;
       const out = skip.has(r.id);
       h += '<details class="rc' + (out ? ' out' : '') + '" id="rc-' + esc(r.id) + '"' + (S.edit && S.edit.rid === r.id ? ' open' : '') + '><summary><span>' + esc(r.store || 'Kvittering') + (r.date ? ' · ' + dShort(r.date) : '') + '</span><b>' + kr2(r.total || 0) + '</b></summary>';
       h += '<div class="rm">' + '<span class="chip">' + lines.length + ' linjer</span><span class="chip' + (linked < lines.length ? '' : ' good') + '">' + linked + ' koblet til varer</span>' +
-        (out ? '<span class="chip warn">ikke med i summen</span>' : '') + (S.mapWait[r.id] ? '<span class="chip">oppdateres …</span>' : '') + (off ? '<span class="chip warn">linjene gir ' + kr2(r.sumCheck) + ' – sjekk</span>' : '') + '</div>';
+        (out ? '<span class="chip warn">ikke med i summen</span>' : '') + (off ? '<span class="chip warn">linjene gir ' + kr2(r.sumCheck) + ' – sjekk</span>' : '') + '</div>';
       h += '<button class="ghost" type="button" data-skip="' + esc(r.id) + '" data-week="' + esc(weekId) + '" data-v="' + (out ? 0 : 1) + '">' + (out ? 'Ta med i ukas sum' : 'Ikke med i ukas sum') + '</button>';
       h += '<ul class="rlines">' + lines.map((l, i) => {
-        const p = l.pid && S.cat.byId[l.pid];
+        const pid = linePid(l), p = pid && S.cat.byId[pid];
         const editing = S.edit && S.edit.rid === r.id && S.edit.i === i;
         return '<li><div class="rl"><span class="rt">' + esc(l.text) + '</span><span class="rp">' + kr2(l.lineTotal - (l.discount || 0)) + (l.discount ? '<small>' + kr2(l.lineTotal) + ' − ' + kr2(l.discount) + '</small>' : '') + '</span></div>' +
-          '<button type="button" class="rmap' + (p ? '' : ' none') + '" data-editline="' + esc(r.id) + '" data-i="' + i + '">' + (p ? esc(p.n) + (l.unit ? ' · ' + kr2(l.unit) + '/pk' : '') : 'ikke koblet – trykk for å velge vare') + '</button>' +
+          '<button type="button" class="rmap' + (p ? '' : ' none') + '" data-editline="' + esc(r.id) + '" data-i="' + i + '">' + (p ? esc(p.n) + (l.unit && pid === l.pid ? ' · ' + kr2(l.unit) + '/pk' : '') : lineSkipped(l) ? 'ikke en vare' : 'ikke koblet – trykk for å velge vare') + '</button>' +
           (editing ? '<div class="mapbox"><input type="search" id="mapq" placeholder="Søk i varekatalogen" value="' + esc(S.edit.q || '') + '" autocomplete="off"><div id="mapres">' + mapResults() + '</div></div>' : '') + '</li>';
       }).join('') + '</ul></details>';
     });
@@ -400,7 +435,9 @@
     if (!S.edit) return '';
     const hits = S.edit.q ? L.searchCatalog(S.cat, S.edit.q, 8) : [];
     return '<div class="maplist">' + hits.map(p => '<button type="button" data-mappick="' + esc(p.id) + '">' + esc(p.n) + ' <small>' + esc(p.s) + '</small></button>').join('') +
-      '<button type="button" data-mappick="">Ikke en vare i katalogen (pant, pose o.l.)</button><button type="button" class="ghost" data-mapcancel>Avbryt</button></div>';
+      (S.edit.q.trim() ? (S.edit.newOpen ? '<div class="newp"><p>Hvor i butikken hører <b>' + esc(S.edit.q.trim()) + '</b> hjemme?</p>' + secPicker('data-mapnewsec', L.guessSection(S.cat, S.edit.q)) + '</div>'
+        : '<button type="button" class="newbtn" data-mapnew>+ Lag ny vare «' + esc(S.edit.q.trim()) + '»</button>') : '<p class="small">Skriv for å søke, f.eks. «brød» eller «saus».</p>') +
+      '<button type="button" data-mappick="">Ikke en vare (pant, pose o.l.)</button><button type="button" class="ghost" data-mapcancel>Avbryt</button></div>';
   }
   function spark(points) {
     if (points.length < 2) return '';
@@ -466,6 +503,11 @@
   let suggIdx = -1, suggItems = [];
   function renderSugg() {
     const q = $('addInput').value.trim();
+    if (S.newItem && q && S.cat) {
+      $('sugg').innerHTML = '<li class="newp"><p>Hvor i butikken hører <b>' + esc(S.newItem) + '</b> hjemme?</p>' + secPicker('data-newsec', L.guessSection(S.cat, S.newItem)) +
+        '<button type="button" class="ghost sm2" data-newcancel>Tilbake</button></li>';
+      $('sugg').classList.remove('hidden'); $('addInput').setAttribute('aria-expanded', 'true'); suggItems = []; return;
+    }
     if (!q || !S.cat) { $('sugg').classList.add('hidden'); $('addInput').setAttribute('aria-expanded', 'false'); suggItems = []; return; }
     const hits = L.searchCatalog(S.cat, q, 6);
     suggItems = hits.map(p => ({ p, name: p.n, s: p.s }));
@@ -476,35 +518,47 @@
     });
     if (!suggItems.some(x => L.norm(x.name) === L.norm(q))) suggItems.push({ p: null, name: q, s: L.guessSection(S.cat, q) });
     if (suggIdx >= suggItems.length) suggIdx = -1;
-    $('sugg').innerHTML = suggItems.map((x, i) => '<li><button type="button" role="option" data-sugg="' + i + '" class="' + (i === suggIdx ? 'act' : '') + (x.v ? ' prod' : '') + '"><span>' + (x.v ? esc(x.name) : x.p ? esc(x.name) : 'Legg til «' + esc(x.name) + '»') + '</span><small>' +
-      (x.v ? 'kjøpt ' + x.v.count + ' gang' + (x.v.count > 1 ? 'er' : '') + ' · ' + kr2(x.v.last.p) + (x.v.unit === 'kg' ? '/kg' : '') + (x.p ? ' · under ' + esc(x.p.n) : '') : esc(x.s) + (x.p && x.p.pr && !x.p.pantry ? ' · ' + kr(x.p.pr) : '')) + '</small></button></li>').join('');
+    $('sugg').innerHTML = suggItems.map((x, i) => '<li><button type="button" role="option" data-sugg="' + i + '" class="' + (i === suggIdx ? 'act' : '') + (x.v ? ' prod' : '') + '"><span>' + (x.v ? esc(x.name) : x.p ? esc(x.name) + (x.p.gen ? ' <em>alle typer</em>' : '') : '+ Ny vare «' + esc(x.name) + '»') + '</span><small>' +
+      (x.v ? 'kjøpt ' + x.v.count + ' gang' + (x.v.count > 1 ? 'er' : '') + ' · ' + kr2(x.v.last.p) + (x.v.unit === 'kg' ? '/kg' : '') + (x.p ? ' · under ' + esc(x.p.n) : '') : (x.p ? esc(x.s) + (x.p.pr && !x.p.pantry ? ' · ' + kr(x.p.pr) : '') : 'velg hvor i butikken')) + '</small></button></li>').join('');
     $('sugg').classList.remove('hidden'); $('addInput').setAttribute('aria-expanded', 'true');
   }
   function addSugg(x) {
     if (!x || !S.plan) return;
+    if (!x.p && !x.v) { S.newItem = x.name; renderSugg(); return; }
     const item = { id: 'x' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6), p: x.p ? x.p.id : null, name: x.v ? x.name : x.p ? x.p.n : x.name, s: x.s, n: 1, checked: false, addedBy: ME };
     if (x.v) { item.v = x.v.key; if (typeof x.vp === 'number') item.vp = x.vp; }
     enqueue({ t: 'add', x: item });
-    $('addInput').value = ''; suggIdx = -1; renderSugg(); $('addInput').focus();
+    S.newItem = null; $('addInput').value = ''; suggIdx = -1; renderSugg(); $('addInput').focus();
   }
-  $('addInput').addEventListener('input', () => { suggIdx = -1; renderSugg(); });
+  $('addInput').addEventListener('input', () => { suggIdx = -1; S.newItem = null; renderSugg(); });
   $('addInput').addEventListener('keydown', e => {
+    if (e.key === 'Escape' && S.newItem) { S.newItem = null; renderSugg(); return; }
     if (!suggItems.length) return;
     if (e.key === 'ArrowDown') { e.preventDefault(); suggIdx = (suggIdx + 1) % suggItems.length; renderSugg(); }
     else if (e.key === 'ArrowUp') { e.preventDefault(); suggIdx = (suggIdx - 1 + suggItems.length) % suggItems.length; renderSugg(); }
-    else if (e.key === 'Escape') { $('addInput').value = ''; renderSugg(); }
+    else if (e.key === 'Escape') { S.newItem = null; $('addInput').value = ''; renderSugg(); }
   });
-  $('addInput').addEventListener('blur', () => setTimeout(() => { $('sugg').classList.add('hidden'); }, 200));
+  $('addInput').addEventListener('blur', () => setTimeout(() => { if (document.activeElement !== $('addInput')) $('sugg').classList.add('hidden'); }, 250));
   $('addInput').addEventListener('focus', renderSugg);
   $('sugg').addEventListener('mousedown', e => e.preventDefault());
-  $('sugg').addEventListener('click', e => { const b = e.target.closest('[data-sugg]'); if (b) addSugg(suggItems[+b.dataset.sugg]); });
-  $('addForm').addEventListener('submit', e => { e.preventDefault(); if (!$('addInput').value.trim()) return; if (!suggItems.length) renderSugg(); addSugg(suggItems[suggIdx >= 0 ? suggIdx : 0]); });
+  $('sugg').addEventListener('click', e => {
+    const ns = e.target.closest('[data-newsec]');
+    if (ns && S.newItem) { const np = makeProduct(S.newItem, ns.dataset.newsec); addSugg({ p: np.p, s: np.p.s, name: np.p.n }); return; }
+    if (e.target.closest('[data-newcancel]')) { S.newItem = null; renderSugg(); return; }
+    const b = e.target.closest('[data-sugg]'); if (b) addSugg(suggItems[+b.dataset.sugg]);
+  });
+  $('addForm').addEventListener('submit', e => { e.preventDefault(); if (!$('addInput').value.trim() || S.newItem) return; if (!suggItems.length) renderSugg(); addSugg(suggItems[suggIdx >= 0 ? suggIdx : 0]); });
 
   // ---------- Events ----------
   ['oversikt', 'liste', 'middager'].forEach(v => $('tab-' + v).addEventListener('click', () => { S.view = v; ls.set('view', v); render(); window.scrollTo(0, 0); }));
   $('hideDone').checked = S.hideDone;
   $('hideDone').addEventListener('change', e => { S.hideDone = e.target.checked; ls.set('hideDone', S.hideDone ? '1' : '0'); render(); });
   function listClick(e) {
+    const ne = e.target.closest('[data-note]');
+    if (ne) { e.preventDefault(); const w0 = week(); const x0 = w0 && w0.st.extras.find(x => x.id === ne.dataset.note); S.noteEdit = S.noteEdit === ne.dataset.note ? null : ne.dataset.note; S.noteDraft = (x0 && x0.note) || ''; render(); const i = $('noteInput'); if (i) { i.focus(); i.select(); } return; }
+    const nc = e.target.closest('[data-noteclear]');
+    if (nc) { enqueue({ t: 'xnote', id: nc.dataset.noteclear, v: '' }); S.noteEdit = null; render(); return; }
+    if (e.target.closest('.noteform')) return;
     const t = e.target.closest('[data-item],[data-extra],[data-qty],[data-xqty],[data-have],[data-restore]'); if (!t || !S.plan) return;
     const w = week(); if (!w) return; const st = w.st;
     if (t.dataset.qty) { const it = w.items.find(i => i.id === t.dataset.qty); if (!it) return; const n = it.packs + Number(t.dataset.d); enqueue({ t: 'qty', id: it.id, n: n === it.auto ? null : Math.max(0, n) }); }
@@ -515,6 +569,9 @@
     else if (t.dataset.extra) { const x = st.extras.find(x => x.id === t.dataset.extra); if (x) enqueue({ t: 'xcheck', id: x.id, v: !x.checked }); }
   }
   $('sections').addEventListener('click', listClick);
+  $('sections').addEventListener('submit', e => { const f = e.target.closest('[data-noteform]'); if (!f) return; e.preventDefault(); enqueue({ t: 'xnote', id: f.dataset.noteform, v: $('noteInput').value }); S.noteEdit = null; S.noteDraft = ''; render(); });
+  $('sections').addEventListener('input', e => { if (e.target.id === 'noteInput') S.noteDraft = e.target.value; });
+  $('sections').addEventListener('keydown', e => { if (e.target.id === 'noteInput' && e.key === 'Escape') { S.noteEdit = null; render(); } });
   $('haveBox').addEventListener('click', listClick);
   $('days').addEventListener('click', e => {
     const po = e.target.closest('[data-portions]');
@@ -552,13 +609,17 @@
     if (e.target.closest('[data-mapcancel]')) { S.edit = null; render(); return; }
     const mp = e.target.closest('[data-mappick]');
     if (mp && S.edit) { const r = S.receipts[S.edit.rid]; const l = r && r.lines[S.edit.i]; S.edit = null; if (l) saveMapping(r.id, l.text, mp.dataset.mappick); render(); return; }
+    if (e.target.closest('[data-mapnew]') && S.edit) { S.edit.newOpen = true; const box = $('mapres'); if (box) box.innerHTML = mapResults(); return; }
+    const ns = e.target.closest('[data-mapnewsec]');
+    if (ns && S.edit) { const r = S.receipts[S.edit.rid]; const l = r && r.lines[S.edit.i]; const name = S.edit.q.trim(); S.edit = null;
+      if (l && name) { const np = makeProduct(name, ns.dataset.mapnewsec); saveMapping(r.id, l.text, np.p.id, np.saved); } render(); return; }
     const m = e.target.closest('[data-month]'); if (!m) return;
     const base = S.month || (L.weekMonday(S.plan) || todayISO()).slice(0, 7);
     let [y, mo] = base.split('-').map(Number); mo += Number(m.dataset.month);
     if (mo < 1) { mo = 12; y--; } if (mo > 12) { mo = 1; y++; }
     S.month = y + '-' + String(mo).padStart(2, '0'); render();
   });
-  $('overview').addEventListener('input', e => { if (e.target.id === 'mapq' && S.edit) { S.edit.q = e.target.value; const box = $('mapres'); if (box) box.innerHTML = mapResults(); } });
+  $('overview').addEventListener('input', e => { if (e.target.id === 'mapq' && S.edit) { S.edit.q = e.target.value; S.edit.newOpen = false; const box = $('mapres'); if (box) box.innerHTML = mapResults(); } });
   $('overview').addEventListener('change', e => { if ((e.target.id === 'scanInput' || e.target.id === 'fileInput') && e.target.files && e.target.files[0]) uploadReceipt(e.target.files[0]); });
 
   // ---------- Kvittering: last opp, koble, bruk totalen ----------
@@ -587,18 +648,28 @@
     } catch (e) { setSync(e && e.auth ? 'nøkkel avvist' : (e && e.msg) || 'opplasting feilet – prøv igjen', true); }
     finally { S.upBusy = false; render(); }
   }
-  async function saveMapping(rid, text, pid) {
-    if (S.mapBusy) return; S.mapBusy = true; setSync('lagrer kobling …');
-    try {
-      for (let attempt = 0; attempt < 4; attempt++) {
-        const f = await readFile('receiptmap.json');
-        const map = Object.assign({}, f.data || {}); map[L.receiptKey(text)] = pid || '';
-        const w = await writeFile('receiptmap.json', map, f.sha, 'Kvittering: kobling');
-        if (w.ok) { S.mapWait[rid] = true; setSync('lagret – kvitteringen oppdateres'); return; }
-      }
-      setSync('ikke lagret', true);
-    } catch (e) { setSync(e && e.auth ? 'nøkkel avvist' : 'frakoblet', true); }
-    finally { S.mapBusy = false; render(); }
+  /** Koblingen vises med en gang (S.mapLocal), og lagres i kø så ingen trykk går tapt. */
+  let mapChain = Promise.resolve();
+  function saveMapping(rid, text, pid, before) {
+    const k = L.receiptKey(text); S.mapLocal[k] = pid || ''; render();
+    mapChain = mapChain.then(async () => {
+      setSync('lagrer kobling …');
+      try {
+        if (before) await before;
+        for (let attempt = 0; attempt < 4; attempt++) {
+          const f = await readFile('receiptmap.json');
+          const map = Object.assign({}, f.data || {}); map[k] = pid || '';
+          const w = await writeFile('receiptmap.json', map, f.sha, 'Kvittering: kobling');
+          if (w.ok) { S.mapWait[rid] = true; setSync('kobling lagret – prisene oppdateres om litt'); return; }
+        }
+        setSync('kobling ikke lagret', true);
+      } catch (e) { setSync(e && e.auth ? 'nøkkel avvist' : 'kobling ikke lagret', true); }
+    });
+  }
+  const linePid = l => { const k = L.receiptKey(l.text); return Object.prototype.hasOwnProperty.call(S.mapLocal, k) ? S.mapLocal[k] : l.pid; };
+  const lineSkipped = l => { const k = L.receiptKey(l.text); return Object.prototype.hasOwnProperty.call(S.mapLocal, k) ? S.mapLocal[k] === '' : (l.src === 'dere' && !l.pid); };
+  function secPicker(attr, guess) {
+    return '<div class="secpick">' + S.cat.sections.map((sec, i) => '<button type="button" class="sp c' + (i % 6) + (sec === guess ? ' guess' : '') + '" ' + attr + '="' + esc(sec) + '">' + secIcon(sec) + '<span>' + esc(sec) + '</span></button>').join('') + '</div>';
   }
 
   $('overview').addEventListener('submit', async e => {
@@ -714,7 +785,7 @@
   async function loadStatic() {
     try {
       const [c, r] = await Promise.all([fetch('data/catalog.json', { cache: 'no-cache' }).then(x => x.json()), fetch('data/recipes.json', { cache: 'no-cache' }).then(x => x.json())]);
-      S.rawCat = c; S.cat = L.indexCatalog(L.applyPrices(c, S.prices)); S.lib = r; render();
+      S.rawCat = c; rebuildCat(); S.lib = r; render();
     } catch (e) { setStatus('Kunne ikke laste varekatalogen. Sjekk nettet og åpne appen på nytt.'); }
   }
   let timer = null;

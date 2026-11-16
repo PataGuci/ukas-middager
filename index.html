@@ -306,6 +306,32 @@ details.havebox summary{color:var(--sea)}
 
 .sec h2::before{display:none}
 .si{width:30px;height:30px;padding:4px;flex:none;border-radius:9px;background:var(--paper);color:var(--c);fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+
+/* v9: egne varer, avdelingsvelger og notat per handletur */
+.secpick{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px;margin:8px 0}
+.sp{--c:var(--leaf);display:flex;align-items:center;gap:6px;min-height:44px;padding:4px 8px 4px 4px;border-radius:10px;border:1px solid color-mix(in srgb,var(--c) 35%,var(--line));background:color-mix(in srgb,var(--c) 10%,var(--paper));color:var(--ink);font:inherit;font-size:14px;text-align:left;cursor:pointer}
+.sp.c1{--c:var(--carrot)}.sp.c2{--c:var(--sea)}.sp.c3{--c:var(--tomato)}.sp.c4{--c:#8a5cc2}.sp.c5{--c:var(--lemon)}
+.sp .si{width:26px;height:26px;padding:3px}
+.sp.guess{border:2px solid var(--c);font-weight:700}
+.sp:active{transform:scale(.97)}
+.newp{padding:10px 12px;list-style:none}
+.newp p{margin:0;font-size:15px}
+.newbtn{display:block;width:100%;text-align:left;font:inherit;font-weight:700;color:var(--leaf);background:color-mix(in srgb,var(--leaf) 10%,var(--paper));border:1px dashed var(--leaf);border-radius:10px;padding:10px 12px;margin:6px 0;cursor:pointer}
+.ghost.sm2{padding:6px 12px;font-size:14px}
+.sugg em{font-style:normal;font-size:12px;font-weight:500;color:var(--leaf);margin-left:6px}
+.item{flex-wrap:wrap}
+.nm .sub{font-size:15px;color:var(--ink);background:color-mix(in srgb,var(--lemon) 25%,transparent);border-radius:6px;padding:1px 6px;align-self:flex-start;cursor:pointer}
+.nm .addnote{font-size:13px;color:var(--muted);text-decoration:underline dotted;align-self:flex-start;cursor:pointer;padding:2px 0}
+.item.done .sub{opacity:.6}
+.sugg .sp{justify-content:flex-start;width:auto;padding:4px 8px 4px 4px;border:1px solid color-mix(in srgb,var(--c) 35%,var(--line));background:color-mix(in srgb,var(--c) 10%,var(--paper))}
+.maplist .sp{padding:4px 8px 4px 4px;border:1px solid color-mix(in srgb,var(--c) 35%,var(--line));background:color-mix(in srgb,var(--c) 10%,var(--paper));font-size:14px}
+.maplist .sp.guess{border:2px solid var(--c)}
+.maplist .secpick{grid-template-columns:1fr 1fr}
+.maplist .newbtn{border:1px dashed var(--leaf);background:color-mix(in srgb,var(--leaf) 10%,var(--paper));color:var(--leaf)}
+.sugg .sp.guess{border:2px solid var(--c)}
+.sugg .secpick{grid-template-columns:repeat(auto-fill,minmax(130px,1fr))}
+.noteform{flex-basis:100%;display:flex;gap:8px;padding:0 0 10px 40px}
+.noteform input{flex:1;min-width:0}
 @media (prefers-reduced-motion: reduce){*{transition:none !important}}
 .rcpt{margin-top:14px;border-top:1px dashed var(--line);padding-top:12px;display:grid;gap:8px}
 .rcpt h3{margin:0}
@@ -409,7 +435,7 @@ svg.bigc .ax{stroke:var(--line);stroke-width:1}
 <div class="cook hidden" id="cook" role="dialog" aria-modal="true" aria-label="Matlaging"></div>
 <div class="sheet hidden" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle"><div class="panel"><header><h2 id="sheetTitle">Bytt middag</h2><button class="ghost" type="button" id="sheetClose">Lukk</button></header><div class="scroll" id="sheetBody"></div></div></div>
 
-<script src="lib.js?v=7"></script>
-<script src="app.js?v=8"></script>
+<script src="lib.js?v=9"></script>
+<script src="app.js?v=9"></script>
 </body>
 </html>

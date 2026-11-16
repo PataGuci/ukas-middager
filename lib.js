@@ -133,7 +133,7 @@
     (extras || []).forEach(x => {
       if (x.have) return;
       const p = x.p && cat.byId[x.p];
-      if (!p && typeof x.vp !== 'number') { unpriced++; return; }
+      if (typeof x.vp !== 'number' && !(p && unitPrice(p, offers) > 0)) { unpriced++; return; }
       const pr = (typeof x.vp === 'number' ? x.vp : unitPrice(p, offers)) * (x.n || 1); // konkret produkt: sist betalte pris
       total += pr; if (x.checked) inCart += pr;
     });
@@ -247,6 +247,7 @@
       case 'xcheck': if (x) { x.checked = op.v; if (op.v) x.everChecked = true; x.by = me; } break;
       case 'xhave': if (x) { x.have = op.v; } break;
       case 'xqty': if (x) { if (op.n <= 0) st.extras = st.extras.filter(e => e.id !== op.id); else x.n = Math.round(op.n); } break;
+      case 'xnote': if (x) { const v = String(op.v || '').trim().slice(0, 60); if (v) x.note = v; else delete x.note; } break;
       case 'del': st.extras = st.extras.filter(e => e.id !== op.id); break;
       case 'portions': st.portions = st.portions || {}; if (!op.n || op.n === BASE_PORTIONS) delete st.portions[op.day]; else st.portions[op.day] = op.n; break;
       case 'swap': if (op.r) st.swaps[op.day] = op.r; else delete st.swaps[op.day]; break;
@@ -421,6 +422,13 @@
   }
 
   /** Produkter fra kvitteringene gruppert under overkategori (katalogvare) eller Claudes kategori. */
+  /** Varekatalogen + varer dere har laget selv (custom.json i data-repoet). */
+  function mergeCustom(rawCat, extra) {
+    const list = (extra || []).filter(p => p && p.id && p.n);
+    if (!list.length) return rawCat;
+    const ids = new Set(rawCat.products.map(p => p.id));
+    return Object.assign({}, rawCat, { products: rawCat.products.concat(list.filter(p => !ids.has(p.id)).map(p => Object.assign({ sz: 1, u: 'stk', k: [] }, p, { s: rawCat.sections.includes(p.s) ? p.s : 'Annet', custom: true }))) });
+  }
   function productGroups(prices, cat) {
     const trends = {}; priceTrends(prices, cat).forEach(t => { trends[t.id] = t; });
     const groups = {};
@@ -454,6 +462,6 @@
     return out.sort((a, b) => b.s - a.s).slice(0, limit || 4);
   }
 
-  root.Lib = { healthNotes, productGroups, searchProducts, receiptKey, applyPrices, priceTrends, receiptsForWeek, receiptWeek, isoWeek, withReceipts, DAYS, norm, shortName, indexCatalog, indexRecipes, effectiveDays, addableDays, weekMonday, buildList, isHave, weekTotal, freezeHints,
+  root.Lib = { mergeCustom, healthNotes, productGroups, searchProducts, receiptKey, applyPrices, priceTrends, receiptsForWeek, receiptWeek, isoWeek, withReceipts, DAYS, norm, shortName, indexCatalog, indexRecipes, effectiveDays, addableDays, weekMonday, buildList, isHave, weekTotal, freezeHints,
     leftoverHints, conflicts, rankSwaps, searchCatalog, guessSection, rollover, applyOp, fmtAmount, emptyHistory, applyHistOp, monthSummary, addDays, BASE_PORTIONS, fmtNum, fmtQty, ingText, stepText, stepObj };
 })(typeof window !== 'undefined' ? window : globalThis);
